@@ -30,6 +30,7 @@
     <script src="js/angular/shared/services/BookmarksService.js"></script>
     <script src="js/angular/shared/services/SecurityService.js"></script>
     <script src="js/angular/shared/services/FoldersService.js"></script>
+    <script src="js/angular/shared/services/DashboardService.js"></script>
     <script src="js/angular/components/home/HomeController.js"></script>
     <script src="js/angular/components/dashboard/DashboardController.js"></script>
     <script src="js/angular/components/settings/SettingsController.js"></script>

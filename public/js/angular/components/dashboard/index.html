@@ -1,6 +1,6 @@
 <div class="dashboard">  
     <div class="inner-block">
-        <div class="folders-block">
+        <div class="folders-block" ng-class="{'custom-hidden':DashCtrl.foldersCollapsed}">
             <h3>FOLDERS</h3>
             <button type="button" class="btn btn-danger add-folder" ng-click="DashCtrl.storeFolder()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -19,7 +19,7 @@
             </div>
 
         </div>
-        <div class="bookmarks-block">
+        <div class="bookmarks-block" ng-class="{'custom-folders-hidden':DashCtrl.foldersCollapsed}">
             <div class="bookmarks-form-block">
 
                 <form  name="new_bookmark">
@@ -27,8 +27,8 @@
                         <input  ng-model="DashCtrl.bookmark.url" name="url" class="form-control" id="name" placeholder="URL" required>
                     </div>
                     <button class="btn btn-default submit-button" type="submit" ng-click="
-                        new_bookmark.url.$valid &&
-                                DashCtrl.store(DashCtrl.bookmark)">ADD</button>
+                                new_bookmark.url.$valid &&
+                                        DashCtrl.store(DashCtrl.bookmark)">ADD</button>
                     <div class="btn-group import-button" uib-dropdown keyboard-nav>
                         <button id="simple-btn-keyboard-nav " type="button" class="btn btn-default" uib-dropdown-toggle>
                             Import from<span class="caret"></span>

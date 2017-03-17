@@ -4,7 +4,7 @@
 
     angular.module('crypt').controller('DashboardController', DashboardController);
 
-    function DashboardController($auth, $state, $stateParams, $rootScope, BaseService, $scope, BookmarksService, FoldersService, $uibModal) {
+    function DashboardController($auth, $state, $stateParams, $rootScope, BaseService, $scope, BookmarksService, FoldersService, DashboardService, $uibModal) {
 
         var vm = this;
         vm.bookmarks = [];
@@ -15,6 +15,14 @@
         vm.selected = [];
         vm.allSelected = false;
         vm.listBlocks = false;
+        vm.foldersCollapsed = angular.copy(DashboardService.foldersCollapsed);
+
+        $scope.$watch(function () {
+            return DashboardService.foldersCollapsed;
+        },
+                function (newValue, oldValue) {
+                    vm.foldersCollapsed = angular.copy(DashboardService.foldersCollapsed);
+                }, true);
 
         $scope.$watch(function () {
             return BookmarksService.bookmarks;
@@ -46,6 +54,7 @@
         function syncCurrentFolder() {
             vm.currentFolder = angular.copy(FoldersService.currentFolder);
         }
+
 
         vm.toggleSelectAll = function () {
             if (vm.allSelected) {

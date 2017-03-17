@@ -7688,17 +7688,27 @@ button.close {
 }
 
 .custom-navbar {
-  height: 8vh;
+  /*height: 8vh;*/
   border-bottom: 1px solid silver;
 }
 
 .custom-navbar .inner-block {
-  padding-top: 28px;
+  padding: 10px 0px 10px 0px;
   width: 90%;
   margin: auto;
 }
 
-.custom-navbar .inner-block .logo-link {
+.custom-navbar .inner-block .custom-wrapper-button-collapse-folders {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.custom-navbar .inner-block .custom-wrapper-logo-link {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.custom-navbar .inner-block .custom-wrapper-logo-link .logo-link {
   cursor: pointer;
   color: #525252;
   font-family: sans-serif;
@@ -7706,6 +7716,8 @@ button.close {
 }
 
 .custom-navbar .inner-block .right-nav {
+  display: inline-block;
+  vertical-align: middle;
   float: right;
 }
 
@@ -7786,7 +7798,7 @@ button.close {
 }
 
 .dashboard {
-  height: 91vh;
+  /*height:91vh;*/
 }
 
 .dashboard .inner-block {
@@ -7794,7 +7806,8 @@ button.close {
 }
 
 .dashboard .inner-block .folders-block {
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
+  background-color: #f6f6f6;
   height: 100%;
   padding: 0px 10px;
   width: 15%;
@@ -7802,6 +7815,10 @@ button.close {
   vertical-align: top;
   border-right: 1px solid silver;
   text-align: center;
+}
+
+.dashboard .inner-block .folders-block.custom-hidden {
+  display: none;
 }
 
 .dashboard .inner-block .folders-block h3 {
@@ -7856,6 +7873,10 @@ button.close {
   height: 100%;
 }
 
+.dashboard .inner-block .bookmarks-block.custom-folders-hidden {
+  width: 100%;
+}
+
 .dashboard .inner-block .bookmarks-block .bookmarks-form-block {
   padding: 20px;
   text-align: center;
@@ -7891,7 +7912,7 @@ button.close {
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block {
-  height: 88%;
+  /*height: 88%;*/
   /*overflow-y: scroll;*/
   /*width: 86%;*/
   margin: 0px 5px;
@@ -7949,8 +7970,8 @@ button.close {
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul {
-  height: 83%;
-  overflow-y: scroll;
+  /*height: 83%;*/
+  /*overflow-y: scroll;*/
   list-style-type: none;
   padding-left: 0px;
 }
@@ -8016,8 +8037,8 @@ button.close {
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks {
-  height: 83%;
-  overflow-y: scroll;
+  /*height: 83%;*/
+  /*overflow-y: scroll;*/
   margin: auto;
   width: 93%;
 }

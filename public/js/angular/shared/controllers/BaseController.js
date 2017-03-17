@@ -4,7 +4,7 @@
 
     angular.module('crypt').controller('BaseController', BaseController);
 
-    function BaseController($scope, $auth, $state, $stateParams, $rootScope, BaseService, $window, UsersService, SecurityService, $uibModal) {
+    function BaseController($scope, $auth, $state, $stateParams, $rootScope, BaseService, $window, UsersService, SecurityService, $uibModal, DashboardService) {
 
         var vm = this;
         vm.currentSecurityClearanceName = angular.copy(SecurityService.currentSecurityClearanceName);
@@ -13,6 +13,15 @@
 
         vm.windowHeight = ($window.innerHeight) + 'px';
 
+        vm.foldersCollapsed = angular.copy(DashboardService.foldersCollapsed);
+
+        $scope.$watch(function () {
+            return DashboardService.foldersCollapsed;
+        },
+                function (newValue, oldValue) {
+                    vm.foldersCollapsed = angular.copy(DashboardService.foldersCollapsed);
+                }, true);
+
         $scope.$watch(function () {
             return SecurityService.currentSecurityClearance;
         },
@@ -20,6 +29,10 @@
                     vm.currentSecurityClearanceName = angular.copy(SecurityService.currentSecurityClearanceName);
 
                 }, true);
+
+        vm.toggleCollapseFolders = function () {
+            DashboardService.foldersCollapsed = !DashboardService.foldersCollapsed;
+        };
 
         vm.changeSecurityClearance = function (level) {
             if ($rootScope.currentUser.password == null) {

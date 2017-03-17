@@ -2,7 +2,15 @@
 <nav class="custom-navbar">
     <div class="inner-block">
 
-        <a ui-sref="dashboard" class="logo-link">CRYPT</a>
+        <div class="custom-wrapper-button-collapse-folders">
+            <button ng-click="base.toggleCollapseFolders()" ng-class="{'active':!base.foldersCollapsed}" type="button" class="btn btn-default btn-md custom-button-collapse-folders">
+                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+            </button>
+        </div>
+
+        <div class="custom-wrapper-logo-link">
+            <a ui-sref="dashboard" class="logo-link">CRYPT</a>
+        </div>
 
         <div class="right-nav">
 
