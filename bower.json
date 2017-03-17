@@ -1,0 +1,31 @@
+{
+  "name": "crypt",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Omar Ruedy <theh2h@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources/assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.8",
+    "angular-bootstrap": "^2.1.3",
+    "bootstrap": "^3.3.7",
+    "bootstrap-sass": "^3.3.7",
+    "ngstorage": "^0.3.11",
+    "angular-ui-router": "^0.3.1",
+    "satellizer": "^0.15.4",
+    "bootstrap-social": "^5.0.0",
+    "angular-loading-bar": "^0.9.0",
+    "ng-file-upload": "^12.2.9"
+  }
+}

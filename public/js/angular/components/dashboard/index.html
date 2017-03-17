@@ -1,0 +1,159 @@
+<div class="dashboard">  
+    <div class="inner-block">
+        <div class="folders-block">
+            <h3>FOLDERS</h3>
+            <button type="button" class="btn btn-danger add-folder" ng-click="DashCtrl.storeFolder()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+
+            <div class="folders-list">
+                <div class="folder" ng-class="{'custom-active' : DashCtrl.currentFolder == null}" ng-click="DashCtrl.index()">All</div>
+                <div ng-repeat="folder in DashCtrl.folders" class="folder-block">
+                    <div class="folder"
+                         ng-class="{'custom-active' : DashCtrl.currentFolder.id == folder.id}"
+                         ng-click="DashCtrl.indexFolder(folder.id)">{{ folder.name}}
+                    </div>
+                    <span class="glyphicon glyphicon-cog custom-edit-folder" ng-click="DashCtrl.editFolder(folder)"></span>
+                    <span class="glyphicon glyphicon-trash custom-delete-folder" ng-really-message="Are you sure you want to delete this folder , all the bookmarks inside will be deleted as well ?" ng-really-click="DashCtrl.deleteFolder(folder)"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="bookmarks-block">
+            <div class="bookmarks-form-block">
+
+                <form  name="new_bookmark">
+                    <div class="input-url">
+                        <input  ng-model="DashCtrl.bookmark.url" name="url" class="form-control" id="name" placeholder="URL" required>
+                    </div>
+                    <button class="btn btn-default submit-button" type="submit" ng-click="
+                        new_bookmark.url.$valid &&
+                                DashCtrl.store(DashCtrl.bookmark)">ADD</button>
+                    <div class="btn-group import-button" uib-dropdown keyboard-nav>
+                        <button id="simple-btn-keyboard-nav " type="button" class="btn btn-default" uib-dropdown-toggle>
+                            Import from<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                            <li  role="menuitem"><a ng-click="DashCtrl.openImportHtml()" href>HTML file</a></li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            <div class="bookmarks-list-block">
+                <div class="actions-block" ng-if="DashCtrl.bookmarks.length != 0">
+                    <input class="custom-all-checkbox" ng-model="DashCtrl.allSelected" type="checkbox" ng-change="DashCtrl.toggleSelectAll()">
+                    <div class="filters-block">
+                        <form class="filter-form">
+                            <div >
+                                <input type="text" ng-model="DashCtrl.search.text" id="search_text" placeholder="SEARCH" name="search_text" class="form-control" >
+                            </div>
+                        </form>
+                    </div>
+                    <button type="button" class="btn button-switch-list" ng-click="DashCtrl.listBlocks = !DashCtrl.listBlocks">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger delete-button" ng-really-message="Are you sure you want to delete selected bookmarks ?" ng-really-click="DashCtrl.deleteSelected(DashCtrl.selected)">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+
+                    <button type="button" class="btn refresh-button" ng-click="DashCtrl.refresh(DashCtrl.selected)">
+                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    </button>
+
+                    <div class="btn-group change-security-clearance-button" uib-dropdown keyboard-nav>
+                        <button id="simple-btn-keyboard-nav " type="button" class="btn btn-default" uib-dropdown-toggle>
+                            Change Security Clearance<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                            <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(0, DashCtrl.selected)" href>Normal</a></li>
+                            <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(1, DashCtrl.selected)" href>Confidential</a></li>
+                            <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(2, DashCtrl.selected)" href>Secret</a></li>
+                            <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(3, DashCtrl.selected)" href>Top Secret</a></li>
+                            <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(4, DashCtrl.selected)" href>Crypto</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group change-folder-button" uib-dropdown keyboard-nav>
+                        <button id="simple-btn-keyboard-nav " type="button" class="btn btn-default" uib-dropdown-toggle>
+                            Move To<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                            <li  role="menuitem">
+                                <a ng-click="DashCtrl.changeFolder(null, DashCtrl.selected)" href>none</a>
+                            </li>
+                            <li  role="menuitem" ng-repeat="folder in DashCtrl.folders">
+                                <a ng-click="DashCtrl.changeFolder(folder.id, DashCtrl.selected)" href>{{ folder.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <ul ng-if="!DashCtrl.listBlocks" class="bookmarks-list">
+                    <li ng-click="DashCtrl.selectBookmark($event, bookmark)" class="bookmark" ng-repeat="bookmark in DashCtrl.bookmarks| filter:DashCtrl.search.text">
+                        <input class="custom-checkbox" type="checkbox" ng-model="DashCtrl.selected[bookmark.id]">
+                        <img class="bookmark-icon" src="https://www.google.com/s2/favicons?domain={{ bookmark.url}}">
+                        <p class="security-clearance">{{ bookmark.security_clearance + 1}}</p>
+                        <a class="" target="_blank" href="{{bookmark.url}}">
+                            <img  class="bookmark-image" src="{{ bookmark.image != null ? bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
+                        </a>
+                        <div class="info-box">
+                            <a class="title" target="_blank" href="{{bookmark.url}}">{{ bookmark.title}}</a>
+                            <p class="description">{{ bookmark.description}}</p>
+                            <p class="url">{{ bookmark.url}}</p>
+                        </div>
+                        <button type="button" class="btn btn-danger delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                        <a class="btn btn-primary download-button" target="_blank" href="http://keepvid.com/?url={{bookmark.url}}">
+                            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                        </a>
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
+                <div ng-if="DashCtrl.listBlocks" class="bookmarks-list-blocks">
+                    <div class="bookmark" ng-repeat="bookmark in DashCtrl.bookmarks| filter:DashCtrl.search.text">
+                        <div class="upper-block">
+                            <input class="custom-checkbox" type="checkbox" ng-model="DashCtrl.selected[bookmark.id]">
+                            <button type="button" class="btn btn-danger delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </button>
+                            <a class="btn btn-primary download-button" target="_blank" href="http://keepvid.com/?url={{bookmark.url}}">
+                                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                            </a>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="middle-block">
+                            <a class="" target="_blank" href="{{bookmark.url}}">
+                                <img  class="bookmark-image" src="{{ bookmark.image != null ? bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
+                            </a>
+                        </div>
+                        <div class="lower-block">
+                            <a class="title-link" target="_blank" href="{{bookmark.url}}"><p class="title">{{ bookmark.title}}</p></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div style="background:url('http://keepvid.com/images/downloadbar/ajax-loader.gif') no-repeat center;width:700px;"><iframe src="http://keepvid.com/webmasters/iframe-downloadbar.php?nw=1"" width="700" height="34" scrolling="no" frameBorder="0"></iframe></div>-->

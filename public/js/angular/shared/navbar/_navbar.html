@@ -1,0 +1,40 @@
+
+<nav class="custom-navbar">
+    <div class="inner-block">
+
+        <a ui-sref="dashboard" class="logo-link">CRYPT</a>
+
+        <div class="right-nav">
+
+            <div ng-if="authenticated" class="security-dropdown">
+                <span   uib-dropdown on-toggle="toggled(open)">
+                    <a href id="security-dropdown" uib-dropdown-toggle>
+                        {{ base.currentSecurityClearanceName}}<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="security-dropdown">
+                        <li><a ng-click="base.changeSecurityClearance(0)" href>Normal</a></li>
+                        <li><a ng-click="base.changeSecurityClearance(1)" href>Confidential</a></li>
+                        <li><a ng-click="base.changeSecurityClearance(2)" href>Secret</a></li>
+                        <li><a ng-click="base.changeSecurityClearance(3)" href>Top Secret</a></li>
+                        <li><a ng-click="base.changeSecurityClearance(4)" href>Crypto</a></li>
+                    </ul>
+                </span>
+            </div>
+
+            <div ng-if="authenticated" class="profile-dropdown">
+                <span   uib-dropdown on-toggle="toggled(open)">
+                    <a href id="simple-dropdown" uib-dropdown-toggle>
+                        {{ currentUser.f_name}}<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                        <li><a ui-sref="settings">Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a ng-click="base.logout()" href>Logout</a></li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+
+
+    </div>
+</nav>

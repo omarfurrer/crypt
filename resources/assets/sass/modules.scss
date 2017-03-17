@@ -1,0 +1,415 @@
+.custom-navbar{
+    height: 8vh;
+    border-bottom: 1px solid rgb(192, 192, 192);
+    .inner-block{
+        padding-top: 28px;
+        width: 90%;
+        margin: auto;
+
+        .logo-link{
+            cursor:pointer;
+            color:rgb(82, 82, 82);
+            font-family:sans-serif;
+            text-decoration:none;
+            .logo-image{
+
+            }
+        }
+
+        .right-nav{
+            float: right;
+
+            .profile-dropdown{
+                display: inline-block;
+                img{
+                    width: 45%;
+                }
+                .dropdown{
+                    font-size: 16px;
+                    a{
+                        text-decoration: none;
+                        text-transform: capitalize;
+                        color: rgb(0, 0, 0);
+                        .caret{
+                            position: relative;
+                            left: 5px;
+                        }
+                    }
+                }
+            }
+            .security-dropdown{
+                display: inline-block;
+                margin-right: 30px;
+                .dropdown{
+                    font-size: 16px;
+                    a{
+                        text-decoration: none;
+                        text-transform: capitalize;
+                        color: rgb(0, 0, 0);
+                        .caret{
+                            position: relative;
+                            left: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.home{
+    overflow: hidden;
+    > .inner-block{
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        top: 45%;
+        transform: translate(-50%,-50%);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.75);
+        .hero{
+            margin-top: 0px;
+            margin-bottom: 40px;
+            font-size: 170px;
+            font-family: 'Lato', sans-serif;
+        }
+        .custom-social-google{
+
+        }
+    }
+}
+.settings{
+    > .inner-block{
+        width: 30%;
+        margin: auto;
+        .change-password-block{
+            .title{
+                text-align: center;
+                margin: 40px 0px;
+            }
+            .change-password-form{
+
+            }
+        }
+    }
+}
+.dashboard{
+    height:91vh;
+    .inner-block{
+        height:100%;
+        .folders-block{
+            overflow-y: scroll;
+            height:100%;
+            padding: 0px 10px;
+            width: 15%;
+            display: inline-block;
+            vertical-align: top;
+            border-right: 1px solid rgb(192, 192, 192);
+            text-align:center;
+            h3{
+                text-align: center;
+
+            }
+            .add-folder{
+                margin: 20px 0px;
+            }
+            .folders-list{
+                list-style-type:none;
+                padding:0px;
+                .folder-block{
+
+                    position: relative;
+                }
+
+                .folder{
+
+                    margin: 10px 20px;
+                    padding: 15px;
+                    border: 1px solid rgb(204, 204, 204);
+                    border-radius: 4px;
+                    text-align: center;
+                    cursor: pointer;
+                }
+
+                .custom-active{
+                    border-color: rgb(102, 175, 233);
+                    outline: 0;
+                    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+                }
+
+                .custom-edit-folder{
+                    position: absolute;
+                    top: 5px;
+                    right: 0px;
+                    cursor: pointer;
+                }
+
+                .custom-delete-folder{
+                    position: absolute;
+                    top: 30px;
+                    right: 0px;
+                    cursor: pointer;
+                }
+
+            }
+        }
+        .bookmarks-block{
+            width: 84%;
+            display: inline-block;
+            height: 100%;
+
+            .bookmarks-form-block{
+                padding: 20px;
+                text-align: center;
+                border-bottom: 1px solid rgb(192, 192, 192);
+                .input-url{
+                    width:80%;
+                    display: inline-block;
+                    input{
+                        height: 40px;
+                    }
+                }
+                .submit-button{
+                    display: inline-block;
+                    height: 40px;
+                    vertical-align: top;
+
+                }
+                .import-button{
+                    vertical-align: top;
+                    display: inline-block;
+                    button{   
+                        height: 40px;
+                        .caret{
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+            .bookmarks-list-block{
+                height: 88%;
+                /*overflow-y: scroll;*/
+                /*width: 86%;*/
+                margin: 0px 5px;
+                padding: 0px 5px;
+                .actions-block{
+                    margin: 30px 41px;
+                    padding: 20px 10px;
+                    box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
+                    .custom-all-checkbox{
+                        width: 20px;
+                        height: 20px;
+                    }
+                    .filters-block{
+                        display:inline-block;
+                        width: 40%;
+                        vertical-align: top;
+                        margin-left: 10px;
+
+                        .filter-form{
+
+                        }
+                    }
+                    .button-switch-list{
+                        float: right;
+                        margin-left: 10px;
+                    }
+                    .refresh-button{
+                        float: right;
+                        margin-left: 10px;
+                    }
+                    .change-security-clearance-button{
+                        float: right;
+                        margin-left: 10px;
+                        .caret{
+                            margin-left: 5px;
+                        }
+                    }
+                    .change-folder-button{
+                        float: right;
+                        .caret{
+                            margin-left: 5px;
+                        }
+                    }
+                    .delete-button{
+                        margin-left: 10px;
+                        float: right;
+                    }
+                }
+                > ul{
+                    height: 83%;
+                    overflow-y: scroll;
+                    list-style-type: none;
+                    padding-left: 0px;
+                    .bookmark{
+                        position: relative;
+                        padding-bottom: 10px;
+                        margin-bottom: 10px;
+                        border-bottom: 1px solid rgb(192, 192, 192);
+
+                        .custom-checkbox{
+                            width: 20px;
+                            height: 20px;
+                            margin-right: 20px;
+                        }
+                        .bookmark-icon{
+                            position: absolute;
+                            top: 0px;
+                            left: 0px;
+                            width: 20px;
+                            height: 20px;
+                        }
+                        .security-clearance{
+                            position: absolute;
+                            top: 25px;
+                            left: 5px;
+                            font-weight: bold;
+                            font-size: 15px;
+                        }
+                        .bookmark-image{
+                            width: 150px;
+                            height: 150px;
+                        }
+                        .info-box{
+                            display: inline-block;
+                            width: 60%;
+                            vertical-align: middle;
+                            margin-left: 10px;
+                            .title{
+                                color: rgb(87, 103, 136);
+                                font-size: 20px;
+                                text-decoration: none;
+                            }
+                            .description{
+                                margin-top: 10px;
+                            }
+                            .url{
+
+                            }
+                        }
+                        .download-button{
+                            float: right;
+                        }
+                        .delete-button{
+                            margin-left: 5px;
+                            float: right;
+                        }
+                    }
+                }
+                .bookmarks-list-blocks{
+                    height: 83%;
+                    overflow-y: scroll;
+                    margin: auto;
+                    width: 93%;
+                    .bookmark{
+                        display: inline-block;
+                        width: 323px;
+                        height: 415px;
+                        vertical-align: top;
+                        margin: 15px 20px;
+                        padding: 10px;
+                        box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
+                        .upper-block{
+                            margin-bottom:10px;
+                            .custom-checkbox{
+                                width: 20px;
+                                height: 20px;
+                            }
+                            .delete-button{
+                                float: right;
+                                margin-left: 5px;
+                            }
+                            .download-button{
+                                float: right;
+                            }
+                        }
+                        .middle-block{
+                            .bookmark-image{
+                                width: 300px;
+                                height: 300px;
+                            }
+                        }
+                        .lower-block{
+                            .title-link{
+                                text-decoration: none;
+                                .title{
+                                    padding-top: 15px;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    color: rgb(87, 103, 136);
+                                    font-size: 20px;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.import-html-box-modal{
+    .modal-dialog{
+        margin-top: 11%;
+        .modal-content{
+
+            border: 1px solid rgb(255, 255, 255);
+            .import-html-box{
+                > .inner-block{
+
+                    padding: 20px;
+                }
+            }
+        }
+    }
+}
+.authorization-box-modal{
+    .modal-dialog{
+        margin-top: 11%;
+        .modal-content{
+
+            border: 1px solid rgb(255, 255, 255);
+            .password-box{
+                > .inner-block{
+
+                    padding: 20px;
+                }
+            }
+        }
+    }
+}
+.new-folder-box-modal{
+    .modal-dialog{
+        margin-top: 11%;
+        .modal-content{
+
+            border: 1px solid rgb(255, 255, 255);
+            .folder-box{
+                > .inner-block{
+
+                    padding: 20px;
+                }
+            }
+        }
+    }
+}
+.edit-folder-box-modal{
+    .modal-dialog{
+        margin-top: 11%;
+        .modal-content{
+
+            border: 1px solid rgb(255, 255, 255);
+            .folder-box{
+                > .inner-block{
+
+                    padding: 20px;
+                }
+            }
+        }
+    }
+}
+.custom-form-input-required{
+    color:red;
+}

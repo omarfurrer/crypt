@@ -1,0 +1,25 @@
+<div class="folder-box" >
+    <div class="inner-block">
+        <form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" ng-model="folder.name" class="form-control" id="name" autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="security_clearance">Security Clearance</label>
+                <select id="security_clearance" name="security_clearance" ng-model="folder.security_clearance" class="form-control">
+                    <option ng-selected="folder.security_clearance == 0" value="0">Normal</option>
+                    <option ng-selected="folder.security_clearance == 1" value="1">Confidential</option>
+                    <option ng-selected="folder.security_clearance == 2" value="2">Secret</option>
+                    <option ng-selected="folder.security_clearance == 3" value="3">Top Secret</option>
+                    <option ng-selected="folder.security_clearance == 4" value="4">Crypto</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" type="submit" ng-click="update(folder)">Submit</button>
+            <a class="btn btn-danger" ng-click="closeBox()">Cancel</a>
+        </form>
+    </div>
+</div>
+

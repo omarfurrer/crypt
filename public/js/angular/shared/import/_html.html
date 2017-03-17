@@ -1,0 +1,24 @@
+<div class="import-html-box">
+    <div class="inner-block">
+        <form>
+
+            <div class="form-group">
+                <label for="file">HTML file</label>
+                <a 
+                    id="file"
+                    class="button"
+                    ngf-select
+                    ng-model="file"
+                    name="file"
+                    ngf-multiple="true"
+                    >Select</a>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input ng-model="autoRefresh"  ng-true-value="true" ng-false-value="false" type="checkbox"> Auto fetch information
+                </label>
+            </div>
+            <button ng-click="import(file, autoRefresh)" type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+</div>
