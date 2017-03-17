@@ -9,7 +9,6 @@
         var vm = this;
         vm.bookmarks = [];
         vm.folders = [];
-        vm.bookmark = {};
         vm.folder = {};
         vm.currentFolder = undefined;
         vm.selected = [];
@@ -79,14 +78,7 @@
             FoldersService.index();
         };
 
-        vm.store = function (bookmark) {
-            if (vm.currentFolder != undefined) {
-                bookmark.folder_id = vm.currentFolder.id;
-            }
-            BookmarksService.store(bookmark).then(function () {
-                vm.bookmark = {};
-            });
-        };
+
 
         vm.selectBookmark = function (event, bookmark) {
             if (event.ctrlKey)
@@ -238,28 +230,7 @@
 
         };
 
-        vm.openImportHtml = function () {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'js/angular/shared/import/_html.html',
-                async: true,
-                controller: function ($scope, $uibModalInstance, BookmarksService) {
 
-                    $scope.file = {};
-
-                    $scope.import = function (file, autoRefresh) {
-                        BookmarksService.importHtml(file, autoRefresh).then(function () {
-                            $uibModalInstance.dismiss();
-                        });
-                    };
-                    $scope.closeBox = function () {
-                        $uibModalInstance.dismiss();
-                    };
-                },
-                backdrop: true,
-                windowClass: 'import-html-box-modal'
-            });
-        };
 
         vm.changeSecurityClearanceSelected = function (level, selected) {
             var bookmarks = [];

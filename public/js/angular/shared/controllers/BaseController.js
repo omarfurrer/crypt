@@ -4,10 +4,53 @@
 
     angular.module('crypt').controller('BaseController', BaseController);
 
-    function BaseController($scope, $auth, $state, $stateParams, $rootScope, BaseService, $window, UsersService, SecurityService, $uibModal, DashboardService) {
+    function BaseController($scope, $auth, $state, $stateParams, $rootScope, BaseService, $window, UsersService, BookmarksService, FoldersService, SecurityService, $uibModal, DashboardService) {
 
         var vm = this;
         vm.currentSecurityClearanceName = angular.copy(SecurityService.currentSecurityClearanceName);
+        vm.currentFolder = undefined;
+        vm.bookmark = {};
+        vm.store = function (bookmark) {
+            if (vm.currentFolder != undefined) {
+                bookmark.folder_id = vm.currentFolder.id;
+            }
+            BookmarksService.store(bookmark).then(function () {
+                vm.bookmark = {};
+            });
+        };
+
+        $scope.$watch(function () {
+            return FoldersService.currentFolder;
+        },
+                function (newValue, oldValue) {
+                    syncCurrentFolder();
+                }, true);
+        function syncCurrentFolder() {
+            vm.currentFolder = angular.copy(FoldersService.currentFolder);
+        }
+
+        vm.openImportHtml = function () {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'js/angular/shared/import/_html.html',
+                async: true,
+                controller: function ($scope, $uibModalInstance, BookmarksService) {
+
+                    $scope.file = {};
+
+                    $scope.import = function (file, autoRefresh) {
+                        BookmarksService.importHtml(file, autoRefresh).then(function () {
+                            $uibModalInstance.dismiss();
+                        });
+                    };
+                    $scope.closeBox = function () {
+                        $uibModalInstance.dismiss();
+                    };
+                },
+                backdrop: true,
+                windowClass: 'import-html-box-modal'
+            });
+        };
 
         $rootScope.$state = $state;
 

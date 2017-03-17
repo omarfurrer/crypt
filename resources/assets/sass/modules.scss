@@ -1,9 +1,10 @@
 .custom-navbar{
     /*height: 8vh;*/
+    background-color: rgb(255, 89, 84);
     border-bottom: 1px solid rgb(192, 192, 192);
     .inner-block{
-        padding: 10px 0px 10px 0px;
-        width: 90%;
+        /*padding: 10px 0px 10px 0px;*/
+        width: 96%;
         margin: auto;
 
         .custom-wrapper-button-collapse-folders{
@@ -28,10 +29,42 @@
             }
         }
 
+        .bookmarks-form-block{
+            width: 79%;
+            padding: 10px;
+            text-align: center;
+            /*border-bottom: 1px solid rgb(192, 192, 192);*/
+            display: inline-block;
+            .input-url{
+                width:70%;
+                display: inline-block;
+                input{
+                    height: 40px;
+                }
+            }
+            .submit-button{
+                display: inline-block;
+                height: 40px;
+                vertical-align: top;
+
+            }
+            .import-button{
+                vertical-align: top;
+                display: inline-block;
+                button{
+                    height: 40px;
+                    .caret{
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+
         .right-nav{
             display: inline-block;
             vertical-align:middle;
             float: right;
+            padding:20px;
 
             .profile-dropdown{
                 display: inline-block;
@@ -117,9 +150,12 @@
             &.custom-hidden{
                 display: none;
             }
+            z-index: 1;
+            position: absolute;
+            top: 60px;
             /*overflow-y: scroll;*/
             background-color: rgb(246, 246, 246);
-            height:100%;
+            min-height:500px;
             padding: 0px 10px;
             width: 15%;
             display: inline-block;
@@ -174,41 +210,14 @@
             }
         }
         .bookmarks-block{
-            &.custom-folders-hidden{
-                width: 100%;
-            }
-            width: 84%;
-            display: inline-block;
+            /*            &.custom-folders-hidden{
+                            width: 100%;
+                        }*/
+            /*width: 84%;*/
+            /*display: inline-block;*/
             height: 100%;
 
-            .bookmarks-form-block{
-                padding: 20px;
-                text-align: center;
-                border-bottom: 1px solid rgb(192, 192, 192);
-                .input-url{
-                    width:80%;
-                    display: inline-block;
-                    input{
-                        height: 40px;
-                    }
-                }
-                .submit-button{
-                    display: inline-block;
-                    height: 40px;
-                    vertical-align: top;
 
-                }
-                .import-button{
-                    vertical-align: top;
-                    display: inline-block;
-                    button{   
-                        height: 40px;
-                        .caret{
-                            margin-left: 5px;
-                        }
-                    }
-                }
-            }
             .bookmarks-list-block{
                 /*height: 88%;*/
                 /*overflow-y: scroll;*/

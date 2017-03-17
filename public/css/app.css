@@ -7689,12 +7689,13 @@ button.close {
 
 .custom-navbar {
   /*height: 8vh;*/
+  background-color: #ff5954;
   border-bottom: 1px solid silver;
 }
 
 .custom-navbar .inner-block {
-  padding: 10px 0px 10px 0px;
-  width: 90%;
+  /*padding: 10px 0px 10px 0px;*/
+  width: 96%;
   margin: auto;
 }
 
@@ -7715,10 +7716,47 @@ button.close {
   text-decoration: none;
 }
 
+.custom-navbar .inner-block .bookmarks-form-block {
+  width: 79%;
+  padding: 10px;
+  text-align: center;
+  /*border-bottom: 1px solid rgb(192, 192, 192);*/
+  display: inline-block;
+}
+
+.custom-navbar .inner-block .bookmarks-form-block .input-url {
+  width: 70%;
+  display: inline-block;
+}
+
+.custom-navbar .inner-block .bookmarks-form-block .input-url input {
+  height: 40px;
+}
+
+.custom-navbar .inner-block .bookmarks-form-block .submit-button {
+  display: inline-block;
+  height: 40px;
+  vertical-align: top;
+}
+
+.custom-navbar .inner-block .bookmarks-form-block .import-button {
+  vertical-align: top;
+  display: inline-block;
+}
+
+.custom-navbar .inner-block .bookmarks-form-block .import-button button {
+  height: 40px;
+}
+
+.custom-navbar .inner-block .bookmarks-form-block .import-button button .caret {
+  margin-left: 5px;
+}
+
 .custom-navbar .inner-block .right-nav {
   display: inline-block;
   vertical-align: middle;
   float: right;
+  padding: 20px;
 }
 
 .custom-navbar .inner-block .right-nav .profile-dropdown {
@@ -7806,9 +7844,12 @@ button.close {
 }
 
 .dashboard .inner-block .folders-block {
+  z-index: 1;
+  position: absolute;
+  top: 60px;
   /*overflow-y: scroll;*/
   background-color: #f6f6f6;
-  height: 100%;
+  min-height: 500px;
   padding: 0px 10px;
   width: 15%;
   display: inline-block;
@@ -7868,47 +7909,12 @@ button.close {
 }
 
 .dashboard .inner-block .bookmarks-block {
-  width: 84%;
-  display: inline-block;
+  /*            &.custom-folders-hidden{
+                            width: 100%;
+                        }*/
+  /*width: 84%;*/
+  /*display: inline-block;*/
   height: 100%;
-}
-
-.dashboard .inner-block .bookmarks-block.custom-folders-hidden {
-  width: 100%;
-}
-
-.dashboard .inner-block .bookmarks-block .bookmarks-form-block {
-  padding: 20px;
-  text-align: center;
-  border-bottom: 1px solid silver;
-}
-
-.dashboard .inner-block .bookmarks-block .bookmarks-form-block .input-url {
-  width: 80%;
-  display: inline-block;
-}
-
-.dashboard .inner-block .bookmarks-block .bookmarks-form-block .input-url input {
-  height: 40px;
-}
-
-.dashboard .inner-block .bookmarks-block .bookmarks-form-block .submit-button {
-  display: inline-block;
-  height: 40px;
-  vertical-align: top;
-}
-
-.dashboard .inner-block .bookmarks-block .bookmarks-form-block .import-button {
-  vertical-align: top;
-  display: inline-block;
-}
-
-.dashboard .inner-block .bookmarks-block .bookmarks-form-block .import-button button {
-  height: 40px;
-}
-
-.dashboard .inner-block .bookmarks-block .bookmarks-form-block .import-button button .caret {
-  margin-left: 5px;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block {
