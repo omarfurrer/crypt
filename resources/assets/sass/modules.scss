@@ -157,7 +157,7 @@
             background-color: rgb(246, 246, 246);
             min-height:500px;
             padding: 0px 10px;
-            width: 15%;
+            width: 20%;
             display: inline-block;
             vertical-align: top;
             border-right: 1px solid rgb(192, 192, 192);
@@ -225,7 +225,7 @@
                 margin: 0px 5px;
                 padding: 0px 5px;
                 .actions-block{
-                    margin: 30px 41px;
+                    margin: 10px 41px;
                     padding: 20px 10px;
                     box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
                     .custom-all-checkbox{
@@ -272,7 +272,7 @@
                     /*height: 83%;*/
                     /*overflow-y: scroll;*/
                     list-style-type: none;
-                    padding-left: 0px;
+                    padding: 0px 30px;
                     .bookmark{
                         position: relative;
                         padding-bottom: 10px;
@@ -299,8 +299,8 @@
                             font-size: 15px;
                         }
                         .bookmark-image{
-                            width: 150px;
-                            height: 150px;
+                            width: 120px;
+                            height: 120px;
                         }
                         .info-box{
                             display: inline-block;
@@ -309,11 +309,11 @@
                             margin-left: 10px;
                             .title{
                                 color: rgb(87, 103, 136);
-                                font-size: 20px;
+                                font-size: 16px;
                                 text-decoration: none;
                             }
                             .description{
-                                margin-top: 10px;
+                                margin-top: 8px;
                             }
                             .url{
 
@@ -335,10 +335,12 @@
                     width: 93%;
                     .bookmark{
                         display: inline-block;
-                        width: 323px;
-                        height: 415px;
+                        /*                        width: 323px;
+                                                height: 415px;*/
+                        width: 250px;
+                        height: 291px;
                         vertical-align: top;
-                        margin: 15px 20px;
+                        margin: 5px 8px;
                         padding: 10px;
                         box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
                         .upper-block{
@@ -357,8 +359,10 @@
                         }
                         .middle-block{
                             .bookmark-image{
-                                width: 300px;
-                                height: 300px;
+                                /*                                width: 300px;
+                                                                height: 300px;*/
+                                width: 100%;
+                                height: 187px;
                             }
                         }
                         .lower-block{
