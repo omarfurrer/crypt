@@ -17,6 +17,22 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //})->middleware('auth:api');
 
+ Route::patch('users/update/password', ['uses' => 'UsersController@patchChangePassword']);
+    Route::post('users/security/clearance/change', ['uses' => 'UsersController@postChangeSecurityClearance']);
+    Route::post('users/authenticate/google', ['uses' => 'UsersController@postAuthenticateGoogle']);
+
+
+    Route::post('bookmarks/plugin', ['uses' => 'BookmarksController@postStoreFromPlugin']);
+    Route::get('bookmarks/folder/{folders}', ['uses' => 'BookmarksController@indexFolder']);
+    Route::post('bookmarks/all/refresh', ['uses' => 'BookmarksController@postRefresh']);
+    Route::post('bookmarks/all/security/clearance/change', ['uses' => 'BookmarksController@postChangeSecurityClearanceAll']);
+    Route::post('bookmarks/all/delete', ['uses' => 'BookmarksController@postDestroyAll']);
+    Route::post('bookmarks/all/move', ['uses' => 'BookmarksController@postChangeFolderAll']);
+    Route::post('bookmarks/import/html', ['uses' => 'BookmarksController@postImportHtml']);
+    Route::resource('bookmarks', 'BookmarksController');
+
+    Route::resource('folders', 'FoldersController');
+
 
 
 

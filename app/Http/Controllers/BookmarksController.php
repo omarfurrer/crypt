@@ -7,10 +7,17 @@ use App\Http\Requests;
 //use Exception;
 //use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreBookmarkFromPluginRequest;
+use Illuminate\Database\QueryException;
 use JWTAuth;
 use Validator;
 
 class BookmarksController extends Controller {
+
+    public function __construct()
+    {
+        $this->middleware('jwt.auth', ['except' => ['postStoreFromPlugin']]);
+    }
 
     /**
      * Display the specified resource.
@@ -23,7 +30,9 @@ class BookmarksController extends Controller {
         try {
 
             $user = JWTAuth::parseToken()->authenticate();
-            $bookmarks = $user->bookmarks()->where('security_clearance', '<=', $user->security_clearance)->orderBy('id', 'DESC')->get();
+            $bookmarks = $user->bookmarks()->where('security_clearance', '<=',
+                                                   $user->security_clearance)->orderBy('id',
+                                                                                       'DESC')->get();
 
             return response()->json(compact('bookmarks'), 200);
         } catch (Exception $e) {
@@ -44,7 +53,9 @@ class BookmarksController extends Controller {
         try {
 
             $user = JWTAuth::parseToken()->authenticate();
-            $bookmarks = $folder->bookmarks()->where('security_clearance', '<=', $user->security_clearance)->orderBy('id', 'DESC')->get();
+            $bookmarks = $folder->bookmarks()->where('security_clearance', '<=',
+                                                     $user->security_clearance)->orderBy('id',
+                                                                                         'DESC')->get();
 
             return response()->json(compact('bookmarks'), 200);
         } catch (Exception $e) {
@@ -89,7 +100,7 @@ class BookmarksController extends Controller {
      * @param  int  $id
      * @return Response2
      */
-    public function postStoreFromPlugin(Requests\StoreBookmarkFromPluginRequest $request)
+    public function postStoreFromPlugin(StoreBookmarkFromPluginRequest $request)
     {
         try {
 
@@ -97,7 +108,7 @@ class BookmarksController extends Controller {
             $bookmark = new Bookmark;
             $bookmark->url = $request->url;
             $bookmark->user_id = $user->id;
-            $bookmark->security_clearance = $user->security_clearance;
+            $bookmark->security_clearance = $request->security_clearance;
 
             if ($request->has('folder_id')) {
                 $bookmark->folder_id = $request->folder_id;
@@ -272,7 +283,8 @@ class BookmarksController extends Controller {
                     }
 
                     foreach ($bookmarks as $key => $value) {
-                        $validator = Validator::make(['url' => $value], [
+                        $validator = Validator::make(['url' => $value],
+                                                     [
                                     'url' => 'required|url|unique:bookmarks,url,NULL,id,user_id,' . $user->id,
                         ]);
                         if (!$validator->fails()) {

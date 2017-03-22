@@ -48,10 +48,18 @@ class Handler extends ExceptionHandler {
     public function render($request, Exception $exception)
     {
         if ($exception instanceof Tymon\JWTAuth\Exceptions\TokenExpiredException) {
-            return response()->json(['token_expired'], $e->getStatusCode());
+            return response()->json(['token_expired'], $exception->getStatusCode());
         } else if ($exception instanceof Tymon\JWTAuth\Exceptions\TokenInvalidException) {
-            return response()->json(['token_invalid'], $e->getStatusCode());
+            return response()->json(['token_invalid'], $exception->getStatusCode());
         }
+
+//        if ($request->expectsJson()) {
+//            dd('yay');
+            if ($exception instanceof \Illuminate\Validation\ValidationException) {
+                return response()->json('watch out',500);
+            }
+//        }
+
         return parent::render($request, $exception);
     }
 
@@ -62,7 +70,8 @@ class Handler extends ExceptionHandler {
      * @param  \Illuminate\Auth\AuthenticationException  $exception
      * @return \Illuminate\Http\Response
      */
-    protected function unauthenticated($request, AuthenticationException $exception)
+    protected function unauthenticated($request,
+            AuthenticationException $exception)
     {
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);

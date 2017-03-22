@@ -41,7 +41,7 @@ if (!window.requestAnimationFrame) {
                         y: 0 // This value will be overwritten at startup
                     },
                     width: window.innerWidth,
-                    height: window.innerHeight - 5,
+                    height: window.innerHeight - 7,
                     velocity: 0.1,
                     length: 150,
                     distance: 120,
