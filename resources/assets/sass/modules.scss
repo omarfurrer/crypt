@@ -225,14 +225,47 @@
                 margin: 0px 5px;
                 padding: 0px 5px;
                 .actions-block{
-                    margin: 10px 41px;
-                    padding: 20px 10px;
+                    margin: 15px 30px 34px 30px;
+                    /*background-color: rgb(119, 136, 153);*/
+                    background-color: rgb(68, 86, 123);
+                    padding: 4px 10px;
                     box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
-                    .custom-all-checkbox{
-                        width: 20px;
-                        height: 20px;
+                    .custom-all-checkbox-wrapper{
+                        display:inline-block;
+                        vertical-align: middle;
+                        .custom-all-checkbox{
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+
+                    .change-folder-button{
+                        margin-left:2px;
+                        .caret{
+                            margin-left: 5px;
+                        }
+                    }
+                    .change-security-clearance-button{
+                        margin-left:2px;
+                        .caret{
+                            margin-left: 5px;
+                        }
+                        }
+                        .refresh-button-wrapper{
+                            margin-left:2px;
+                            display:inline-block;
+
+                            .refresh-button{
+                            }
+                        }
+                        .delete-button-wrapper{
+                            margin-left:2px;
+                            display:inline-block;
+                        .delete-button{
+                        }
                     }
                     .filters-block{
+                        float: right;
                         display:inline-block;
                         width: 40%;
                         vertical-align: top;
@@ -245,27 +278,6 @@
                     .button-switch-list{
                         float: right;
                         margin-left: 10px;
-                    }
-                    .refresh-button{
-                        float: right;
-                        margin-left: 10px;
-                    }
-                    .change-security-clearance-button{
-                        float: right;
-                        margin-left: 10px;
-                        .caret{
-                            margin-left: 5px;
-                        }
-                    }
-                    .change-folder-button{
-                        float: right;
-                        .caret{
-                            margin-left: 5px;
-                        }
-                    }
-                    .delete-button{
-                        margin-left: 10px;
-                        float: right;
                     }
                 }
                 > ul{
@@ -341,10 +353,10 @@
                         height: 291px;
                         vertical-align: top;
                         margin: 5px 8px;
-                        padding: 10px;
+                        padding: 3px;
                         box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
                         .upper-block{
-                            margin-bottom:10px;
+                            margin-bottom:3px;
                             .custom-checkbox{
                                 width: 20px;
                                 height: 20px;
@@ -362,19 +374,19 @@
                                 /*                                width: 300px;
                                                                 height: 300px;*/
                                 width: 100%;
-                                height: 187px;
+                                height: 231px;
                             }
                         }
                         .lower-block{
                             .title-link{
                                 text-decoration: none;
                                 .title{
-                                    padding-top: 15px;
+                                    /*padding-top: 15px;*/
                                     white-space: nowrap;
                                     overflow: hidden;
                                     text-overflow: ellipsis;
                                     color: rgb(87, 103, 136);
-                                    font-size: 20px;
+                                    font-size: 17px;
                                 }
 
                             }
