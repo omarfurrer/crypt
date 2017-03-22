@@ -5,11 +5,27 @@ namespace App\Http\Controllers;
 use App\User;
 use Exception;
 use Illuminate\Database\QueryException;
+use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Socialite;
 
 class UsersController extends Controller {
+
+    /**
+     * Users Repository
+     * 
+     * @var UsersRepository
+     */
+    protected $usersRepository;
+
+    public function __construct(UsersRepository $usersRepository)
+    {
+        parent::__construct();
+
+        $this->usersRepository = $usersRepository;
+        $this->middleware('jwt.auth', ['except' => []]);
+    }
 
     /**
      * Display the specified resource.
@@ -45,6 +61,7 @@ class UsersController extends Controller {
             $user = JWTAuth::parseToken()->authenticate();
             $user->password = $request->new;
             $user->save();
+
 
 
             return response()->json(compact('user'), 200);

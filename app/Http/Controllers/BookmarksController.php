@@ -3,20 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Bookmark;
-use App\Http\Requests;
-//use Exception;
-//use Illuminate\Database\QueryException;
+use App\Folder;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreBookmarkFromPluginRequest;
+use App\Http\Requests\StoreBookmarkRequest;
 use Illuminate\Database\QueryException;
+use App\Repositories\BookmarksRepository;
 use JWTAuth;
 use Validator;
 
 class BookmarksController extends Controller {
 
-    public function __construct()
+    /**
+     * Bookmarks Repository
+     * 
+     * @var BookmarksRepository
+     */
+    protected $bookmarksRepository;
+
+    public function __construct(BookmarksRepository $bookmarksRepository)
     {
-        $this->middleware('jwt.auth', ['except' => ['postStoreFromPlugin']]);
+        parent::__construct();
+
+        $this->bookmarksRepository = $bookmarksRepository;
+        $this->middleware('jwt.auth',
+                          ['except' => ['postStoreFromPlugin', 'store']]);
     }
 
     /**
@@ -29,10 +39,7 @@ class BookmarksController extends Controller {
     {
         try {
 
-            $user = JWTAuth::parseToken()->authenticate();
-            $bookmarks = $user->bookmarks()->where('security_clearance', '<=',
-                                                   $user->security_clearance)->orderBy('id',
-                                                                                       'DESC')->get();
+            $bookmarks = $this->bookmarksRepository->orderBy('id', 'DESC')->findWhere([['security_clearance', '<=', $this->user->security_clearance]]);
 
             return response()->json(compact('bookmarks'), 200);
         } catch (Exception $e) {
@@ -48,14 +55,14 @@ class BookmarksController extends Controller {
      * @param  int  $id
      * @return Response2
      */
-    public function indexFolder(\App\Folder $folder)
+    public function indexFolder(Folder $folder)
     {
         try {
 
-            $user = JWTAuth::parseToken()->authenticate();
-            $bookmarks = $folder->bookmarks()->where('security_clearance', '<=',
-                                                     $user->security_clearance)->orderBy('id',
-                                                                                         'DESC')->get();
+            $bookmarks = $this->bookmarksRepository->orderBy('id', 'DESC')->findWhere([
+                ['security_clearance', '<=', $this->user->security_clearance],
+                ['folder_id', '=', $folder->id]
+            ]);
 
             return response()->json(compact('bookmarks'), 200);
         } catch (Exception $e) {
@@ -71,50 +78,18 @@ class BookmarksController extends Controller {
      * @param  int  $id
      * @return Response2
      */
-    public function store(Requests\StoreBookmarkRequest $request)
-    {
-        try {
-            $user = JWTAuth::parseToken()->authenticate();
-            $bookmark = new Bookmark;
-            $bookmark->url = $request->url;
-            $bookmark->user_id = $user->id;
-            $bookmark->security_clearance = $user->security_clearance;
-
-            if ($request->has('folder_id')) {
-                $bookmark->folder_id = $request->folder_id;
-            }
-            $bookmark->getMetaData();
-            $bookmark->save();
-
-            return response()->json(compact('bookmark'), 200);
-        } catch (Exception $e) {
-            return response()->json(['error' => $e], 500);
-        } catch (QueryException $e) {
-            return response()->json(['error' => $e], 500);
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response2
-     */
-    public function postStoreFromPlugin(StoreBookmarkFromPluginRequest $request)
+    public function store(StoreBookmarkRequest $request)
     {
         try {
 
-            $user = \App\User::find($request->user_id);
-            $bookmark = new Bookmark;
-            $bookmark->url = $request->url;
-            $bookmark->user_id = $user->id;
-            $bookmark->security_clearance = $request->security_clearance;
+            $data = [
+                'user_id' => $request->has('user_id') ? $request->get('user_id') : $this->user->id,
+                'security_clearance' => $request->has('security_clearance') ? $request->get('security_clearance') : $this->user->security_clearance,
+            ];
 
-            if ($request->has('folder_id')) {
-                $bookmark->folder_id = $request->folder_id;
-            }
-            $bookmark->getMetaData();
-            $bookmark->save();
+            $bookmark = $this->bookmarksRepository->create(array_merge($data,
+                                                                       $request->all()));
+            $bookmark->refreshMetaData();
 
             return response()->json(compact('bookmark'), 200);
         } catch (Exception $e) {
@@ -137,7 +112,7 @@ class BookmarksController extends Controller {
             $bookmarks = [];
 
             foreach ($request->bookmarks as $key => $value) {
-                $bookmark = Bookmark::find($value);
+                $bookmark = $this->bookmarksRepository->find($value);
                 $bookmark->refreshMetaData();
                 array_push($bookmarks, $bookmark);
             }
@@ -160,15 +135,9 @@ class BookmarksController extends Controller {
     {
         try {
 
-
-            if ($request->id == null) {
-                foreach ($request->bookmarks as $key => $value) {
-                    Bookmark::find($value)->update(['folder_id' => null]);
-                }
-            } else {
-                foreach ($request->bookmarks as $key => $value) {
-                    Bookmark::find($value)->update(['folder_id' => $request->id]);
-                }
+            foreach ($request->bookmarks as $key => $value) {
+                $this->bookmarksRepository->update(['folder_id' => $request->id],
+                                                   $value);
             }
 
             return response()->json(compact(''), 200);
@@ -189,7 +158,7 @@ class BookmarksController extends Controller {
     {
         try {
 
-            $bookmark->delete();
+            $this->bookmarksRepository->delete($bookmark->id);
 
             return response()->json(compact(''), 200);
         } catch (Exception $e) {
@@ -210,7 +179,8 @@ class BookmarksController extends Controller {
         try {
 
             foreach ($request->bookmarks as $key => $value) {
-                Bookmark::find($value)->update(['security_clearance' => $request->level]);
+                $this->bookmarksRepository->update(['security_clearance' => $request->level],
+                                                   $value);
             }
 
             return response()->json(compact(''), 200);
@@ -255,7 +225,6 @@ class BookmarksController extends Controller {
             ini_set('default_socket_timeout', 1200);
             $folders = [];
             $files = $request->file('file');
-
 
             foreach ($files as $key => $file) {
 

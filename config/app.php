@@ -145,6 +145,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Weidner\Goutte\GoutteServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
         /*
          * Package Service Providers...
          */

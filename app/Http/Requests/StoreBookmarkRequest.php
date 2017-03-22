@@ -24,10 +24,15 @@ class StoreBookmarkRequest extends FormRequest {
      */
     public function rules()
     {
-        $user = JWTAuth::parseToken()->authenticate();
+        if ($this->has('user_id')) {
+            $user_id = $this->user_id;
+        } else {
+            $user = JWTAuth::parseToken()->authenticate();
+            $user_id = $user->user_id;
+        }
 
         return [
-            'url' => 'required|url|unique:bookmarks,url,NULL,id,user_id,' . $user->id,
+            'url' => 'required|url|unique:bookmarks,url,NULL,id,user_id,' . $user_id,
         ];
     }
 

@@ -2,15 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Bookmark;
 use App\Folder;
 use App\Http\Requests;
 use Exception;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
-use JWTAuth;
+use App\Repositories\FoldersRepository;
 
 class FoldersController extends Controller {
+
+    /**
+     * Folders Repository
+     * 
+     * @var FoldersRepository
+     */
+    protected $foldersRepository;
+
+    public function __construct(FoldersRepository $foldersRepository)
+    {
+        parent::__construct();
+
+        $this->foldersRepository = $foldersRepository;
+        $this->middleware('jwt.auth', ['except' => []]);
+    }
 
     /**
      * Display the specified resource.
@@ -22,8 +35,7 @@ class FoldersController extends Controller {
     {
         try {
 
-            $user = JWTAuth::parseToken()->authenticate();
-            $folders = $user->folders()->where('security_clearance', '<=', $user->security_clearance)->orderBy('id', 'DESC')->get();
+            $folders = $this->foldersRepository->orderBy('id', 'DESC')->findWhere([['security_clearance', '<=', $this->user->security_clearance]]);
 
             return response()->json(compact('folders'), 200);
         } catch (Exception $e) {
@@ -43,15 +55,13 @@ class FoldersController extends Controller {
     {
         try {
 
+            $data = [
+                'user_id' => $request->has('user_id') ? $request->get('user_id') : $this->user->id,
+                'security_clearance' => $request->has('security_clearance') ? $request->get('security_clearance') : $this->user->security_clearance,
+            ];
 
-//            return $request->all();
-            $user = JWTAuth::parseToken()->authenticate();
-            $folder = new Folder;
-            $folder->name = $request->name;
-            $folder->security_clearance = $user->security_clearance;
-            $folder->user_id = $user->id;
-            $folder->save();
-
+            $folder = $this->foldersRepository->create(array_merge($data,
+                                                                   $request->all()));
 
             return response()->json(compact('folder'), 200);
         } catch (Exception $e) {
@@ -69,14 +79,14 @@ class FoldersController extends Controller {
      */
     public function update(Requests\UpdateFolderRequest $request, Folder $folder)
     {
-//        return 'hi';
         try {
 
-
-            $folder->name = $request->name;
-            $folder->security_clearance = $request->security_clearance;
-            $folder->save();
-
+            $data = [
+                'security_clearance' => $request->has('security_clearance') ? $request->get('security_clearance') : $this->user->security_clearance
+            ];
+            $folder = $this->foldersRepository->update(array_merge($data,
+                                                                   $request->all()),
+                                                                   $folder->id);
 
             return response()->json(compact('folder'), 200);
         } catch (Exception $e) {
