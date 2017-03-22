@@ -7964,6 +7964,10 @@ button.close {
   display: inline-block;
 }
 
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .refresh-button-wrapper .refresh-button {
+  background-color: white;
+}
+
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .delete-button-wrapper {
   margin-left: 2px;
   display: inline-block;

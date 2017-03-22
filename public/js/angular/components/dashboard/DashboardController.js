@@ -54,7 +54,6 @@
             vm.currentFolder = angular.copy(FoldersService.currentFolder);
         }
 
-
         vm.toggleSelectAll = function () {
             if (vm.allSelected) {
                 for (var i = 0; i < vm.bookmarks.length; i++) {
