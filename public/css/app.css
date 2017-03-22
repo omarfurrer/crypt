@@ -7933,14 +7933,30 @@ button.close {
   box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
 }
 
-.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .custom-all-checkbox-wrapper {
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .custom-editmode-button-wrapper {
   display: inline-block;
   vertical-align: middle;
 }
 
-.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .custom-all-checkbox-wrapper .custom-all-checkbox {
-  width: 20px;
-  height: 20px;
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .custom-editmode-button-wrapper .custom-editmode-button {
+  background-color: white;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .custom-editmode-button-wrapper .custom-editmode-cancel-button {
+  background-color: white;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .custom-editmode-button-wrapper .custom-editmode-cancel-button .glyphicon {
+  color: black;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .custom-all-button-wrapper {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .custom-all-button-wrapper .custom-all-button {
+  background-color: white;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .change-folder-button {
@@ -7984,6 +8000,23 @@ button.close {
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .button-switch-list {
   float: right;
   margin-left: 10px;
+  background-color: white;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .custom-block-information {
+  display: inline-block;
+  vertical-align: middle;
+  float: right;
+  margin-left: 10px;
+  margin-right: 10px;
+  line-height: 32px;
+  /*background-color: white;*/
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .custom-block-information p {
+  color: white;
+  font-size: 20px;
+  margin: 0px;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul {
@@ -7991,6 +8024,10 @@ button.close {
   /*overflow-y: scroll;*/
   list-style-type: none;
   padding: 0px 30px;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul .selected {
+  background-color: #eeeeee;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul .bookmark {
@@ -8007,11 +8044,8 @@ button.close {
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul .bookmark .bookmark-icon {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 20px;
   height: 20px;
+  margin-right: 4px;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul .bookmark .security-clearance {
@@ -8058,6 +8092,10 @@ button.close {
   /*overflow-y: scroll;*/
   margin: auto;
   width: 93%;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .selected {
+  background-color: #eeeeee;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark {

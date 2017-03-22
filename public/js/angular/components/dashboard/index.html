@@ -23,44 +23,52 @@
 
             <div class="bookmarks-list-block">
                 <div class="actions-block" ng-if="DashCtrl.bookmarks.length != 0">
-                    <div class="custom-all-checkbox-wrapper">
-                        <input class="custom-all-checkbox" ng-model="DashCtrl.allSelected" type="checkbox" ng-change="DashCtrl.toggleSelectAll()">
-                    </div>
-                    <div class="btn-group change-folder-button" uib-dropdown keyboard-nav>
-                        <button id="simple-btn-keyboard-nav " type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="DashCtrl.selected.length == 0">
-                            Move To<span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-                            <li  role="menuitem">
-                                <a ng-click="DashCtrl.changeFolder(null, DashCtrl.selected)" href>none</a>
-                            </li>
-                            <li  role="menuitem" ng-repeat="folder in DashCtrl.folders">
-                                <a ng-click="DashCtrl.changeFolder(folder.id, DashCtrl.selected)" href>{{ folder.name}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="btn-group change-security-clearance-button" uib-dropdown keyboard-nav>
-                        <button id="simple-btn-keyboard-nav " type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="DashCtrl.selected.length == 0">
-                            Change Security Clearance<span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-                            <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(0, DashCtrl.selected)" href>Normal</a></li>
-                            <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(1, DashCtrl.selected)" href>Confidential</a></li>
-                            <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(2, DashCtrl.selected)" href>Secret</a></li>
-                            <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(3, DashCtrl.selected)" href>Top Secret</a></li>
-                            <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(4, DashCtrl.selected)" href>Crypto</a></li>
-                        </ul>
-                    </div>
-                    <div class="refresh-button-wrapper">
-                        <button type="button" class="btn refresh-button" ng-click="DashCtrl.refresh(DashCtrl.selected)" ng-disabled="DashCtrl.selected.length == 0">
-                            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    <div class="custom-editmode-button-wrapper">
+                        <button ng-if="!DashCtrl.editMode" class=" btn custom-editmode-button" type="button" ng-click="DashCtrl.editMode = !DashCtrl.editMode">Edit Mode</button>
+                        <button  ng-if="DashCtrl.editMode"  type="button" class="btn btn-danger custom-editmode-cancel-button" ng-click="DashCtrl.editMode = !DashCtrl.editMode">
+                            <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
                     </div>
-                    <div class="delete-button-wrapper">
-                        <button ng-disabled="DashCtrl.selected.length == 0" type="button" class="btn btn-danger delete-button" ng-really-message="Are you sure you want to delete selected bookmarks ?" ng-really-click="DashCtrl.deleteSelected(DashCtrl.selected)">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </button>
-                    </div>
+                    <span ng-if="DashCtrl.editMode">
+                        <div class="custom-all-button-wrapper">
+                            <button class=" btn custom-all-button" type="button" ng-click="DashCtrl.toggleSelectAll()">select all</button>
+                        </div>
+                        <div class="btn-group change-folder-button" uib-dropdown keyboard-nav>
+                            <button id="simple-btn-keyboard-nav " type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="DashCtrl.selected.length == 0">
+                                Move To<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                <li  role="menuitem">
+                                    <a ng-click="DashCtrl.changeFolder(null, DashCtrl.selected)" href>none</a>
+                                </li>
+                                <li  role="menuitem" ng-repeat="folder in DashCtrl.folders">
+                                    <a ng-click="DashCtrl.changeFolder(folder.id, DashCtrl.selected)" href>{{ folder.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="btn-group change-security-clearance-button" uib-dropdown keyboard-nav>
+                            <button id="simple-btn-keyboard-nav " type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="DashCtrl.selected.length == 0">
+                                Change Security Clearance<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(0, DashCtrl.selected)" href>Normal</a></li>
+                                <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(1, DashCtrl.selected)" href>Confidential</a></li>
+                                <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(2, DashCtrl.selected)" href>Secret</a></li>
+                                <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(3, DashCtrl.selected)" href>Top Secret</a></li>
+                                <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(4, DashCtrl.selected)" href>Crypto</a></li>
+                            </ul>
+                        </div>
+                        <div class="refresh-button-wrapper">
+                            <button type="button" class="btn refresh-button" ng-click="DashCtrl.refresh(DashCtrl.selected)" ng-disabled="DashCtrl.selected.length == 0">
+                                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="delete-button-wrapper">
+                            <button ng-disabled="DashCtrl.selected.length == 0"  type="button" class="btn btn-danger delete-button" ng-really-message="Are you sure you want to delete selected bookmarks ?" ng-really-click="DashCtrl.deleteSelected(DashCtrl.selected)">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </span>
                     <div class="filters-block">
                         <form class="filter-form">
                             <div >
@@ -69,20 +77,26 @@
                         </form>
                     </div>
                     <button type="button" class="btn button-switch-list" ng-click="DashCtrl.listBlocks = !DashCtrl.listBlocks">
-                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                        <span ng-if="DashCtrl.listBlocks" class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                        <span ng-if="!DashCtrl.listBlocks" class="glyphicon glyphicon-th" aria-hidden="true"></span>
                     </button>
-
+                    <div class="custom-block-information">
+                        <p ng-if="DashCtrl.currentFolder != undefined">{{ DashCtrl.getCurrentFolder(DashCtrl.currentFolder.id).name}}</p>
+                        <p ng-if="DashCtrl.currentFolder == undefined">All Bookamrks</p>
+                    </div>
                     <div class="clearfix"></div>
                 </div>
                 <ul ng-if="!DashCtrl.listBlocks" class="bookmarks-list">
-                    <li ng-click="DashCtrl.selectBookmark($event, bookmark)" class="bookmark" ng-repeat="bookmark in DashCtrl.bookmarks| filter:DashCtrl.search.text">
-                        <input class="custom-checkbox" type="checkbox" ng-model="DashCtrl.selected[bookmark.id]">
-                        <img class="bookmark-icon" src="https://www.google.com/s2/favicons?domain={{ bookmark.url}}">
-                        <p class="security-clearance">{{ bookmark.security_clearance + 1}}</p>
+                    <li ng-click="DashCtrl.selectBookmark($event, bookmark)"
+                        class="bookmark"
+                        ng-class="{'selected':DashCtrl.isBookmarkSelected(bookmark.id) && DashCtrl.editMode}"
+                        ng-repeat="bookmark in DashCtrl.bookmarks| filter:DashCtrl.search.text">
+                        <!--<p class="security-clearance">{{ bookmark.security_clearance + 1}}</p>-->
                         <a class="" target="_blank" href="{{bookmark.url}}">
-                            <img  class="bookmark-image" src="{{ bookmark.image != null ? bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
+                            <img class="bookmark-image" src="{{ bookmark.image != null ? bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
                         </a>
                         <div class="info-box">
+                            <img class="bookmark-icon" src="https://www.google.com/s2/favicons?domain={{ bookmark.url}}">
                             <a class="title" target="_blank" href="{{bookmark.url}}">{{ bookmark.title}}</a>
                             <p class="description">{{ bookmark.description}}</p>
                             <p class="url">{{ bookmark.url}}</p>
@@ -97,9 +111,11 @@
                     </li>
                 </ul>
                 <div ng-if="DashCtrl.listBlocks" class="bookmarks-list-blocks">
-                    <div class="bookmark" ng-repeat="bookmark in DashCtrl.bookmarks| filter:DashCtrl.search.text">
+                    <div class="bookmark"
+                         ng-click="DashCtrl.selectBookmark($event, bookmark)"
+                         ng-class="{'selected':DashCtrl.isBookmarkSelected(bookmark.id) && DashCtrl.editMode}"
+                         ng-repeat="bookmark in DashCtrl.bookmarks| filter:DashCtrl.search.text">
                         <div class="upper-block">
-                            <input class="custom-checkbox" type="checkbox" ng-model="DashCtrl.selected[bookmark.id]">
                             <button type="button" class="btn btn-danger btn-sm delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </button>

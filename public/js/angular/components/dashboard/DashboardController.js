@@ -12,9 +12,9 @@
         vm.folder = {};
         vm.currentFolder = undefined;
         vm.selected = [];
-        vm.allSelected = false;
         vm.listBlocks = false;
         vm.foldersCollapsed = angular.copy(DashboardService.foldersCollapsed);
+        vm.editMode = false;
 
         $scope.$watch(function () {
             return DashboardService.foldersCollapsed;
@@ -55,20 +55,17 @@
         }
 
         vm.toggleSelectAll = function () {
-            if (vm.allSelected) {
-                for (var i = 0; i < vm.bookmarks.length; i++) {
-                    vm.selected[vm.bookmarks[i].id] = true;
-                }
+            if (vm.selected.length == 0) {
+                vm.selected = angular.copy(vm.bookmarks);
             } else {
-                for (var i = 0; i < vm.bookmarks.length; i++) {
-                    vm.selected[vm.bookmarks[i].id] = false;
-                }
+                vm.selected = []
             }
         };
 
         vm.index = function () {
             BookmarksService.index().then(function () {
                 FoldersService.currentFolder = undefined;
+                DashboardService.foldersCollapsed = true;
             });
             ;
         };
@@ -79,13 +76,15 @@
 
 
 
-        vm.selectBookmark = function (event, bookmark) {
-            if (event.ctrlKey)
+        vm.selectBookmark = function ($event, bookmark) {
+            if (vm.editMode)
             {
-                if (vm.selected[bookmark.id] == true) {
-                    vm.selected[bookmark.id] = false;
+//                $event.stopPropagation();
+                var index = findInArray(vm.selected, bookmark.id);
+                if (index == null) {
+                    vm.selected.push(bookmark);
                 } else {
-                    vm.selected[bookmark.id] = true;
+                    vm.selected.splice(index, 1);
                 }
             }
         };
@@ -161,7 +160,6 @@
             }
             BookmarksService.refresh(bookmarks).then(function () {
                 vm.selected = [];
-                vm.allSelected = false;
             });
 
         };
@@ -177,13 +175,13 @@
             }
             BookmarksService.changeFolderAll(id, bookmarks).then(function () {
                 vm.selected = [];
-                vm.allSelected = false;
             });
         };
 
         vm.indexFolder = function (id) {
             BookmarksService.indexFolder(id).then(function () {
                 FoldersService.currentFolder = {id: id};
+                DashboardService.foldersCollapsed = true;
             });
         };
 
@@ -224,7 +222,6 @@
             }
             BookmarksService.deleteAll(bookmarks).then(function () {
                 vm.selected = [];
-                vm.allSelected = false;
             });
 
         };
@@ -240,9 +237,30 @@
             }
             BookmarksService.changeSecurityClearanceAll(level, bookmarks).then(function () {
                 vm.selected = [];
-                vm.allSelected = false;
             });
         };
+
+        vm.isBookmarkSelected = function (id) {
+            if (findInArray(vm.selected, id) == null) {
+                return false;
+            }
+            return true;
+        };
+
+        vm.getCurrentFolder = function (id) {
+            var index = findInArray(vm.folders, id);
+            var folder = vm.folders[index];
+            return folder;
+        };
+
+        function findInArray(arraytosearch, valuetosearch) {
+            for (var i = 0; i < arraytosearch.length; i++) {
+                if (arraytosearch[i].id == valuetosearch) {
+                    return i;
+                }
+            }
+            return null;
+        }
 
 
 
