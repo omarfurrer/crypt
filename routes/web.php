@@ -17,6 +17,9 @@ Route::get('/', function () {
 Route::get('/mycrypt', function () {
     return view('index');
 });
+Route::get('/login', function () {
+    return view('index');
+});
 
 
 //

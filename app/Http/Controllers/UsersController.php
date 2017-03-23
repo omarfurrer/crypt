@@ -24,7 +24,7 @@ class UsersController extends Controller {
         parent::__construct();
 
         $this->usersRepository = $usersRepository;
-        $this->middleware('jwt.auth', ['except' => []]);
+        $this->middleware('jwt.auth', ['except' => ['postAuthenticateGoogle']]);
     }
 
     /**
