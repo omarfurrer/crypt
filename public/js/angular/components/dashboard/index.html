@@ -134,6 +134,11 @@
                         </div>
                     </div>
                 </div>
+                <div  class="load-more-container">
+                    <a  in-view="$inview && !DashCtrl.isLoadingMore && DashCtrl.index(DashCtrl.pagination.current_page + 1)">
+                        <img ng-if="DashCtrl.isLoadingMore"  src="assets/images/spinner.gif">
+                    </a>
+                </div>
             </div>
         </div>
     </div>

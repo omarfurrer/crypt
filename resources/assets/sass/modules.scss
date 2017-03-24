@@ -20,7 +20,7 @@
             vertical-align:middle;
             .logo-link{
                 cursor:pointer;
-                color:rgb(82, 82, 82);
+                color:white;
                 font-family:sans-serif;
                 text-decoration:none;
                 .logo-image{
@@ -421,6 +421,14 @@
                                 }
 
                             }
+                        }
+                    }
+                }
+                .load-more-container{
+                    text-align:center;
+                    a{
+                        img{
+                            width: 2%;
                         }
                     }
                 }

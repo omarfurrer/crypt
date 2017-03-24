@@ -5,14 +5,15 @@
             var service = {};
             var url = 'api/bookmarks';
             service.bookmarks = [];
+            service.pagination = {};
             service.error = {};
 
-
-            service.index = function () {
+            service.index = function (page = 1) {
                 BaseService.load();
-                return $http.get(url)
+                return $http.get(url + '?page=' + page)
                         .success(function (data) {
-                            service.bookmarks = data.bookmarks;
+                            service.bookmarks = service.bookmarks.concat(data.bookmarks.data);
+                            service.pagination = data.bookmarks;
                         })
                         .error(function (error) {
                             service.error = error;
@@ -26,7 +27,8 @@
                 BaseService.load();
                 return $http.get(url + '/folder/' + id)
                         .success(function (data) {
-                            service.bookmarks = data.bookmarks;
+                            service.bookmarks = service.bookmarks.concat(data.bookmarks.data);
+                            service.pagination = data.bookmarks;
                         })
                         .error(function (error) {
                             service.error = error;

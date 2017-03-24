@@ -8,13 +8,22 @@
 
         var vm = this;
         vm.bookmarks = [];
+        vm.pagination = {};
         vm.folders = [];
         vm.folder = {};
         vm.currentFolder = undefined;
         vm.selected = [];
         vm.listBlocks = false;
+        vm.isLoadingMore = false;
         vm.foldersCollapsed = angular.copy(DashboardService.foldersCollapsed);
         vm.editMode = false;
+
+        $scope.$watch(function () {
+            return BookmarksService.pagination;
+        },
+                function (newValue, oldValue) {
+                    vm.pagination = angular.copy(BookmarksService.pagination);
+                }, true);
 
         $scope.$watch(function () {
             return DashboardService.foldersCollapsed;
@@ -62,10 +71,13 @@
             }
         };
 
-        vm.index = function () {
-            BookmarksService.index().then(function () {
+        vm.index = function (page) {
+            console.log(page);
+            vm.isLoadingMore = true;
+            BookmarksService.index(page).then(function () {
                 FoldersService.currentFolder = undefined;
                 DashboardService.foldersCollapsed = true;
+                vm.isLoadingMore = false;
             });
             ;
         };
@@ -73,8 +85,6 @@
         vm.indexFolders = function () {
             FoldersService.index();
         };
-
-
 
         vm.selectBookmark = function ($event, bookmark) {
             if (vm.editMode)

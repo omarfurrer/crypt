@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreBookmarkRequest;
 use Illuminate\Database\QueryException;
 use App\Repositories\BookmarksRepository;
+use App\Criteria\LessThanSecurityClearanceCriteria;
 use JWTAuth;
 use Validator;
 
@@ -39,7 +40,8 @@ class BookmarksController extends Controller {
     {
         try {
 
-            $bookmarks = $this->bookmarksRepository->orderBy('id', 'DESC')->findWhere([['security_clearance', '<=', $this->user->security_clearance]]);
+            $bookmarks = $this->bookmarksRepository->pushCriteria(new LessThanSecurityClearanceCriteria($this->user->security_clearance))->orderBy('id',
+                                                                                                                                                   'DESC')->paginate();
 
             return response()->json(compact('bookmarks'), 200);
         } catch (Exception $e) {

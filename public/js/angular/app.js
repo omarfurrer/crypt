@@ -2,7 +2,7 @@
 
     'use strict';
     angular
-            .module('crypt', ['ui.router', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload'])
+            .module('crypt', ['ui.router', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview'])
             .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide) {
 
                 function redirectWhenLoggedOut($q, $injector, $rootScope) {
@@ -24,19 +24,16 @@
                                 if (rejection.data.error === value) {
 
                                     // If we get a rejection corresponding to one of the reasons
-                                    // in our array, we know we need to authenticate the user so 
+                                    // in our array, we know we need to authenticate the user so
                                     // we can remove the current user from local storage
                                     // Remove the authenticated user from local storage
                                     localStorage.removeItem('user');
-
                                     // Flip authenticated to false so that we no longer
                                     // show UI elements dependant on the user being logged in
                                     $rootScope.authenticated = false;
-
                                     // Remove the current user info from rootscope
                                     $rootScope.currentUser = null;
                                     $state.go('home');
-
                                 }
                             });
                             return $q.reject(rejection);
@@ -58,7 +55,6 @@
                     oauthType: '2.0',
                     popupOptions: {width: 452, height: 633}
                 });
-
                 // Setup for the $httpInterceptor
                 $provide.factory('redirectWhenLoggedOut', redirectWhenLoggedOut);
                 // Push the new factory onto the $http interceptor array
@@ -73,7 +69,6 @@
                 // are requested other than users
                 $urlRouterProvider.otherwise('/');
                 $locationProvider.html5Mode(true);
-
                 $stateProvider
 
                         .state('login', {
@@ -97,7 +92,6 @@
 
 
                         ;
-
             })
 
             .directive('ngReallyClick', ['$uibModal',
@@ -119,7 +113,6 @@
                         link: function (scope, element, attrs) {
                             element.bind('click', function () {
                                 var message = attrs.ngReallyMessage || "Are you sure ?";
-
                                 var modalHtml = '<div class="modal-body">' + message + '</div>';
                                 modalHtml += '<div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">OK</button><button class="btn btn-warning" ng-click="cancel()">Cancel</button></div>';
                                 var modalInstance = $uibModal.open({
@@ -142,7 +135,6 @@
             .run(function ($rootScope, $state, $window, $location, $timeout) {
 
                 var user = JSON.parse(localStorage.getItem('user'));
-
                 if (user) {
 
                     // The user's authenticated state gets flipped to
@@ -153,9 +145,6 @@
                     // us to access it anywhere across the app. Here
                     // we are grabbing what is in local storage
                     $rootScope.currentUser = user;
-
-
-
                 } else {
                     $rootScope.authenticated = false;
                     $rootScope.currentUser = null;
@@ -168,7 +157,6 @@
                     //scroll to top automatically
 
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
-
                     // Grab the user from local storage and parse it to an object
                     var user = JSON.parse(localStorage.getItem('user'));
 //                    var allowed_states_for_guest = ['login'];
@@ -188,8 +176,6 @@
                         // us to access it anywhere across the app. Here
                         // we are grabbing what is in local storage
                         $rootScope.currentUser = user;
-
-
                         if (toState.name == 'home') {
                             // add state.go in a timeout function because it does not work properly in the run function
                             $timeout(function () {
@@ -208,6 +194,5 @@
                         $rootScope.currentUser = null;
                     }
                 });
-
             });
 })();

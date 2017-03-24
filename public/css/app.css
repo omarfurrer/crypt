@@ -7711,7 +7711,7 @@ button.close {
 
 .custom-navbar .inner-block .custom-wrapper-logo-link .logo-link {
   cursor: pointer;
-  color: #525252;
+  color: white;
   font-family: sans-serif;
   text-decoration: none;
 }
@@ -8146,6 +8146,14 @@ button.close {
   text-overflow: ellipsis;
   color: #576788;
   font-size: 17px;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .load-more-container {
+  text-align: center;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .load-more-container a img {
+  width: 2%;
 }
 
 .import-html-box-modal .modal-dialog {
