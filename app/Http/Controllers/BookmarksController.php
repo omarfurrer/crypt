@@ -9,6 +9,7 @@ use App\Http\Requests\StoreBookmarkRequest;
 use Illuminate\Database\QueryException;
 use App\Repositories\BookmarksRepository;
 use App\Criteria\LessThanSecurityClearanceCriteria;
+use App\Criteria\EqualsFolderCriteria;
 use JWTAuth;
 use Validator;
 
@@ -40,8 +41,21 @@ class BookmarksController extends Controller {
     {
         try {
 
-            $bookmarks = $this->bookmarksRepository->pushCriteria(new LessThanSecurityClearanceCriteria($this->user->security_clearance))->orderBy('id',
-                                                                                                                                                   'DESC')->paginate();
+
+            $folder_id = \Request::get('folder_id');
+            $order_by = \Request::get('order_by', 'DESC');
+            $order_by_attribute = \Request::get('order_by_attribute', 'id');
+
+            $bookmarks = $this->bookmarksRepository
+                    ->pushCriteria(new LessThanSecurityClearanceCriteria($this->user->security_clearance));
+
+            if ($folder_id != null) {
+                $bookmarks->pushCriteria(new EqualsFolderCriteria($folder_id));
+            }
+
+            $bookmarks = $bookmarks
+                    ->orderBy($order_by_attribute, $order_by)
+                    ->paginate();
 
             return response()->json(compact('bookmarks'), 200);
         } catch (Exception $e) {

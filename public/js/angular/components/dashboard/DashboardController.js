@@ -17,6 +17,8 @@
         vm.isLoadingMore = false;
         vm.foldersCollapsed = angular.copy(DashboardService.foldersCollapsed);
         vm.editMode = false;
+        vm.orderBy = undefined;
+        vm.orderByAttribute = undefined;
 
         $scope.$watch(function () {
             return BookmarksService.pagination;
@@ -51,6 +53,7 @@
         },
                 function (newValue, oldValue) {
                     syncCurrentFolder();
+
                 }, true);
 
         function syncBookmarks() {
@@ -71,13 +74,24 @@
             }
         };
 
-        vm.index = function (page) {
-            console.log(page);
+        vm.index = function (page, folder, order_by, order_by_attribute) {
+            var folder_id = folder;
+            if (folder_id != undefined) {
+                folder_id = folder.id;
+            }
+            console.log(folder_id);
             vm.isLoadingMore = true;
-            BookmarksService.index(page).then(function () {
-                FoldersService.currentFolder = undefined;
-                DashboardService.foldersCollapsed = true;
+            BookmarksService.index(page, folder_id, order_by, order_by_attribute).then(function () {
+//                FoldersService.currentFolder = undefined;
                 vm.isLoadingMore = false;
+                if (folder_id != undefined) {
+                    FoldersService.currentFolder = {id: folder_id};
+//                    vm.pagination = {};
+                } else {
+                    FoldersService.currentFolder = folder_id;
+                }
+
+                DashboardService.foldersCollapsed = true;
             });
             ;
         };
@@ -274,7 +288,7 @@
 
 
 
-        vm.index();
+//        vm.index();
         vm.indexFolders();
 
     }
