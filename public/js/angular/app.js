@@ -139,7 +139,7 @@
                 }
             ])
 
-            .run(function ($rootScope, $state, $window, $location) {
+            .run(function ($rootScope, $state, $window, $location, $timeout) {
 
                 var user = JSON.parse(localStorage.getItem('user'));
 
@@ -180,6 +180,13 @@
 
                     if (user) {
 
+
+                        if (toState.name == 'home') {
+                            // add state.go in a timeout function because it does not work properly in the run function
+                            $timeout(function () {
+                                $state.go('dashboard');
+                            });
+                        }
                         // The user's authenticated state gets flipped to
                         // true so we can now show parts of the UI that rely
                         // on the user being logged in
