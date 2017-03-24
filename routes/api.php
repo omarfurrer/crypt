@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
  Route::patch('users/update/password', ['uses' => 'UsersController@patchChangePassword']);
     Route::post('users/security/clearance/change', ['uses' => 'UsersController@postChangeSecurityClearance']);
     Route::post('users/authenticate/google', ['uses' => 'UsersController@postAuthenticateGoogle']);
+    Route::post('users/login', ['uses' => 'UsersController@postLogin']);
 
 
     Route::post('bookmarks/plugin', ['uses' => 'BookmarksController@postStoreFromPlugin']);

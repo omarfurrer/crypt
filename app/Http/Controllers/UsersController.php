@@ -24,7 +24,7 @@ class UsersController extends Controller {
         parent::__construct();
 
         $this->usersRepository = $usersRepository;
-        $this->middleware('jwt.auth', ['except' => ['postAuthenticateGoogle']]);
+        $this->middleware('jwt.auth', ['except' => ['postAuthenticateGoogle','postLogin']]);
     }
 
     /**
@@ -100,6 +100,34 @@ class UsersController extends Controller {
         } catch (QueryException $e) {
             return response()->json(['error' => $e], 500);
         }
+    }
+    
+    /**
+     * Authenticates a user with JWT and sends back the token if successful
+     *
+     * @return Response
+     */
+    public function postLogin(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        try {
+
+            // verify the credentials and create a token for the user
+            if (!$token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'invalid_credentials'], 401);
+            }
+
+            $user = JWTAuth::toUser($token);
+//            if (!$user->active) {
+//                return response()->json(['error' => 'email_not_confirmed'], 403);
+//            }
+        } catch (JWTException $e) {
+            // something went wrong
+            return response()->json(['error' => 'could_not_create_token'], 500);
+        }
+
+        // if no errors are encountered we can return a JWT
+        return response()->json(compact('token','user'));
     }
 
 }

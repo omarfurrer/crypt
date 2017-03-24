@@ -20,6 +20,9 @@ Route::get('/mycrypt', function () {
 Route::get('/login', function () {
     return view('index');
 });
+Route::get('/settings', function () {
+    return view('index');
+});
 
 
 //

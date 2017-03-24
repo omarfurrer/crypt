@@ -180,13 +180,6 @@
 
                     if (user) {
 
-
-                        if (toState.name == 'home') {
-                            // add state.go in a timeout function because it does not work properly in the run function
-                            $timeout(function () {
-                                $state.go('dashboard');
-                            });
-                        }
                         // The user's authenticated state gets flipped to
                         // true so we can now show parts of the UI that rely
                         // on the user being logged in
@@ -197,6 +190,18 @@
                         $rootScope.currentUser = user;
 
 
+                        if (toState.name == 'home') {
+                            // add state.go in a timeout function because it does not work properly in the run function
+                            $timeout(function () {
+                                $state.go('dashboard');
+                            });
+                        }
+
+                        if ($rootScope.currentUser.password == null && toState.name != 'settings') {
+                            $timeout(function () {
+                                $state.go('settings');
+                            });
+                        }
 
                     } else {
                         $rootScope.authenticated = false;
