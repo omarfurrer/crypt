@@ -10,11 +10,9 @@
 
             service.index = function (page = 1, folder_id, order_by, order_by_attribute) {
                 BaseService.load();
-                console.log(folder_id);
                 var full_url = url + '?page=' + page;
 
                 if (folder_id != undefined) {
-                    console.log('better');
                     full_url += '&folder_id=' + folder_id;
                 }
 
@@ -25,9 +23,6 @@
                 if (order_by_attribute != undefined) {
                     full_url += '&order_by_attribute=' + order_by_attribute;
                 }
-                console.log(folder_id);
-                console.log(order_by);
-                console.log(order_by_attribute);
 
                 return $http.get(full_url)
                         .success(function (data) {

@@ -53,7 +53,6 @@
         },
                 function (newValue, oldValue) {
                     syncCurrentFolder();
-
                 }, true);
 
         function syncBookmarks() {
@@ -70,7 +69,7 @@
             if (vm.selected.length == 0) {
                 vm.selected = angular.copy(vm.bookmarks);
             } else {
-                vm.selected = []
+                vm.selected = [];
             }
         };
 
@@ -79,14 +78,16 @@
             if (folder_id != undefined) {
                 folder_id = folder.id;
             }
-            console.log(folder_id);
+
+            if (folder != vm.currentFolder) {
+                BookmarksService.bookmarks = [];
+            }
+
             vm.isLoadingMore = true;
             BookmarksService.index(page, folder_id, order_by, order_by_attribute).then(function () {
-//                FoldersService.currentFolder = undefined;
                 vm.isLoadingMore = false;
                 if (folder_id != undefined) {
                     FoldersService.currentFolder = {id: folder_id};
-//                    vm.pagination = {};
                 } else {
                     FoldersService.currentFolder = folder_id;
                 }
@@ -103,7 +104,6 @@
         vm.selectBookmark = function ($event, bookmark) {
             if (vm.editMode)
             {
-//                $event.stopPropagation();
                 var index = findInArray(vm.selected, bookmark.id);
                 if (index == null) {
                     vm.selected.push(bookmark);
