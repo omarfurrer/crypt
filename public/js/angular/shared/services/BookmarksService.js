@@ -66,19 +66,19 @@
                         });
             };
 
-            service.delete = function (bookmark) {
-                BaseService.load();
-                return $http.delete(url + '/' + bookmark.id)
-                        .success(function (data) {
-                            service.bookmarks.splice(findInArray(service.bookmarks, bookmark.id), 1);
-                        })
-                        .error(function (error) {
-                            service.error = error;
-                        })
-                        .finally(function () {
-                            BaseService.unload();
-                        });
-            };
+//            service.delete = function (bookmark) {
+//                BaseService.load();
+//                return $http.delete(url + '/' + bookmark.id)
+//                        .success(function (data) {
+//                            service.bookmarks.splice(findInArray(service.bookmarks, bookmark.id), 1);
+//                        })
+//                        .error(function (error) {
+//                            service.error = error;
+//                        })
+//                        .finally(function () {
+//                            BaseService.unload();
+//                        });
+//            };
 
             service.deleteAll = function (bookmarks) {
                 BaseService.load();
@@ -130,8 +130,6 @@
                         });
             };
 
-
-
             service.changeSecurityClearanceAll = function (level, bookmarks) {
                 BaseService.load();
                 return $http.post(url + '/all/security/clearance/change', {level: level, bookmarks: bookmarks})
@@ -167,7 +165,7 @@
                             }
 
                             FoldersService.currentFolder = data.folders[data.folders.length - 1];
-                            service.indexFolder(FoldersService.currentFolder.id);
+                            service.index(1, FoldersService.currentFolder.id);
                         })
                         .error(function (error) {
                             service.error = error;

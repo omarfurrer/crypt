@@ -53,6 +53,8 @@
         },
                 function (newValue, oldValue) {
                     syncCurrentFolder();
+                    vm.selected = [];
+
                 }, true);
 
         function syncBookmarks() {
@@ -176,42 +178,28 @@
         };
 
         vm.refresh = function (selected) {
-            var bookmarks = [];
-            for (var i = 0; i < selected.length; i++) {
-                if (selected[i] == true) {
-                    bookmarks.push(i);
-                }
-            }
-            BookmarksService.refresh(bookmarks).then(function () {
+            BookmarksService.refresh(selected).then(function () {
                 vm.selected = [];
             });
 
         };
-
-
 
         vm.changeFolder = function (id, selected) {
-            var bookmarks = [];
-            for (var i = 0; i < selected.length; i++) {
-                if (selected[i] == true) {
-                    bookmarks.push(i);
-                }
-            }
-            BookmarksService.changeFolderAll(id, bookmarks).then(function () {
+            BookmarksService.changeFolderAll(id, selected).then(function () {
                 vm.selected = [];
             });
         };
 
-        vm.indexFolder = function (id) {
-            BookmarksService.indexFolder(id).then(function () {
-                FoldersService.currentFolder = {id: id};
-                DashboardService.foldersCollapsed = true;
-            });
-        };
+//        vm.indexFolder = function (id) {
+//            BookmarksService.indexFolder(id).then(function () {
+//                FoldersService.currentFolder = {id: id};
+//                DashboardService.foldersCollapsed = true;
+//            });
+//        };
 
-        vm.delete = function (bookmark) {
-            BookmarksService.delete(bookmark);
-        };
+//        vm.delete = function (bookmark) {
+//            BookmarksService.delete(bookmark);
+//        };
 
         function findInArray(arraytosearch, valuetosearch) {
             for (var i = 0; i < arraytosearch.length; i++) {
@@ -235,31 +223,15 @@
             });
         };
 
-
-
         vm.deleteSelected = function (selected) {
-            var bookmarks = [];
-            for (var i = 0; i < selected.length; i++) {
-                if (selected[i] == true) {
-                    bookmarks.push(i);
-                }
-            }
-            BookmarksService.deleteAll(bookmarks).then(function () {
+            BookmarksService.deleteAll(selected).then(function () {
                 vm.selected = [];
             });
 
         };
 
-
-
         vm.changeSecurityClearanceSelected = function (level, selected) {
-            var bookmarks = [];
-            for (var i = 0; i < selected.length; i++) {
-                if (selected[i] == true) {
-                    bookmarks.push(i);
-                }
-            }
-            BookmarksService.changeSecurityClearanceAll(level, bookmarks).then(function () {
+            BookmarksService.changeSecurityClearanceAll(level, selected).then(function () {
                 vm.selected = [];
             });
         };

@@ -101,9 +101,9 @@
                             <p class="description">{{ bookmark.description}}</p>
                             <p class="url">{{ bookmark.url}}</p>
                         </div>
-                        <button type="button" class="btn btn-danger delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </button>
+                        <!--                        <button type="button" class="btn btn-danger delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
+                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                </button>-->
                         <a class="btn btn-primary download-button" target="_blank" href="http://keepvid.com/?url={{bookmark.url}}">
                             <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
                         </a>
@@ -116,9 +116,9 @@
                          ng-class="{'selected':DashCtrl.isBookmarkSelected(bookmark.id) && DashCtrl.editMode}"
                          ng-repeat="bookmark in DashCtrl.bookmarks| filter:DashCtrl.search.text">
                         <div class="upper-block">
-                            <button type="button" class="btn btn-danger btn-sm delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
-                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                            </button>
+                            <!--                            <button type="button" class="btn btn-danger btn-sm delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
+                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                        </button>-->
                             <a class="btn btn-primary btn-sm download-button" target="_blank" href="http://keepvid.com/?url={{bookmark.url}}">
                                 <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
                             </a>

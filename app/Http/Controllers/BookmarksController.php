@@ -128,7 +128,7 @@ class BookmarksController extends Controller {
             $bookmarks = [];
 
             foreach ($request->bookmarks as $key => $value) {
-                $bookmark = $this->bookmarksRepository->find($value);
+                $bookmark = $this->bookmarksRepository->find($value['id']);
                 $bookmark->refreshMetaData();
                 array_push($bookmarks, $bookmark);
             }
@@ -150,10 +150,9 @@ class BookmarksController extends Controller {
     public function postChangeFolderAll(Request $request)
     {
         try {
-
             foreach ($request->bookmarks as $key => $value) {
                 $this->bookmarksRepository->update(['folder_id' => $request->id],
-                                                   $value);
+                                                   $value['id']);
             }
 
             return response()->json(compact(''), 200);
@@ -196,7 +195,7 @@ class BookmarksController extends Controller {
 
             foreach ($request->bookmarks as $key => $value) {
                 $this->bookmarksRepository->update(['security_clearance' => $request->level],
-                                                   $value);
+                                                   $value['id']);
             }
 
             return response()->json(compact(''), 200);

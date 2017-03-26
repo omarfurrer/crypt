@@ -14,10 +14,11 @@
                             SecurityService.changeSecurityClearance(level);
 
                             FoldersService.index().then(function () {
+                                BookmarksService.bookmarks = [];
                                 if (typeof FoldersService.currentFolder === 'undefined') {
                                     BookmarksService.index();
                                 } else {
-                                    BookmarksService.indexFolder(FoldersService.currentFolder.id);
+                                    BookmarksService.index(1, FoldersService.currentFolder.id);
                                 }
                             });
                         })
