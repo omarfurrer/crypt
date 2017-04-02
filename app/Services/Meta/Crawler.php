@@ -63,18 +63,31 @@ class Crawler {
 
         $data = [];
 
-        if ($dom_obj->getElementsByTagName('title')->item(0) != null) {
+      
+
+        $metaTags = $dom_obj->getElementsByTagName('meta');
+        foreach ($metaTags AS $tag) {
+            if ($tag->hasAttribute('name')) {
+//                echo $tag->getAttribute('name') . " = " . $tag->getAttribute('content') . " <br />";
+                $data[$tag->getAttribute('name')] = $tag->getAttribute('content');
+            } elseif ($tag->hasAttribute('property')) {
+//                echo $tag->getAttribute('property') . " = " . $tag->getAttribute('content') . " <br />";
+                $data[$tag->getAttribute('property')] = $tag->getAttribute('content');
+            }
+        }
+        
+          if ($dom_obj->getElementsByTagName('title')->item(0) != null) {
             $data['title'] = $dom_obj->getElementsByTagName('title')->item(0)->textContent;
         }
 
-        foreach ($dom_obj->getElementsByTagName('meta') as $meta) {
-            if ($meta->getAttribute('property') == 'og:description') {
-                $data['description'] = $meta->getAttribute('content');
-            }
-            if ($meta->getAttribute('property') == 'og:image') {
-                $data['image'] = $meta->getAttribute('content');
-            }
-        }
+//        foreach ($dom_obj->getElementsByTagName('meta') as $meta) {
+//            if ($meta->getAttribute('property') == 'og:description') {
+//                $data['description'] = $meta->getAttribute('content');
+//            }
+//            if ($meta->getAttribute('property') == 'og:image') {
+//                $data['image'] = $meta->getAttribute('content');
+//            }
+//        }
 
         return $data;
     }

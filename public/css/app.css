@@ -7687,9 +7687,14 @@ button.close {
   }
 }
 
+body {
+  background-color: #aeaeae;
+}
+
 .custom-navbar {
   /*height: 8vh;*/
-  background-color: #ff5954;
+  /*background-color: rgb(255, 89, 84);*/
+  background-color: #0a5fa8;
   border-bottom: 1px solid silver;
 }
 
@@ -7928,7 +7933,8 @@ button.close {
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block {
   margin: 15px 30px 34px 30px;
   /*background-color: rgb(119, 136, 153);*/
-  background-color: #44567b;
+  /*background-color: rgb(68, 86, 123);*/
+  background-color: #004e58;
   padding: 4px 10px;
   box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
 }
@@ -8024,17 +8030,17 @@ button.close {
   /*overflow-y: scroll;*/
   list-style-type: none;
   padding: 0px 30px;
-}
-
-.dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul .selected {
-  background-color: #eeeeee;
+  width: 80%;
+  margin: auto;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul .bookmark {
   position: relative;
-  padding-bottom: 10px;
+  /*padding-bottom: 10px;*/
+  background-color: white;
   margin-bottom: 10px;
   border-bottom: 1px solid silver;
+  border-radius: 10px;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul .bookmark .custom-checkbox {
@@ -8057,8 +8063,10 @@ button.close {
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul .bookmark .bookmark-image {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
+  padding: 10px;
+  border-radius: 20px;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul .bookmark .info-box {
@@ -8080,6 +8088,7 @@ button.close {
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul .bookmark .download-button {
   float: right;
+  border-radius: 0px 10px 0px 10px;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul .bookmark .delete-button {
@@ -8087,30 +8096,35 @@ button.close {
   float: right;
 }
 
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul .selected {
+  background-color: #eeeeee;
+}
+
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks {
   /*height: 83%;*/
   /*overflow-y: scroll;*/
+  /*                    margin: auto;
+                                        width: 93%;*/
   margin: auto;
-  width: 93%;
-}
-
-.dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .selected {
-  background-color: #eeeeee;
+  width: 86%;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark {
   display: inline-block;
-  /*                        width: 323px;
-                                                height: 415px;*/
-  width: 260px;
-  height: 291px;
+  width: 304px;
+  border-radius: 10px;
+  height: 342px;
+  background-color: white;
   vertical-align: top;
   margin: 5px 8px;
-  padding: 3px;
+  padding: 26px 27px;
+  position: relative;
   box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark .upper-block {
+  position: absolute;
+  right: 27px;
   margin-bottom: 3px;
 }
 
@@ -8126,13 +8140,21 @@ button.close {
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark .upper-block .download-button {
   float: right;
+  background-color: rgba(255, 255, 255, 0.5);
+  /* border: 0px; */
+  /* border-radius: 10px; */
+  border: 0px;
+  border-radius: 0px 10px 0px 10px;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark .upper-block .download-button .glyphicon {
+  color: black;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark .middle-block .bookmark-image {
-  /*                                width: 300px;
-                                                                height: 300px;*/
   width: 100%;
   height: 231px;
+  border-radius: 10px;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark .lower-block .title-link {
@@ -8140,12 +8162,18 @@ button.close {
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark .lower-block .title-link .title {
-  /*padding-top: 15px;*/
-  white-space: nowrap;
+  padding: 15px 13px;
+  margin: 0px;
+  /* white-space: nowrap; */
   overflow: hidden;
-  text-overflow: ellipsis;
+  /* text-overflow: ellipsis; */
   color: #576788;
   font-size: 17px;
+  height: 66px;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .selected {
+  background-color: #eeeeee;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .load-more-container {

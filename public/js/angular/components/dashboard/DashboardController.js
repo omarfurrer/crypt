@@ -104,8 +104,7 @@
         };
 
         vm.selectBookmark = function ($event, bookmark) {
-            if (vm.editMode)
-            {
+            if (vm.editMode) {
                 var index = findInArray(vm.selected, bookmark.id);
                 if (index == null) {
                     vm.selected.push(bookmark);
@@ -114,8 +113,6 @@
                 }
             }
         };
-
-
 
         vm.storeFolder = function (folder) {
 
@@ -181,7 +178,6 @@
             BookmarksService.refresh(selected).then(function () {
                 vm.selected = [];
             });
-
         };
 
         vm.changeFolder = function (id, selected) {
@@ -218,6 +214,7 @@
                     }
                 } else if (FoldersService.currentFolder.id === folder.id) {
                     FoldersService.currentFolder = undefined;
+                    BookmarksService.bookmarks = [];
                     BookmarksService.index();
                 }
             });
@@ -249,6 +246,10 @@
             return folder;
         };
 
+        vm.bookmarkOpened = function (bookmark) {
+            BookmarksService.handleOpened(bookmark);
+        };
+
         function findInArray(arraytosearch, valuetosearch) {
             for (var i = 0; i < arraytosearch.length; i++) {
                 if (arraytosearch[i].id == valuetosearch) {
@@ -257,8 +258,6 @@
             }
             return null;
         }
-
-
 
 //        vm.index();
         vm.indexFolders();

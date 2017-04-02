@@ -165,7 +165,22 @@
                             }
 
                             FoldersService.currentFolder = data.folders[data.folders.length - 1];
+                            service.bookmarks = [];
                             service.index(1, FoldersService.currentFolder.id);
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
+            service.handleOpened = function (bookmark) {
+                BaseService.load();
+                return $http.patch(url + '/' + bookmark.id + '/opened', {})
+                        .success(function (data) {
+
                         })
                         .error(function (error) {
                             service.error = error;

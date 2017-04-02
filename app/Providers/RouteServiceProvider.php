@@ -28,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider {
         parent::boot();
 
         Route::model('users', 'App\User');
-        Route::model('bookamrks', 'App\Bookmark');
+        Route::model('bookmarks', 'App\Bookmark');
         Route::model('folders', 'App\Folder');
     }
 

@@ -215,8 +215,7 @@ class BookmarksController extends Controller {
     public function postDestroyAll(Request $request)
     {
         try {
-
-            Bookmark::destroy($request->bookmarks);
+            Bookmark::destroy(collect($request->bookmarks)->pluck('id')->all());
 
             return response()->json(compact(''), 200);
         } catch (Exception $e) {
@@ -276,11 +275,10 @@ class BookmarksController extends Controller {
                             $bookmark->url = $value;
                             $bookmark->user_id = $user->id;
                             $bookmark->folder_id = $folder->id;
-
-                            if ($request->autoRefresh == true) {
-                                $bookmark->getMetaData();
-                            }
                             $bookmark->save();
+                            if ($request->autoRefresh == true) {
+                                $bookmark->refreshMetaData();
+                            }
                         }
                     }
 //                $folder->load('bookmarks');
@@ -290,6 +288,27 @@ class BookmarksController extends Controller {
 
 
             return response()->json(compact('folders'), 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        } catch (QueryException $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response2
+     */
+    public function patchHandleBookmarkOpened(Bookmark $bookmark)
+    {
+        try {
+//            dd($bookmark);
+           $bookmark = $this->bookmarksRepository->update(['visit_count' => ($bookmark->visit_count + 1)],
+                                               $bookmark->id);
+
+            return response()->json(compact('bookmark'), 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
         } catch (QueryException $e) {

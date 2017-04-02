@@ -1,4 +1,4 @@
-<div class="dashboard">  
+<div class="dashboard">
     <div class="inner-block">
         <div class="folders-block" ng-class="{'custom-hidden':DashCtrl.foldersCollapsed}">
             <h3>FOLDERS</h3>
@@ -92,12 +92,12 @@
                         ng-class="{'selected':DashCtrl.isBookmarkSelected(bookmark.id) && DashCtrl.editMode}"
                         ng-repeat="bookmark in DashCtrl.bookmarks| filter:DashCtrl.search.text">
                         <!--<p class="security-clearance">{{ bookmark.security_clearance + 1}}</p>-->
-                        <a class="" target="_blank" href="{{bookmark.url}}">
+                        <a class="" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}">
                             <img class="bookmark-image" src="{{ bookmark.image != null ? bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
                         </a>
                         <div class="info-box">
                             <img class="bookmark-icon" src="https://www.google.com/s2/favicons?domain={{ bookmark.url}}">
-                            <a class="title" target="_blank" href="{{bookmark.url}}">{{ bookmark.title}}</a>
+                            <a class="title" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}">{{ bookmark.title}}</a>
                             <p class="description">{{ bookmark.description}}</p>
                             <p class="url">{{ bookmark.url}}</p>
                         </div>
@@ -125,12 +125,12 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="middle-block">
-                            <a class="" target="_blank" href="{{bookmark.url}}">
+                            <a class="" target="_blank" ng-click="DashCtrl.bookmarkOpened(bookmark)" href="{{bookmark.url}}">
                                 <img  class="bookmark-image" src="{{ bookmark.image != null ? bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
                             </a>
                         </div>
                         <div class="lower-block">
-                            <a class="title-link" target="_blank" href="{{bookmark.url}}"><p class="title">{{ bookmark.title}}</p></a>
+                            <a class="title-link" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}"><p class="title">{{ bookmark.title}}</p></a>
                         </div>
                     </div>
                 </div>
