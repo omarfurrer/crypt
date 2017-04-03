@@ -35,7 +35,7 @@ class FoldersController extends Controller {
     {
         try {
 
-            $folders = $this->foldersRepository->orderBy('id', 'DESC')->findWhere([['security_clearance', '<=', $this->user->security_clearance]]);
+            $folders = $this->foldersRepository->orderBy('id', 'DESC')->findWhere([['user_id', '=', $this->user->id], ['security_clearance', '<=', $this->user->security_clearance]]);
 
             return response()->json(compact('folders'), 200);
         } catch (Exception $e) {

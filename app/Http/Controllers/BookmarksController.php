@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use App\Repositories\BookmarksRepository;
 use App\Criteria\LessThanSecurityClearanceCriteria;
 use App\Criteria\EqualsFolderCriteria;
+use App\Criteria\EqualsUserIDCriteria;
 use JWTAuth;
 use Validator;
 
@@ -47,7 +48,8 @@ class BookmarksController extends Controller {
             $order_by_attribute = \Request::get('order_by_attribute', 'id');
 
             $bookmarks = $this->bookmarksRepository
-                    ->pushCriteria(new LessThanSecurityClearanceCriteria($this->user->security_clearance));
+                    ->pushCriteria(new LessThanSecurityClearanceCriteria($this->user->security_clearance))
+                    ->pushCriteria(new EqualsUserIDCriteria($this->user->id));
 
             if ($folder_id != null) {
                 $bookmarks->pushCriteria(new EqualsFolderCriteria($folder_id));
@@ -305,8 +307,8 @@ class BookmarksController extends Controller {
     {
         try {
 //            dd($bookmark);
-           $bookmark = $this->bookmarksRepository->update(['visit_count' => ($bookmark->visit_count + 1)],
-                                               $bookmark->id);
+            $bookmark = $this->bookmarksRepository->update(['visit_count' => ($bookmark->visit_count + 1)],
+                                                           $bookmark->id);
 
             return response()->json(compact('bookmark'), 200);
         } catch (Exception $e) {
