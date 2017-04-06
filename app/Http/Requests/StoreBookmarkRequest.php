@@ -28,7 +28,7 @@ class StoreBookmarkRequest extends FormRequest {
             $user_id = $this->user_id;
         } else {
             $user = JWTAuth::parseToken()->authenticate();
-            $user_id = $user->user_id;
+            $user_id = $user->id;
         }
 
         return [
