@@ -4,60 +4,72 @@ body{
 .custom-navbar{
     /*height: 8vh;*/
     /*background-color: rgb(255, 89, 84);*/
-    background-color: rgb(10, 95, 168);
-    border-bottom: 1px solid rgb(192, 192, 192);
+    /*background-color: rgb(10, 95, 168);*/
+    background-color: rgb(29, 66, 98);
+    /*border-bottom: 1px solid rgb(192, 192, 192);*/
+    box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.6);
     .inner-block{
         /*padding: 10px 0px 10px 0px;*/
         width: 96%;
         margin: auto;
+        .custom-left-menu{
+            display:inline-block;
+            float:left;
+            padding:10px;
+            .custom-wrapper-button-collapse-folders{
+                display: inline-block;
+                vertical-align:middle;
+                .custom-button-collapse-folders{
 
-        .custom-wrapper-button-collapse-folders{
-            display: inline-block;
-            vertical-align:middle;
-            .custom-button-collapse-folders{
-
+                }
             }
-        }
 
-        .custom-wrapper-logo-link{
-            display: inline-block;
-            vertical-align:middle;
-            .logo-link{
-                cursor:pointer;
-                color:white;
-                font-family:sans-serif;
-                text-decoration:none;
-                .logo-image{
+            .custom-wrapper-logo-link{
+                display: inline-block;
+                vertical-align:middle;
+                .logo-link{
+                    cursor:pointer;
+                    color:white;
+                    font-family:sans-serif;
+                    text-decoration:none;
+                    .logo-image{
 
+                    }
                 }
             }
         }
 
         .bookmarks-form-block{
-            width: 79%;
+            width: 60%;
             padding: 10px;
             text-align: center;
+            margin-left: 135px;
             /*border-bottom: 1px solid rgb(192, 192, 192);*/
             display: inline-block;
             .input-url{
                 width:70%;
                 display: inline-block;
                 input{
-                    height: 40px;
+                    /*height: 40px;*/
                 }
             }
             .submit-button{
                 display: inline-block;
-                height: 40px;
-                vertical-align: top;
+                /*height: 40px;*/
+                /*vertical-align: top;*/
+                .glyphicon{
+                    /*font-size: 10px;*/
+                    /*margin-right: 5px;*/
+                }
 
             }
             .import-button{
-                vertical-align: top;
+                /*vertical-align: top;*/
                 display: inline-block;
                 button{
-                    height: 40px;
-                    .caret{
+                    /*height: 40px;*/
+                    .glyphicon{
+                        font-size: 10px;
                         margin-left: 5px;
                     }
                 }
@@ -68,7 +80,9 @@ body{
             display: inline-block;
             vertical-align:middle;
             float: right;
-            padding:20px;
+            /*padding:20px;*/
+            /*padding: 12px;*/
+            padding: 12px 0px 12px 12px;
 
             .profile-dropdown{
                 display: inline-block;
@@ -90,7 +104,8 @@ body{
             }
             .security-dropdown{
                 display: inline-block;
-                margin-right: 30px;
+                /*margin-right: 30px;*/
+                margin-right: 10px;
                 .dropdown{
                     font-size: 16px;
                     a{

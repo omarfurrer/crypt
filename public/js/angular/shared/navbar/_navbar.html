@@ -1,65 +1,79 @@
 
 <nav class="custom-navbar">
     <div class="inner-block">
+        <div class="custom-left-menu">
 
-        <div class="custom-wrapper-button-collapse-folders">
-            <button ng-click="base.toggleCollapseFolders()" ng-class="{'active':!base.foldersCollapsed}" type="button" class="btn btn-default btn-md custom-button-collapse-folders">
-                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
-            </button>
-        </div>
+            <div class="custom-wrapper-button-collapse-folders">
+                <button ng-click="base.toggleCollapseFolders()" ng-class="{'active':!base.foldersCollapsed}" type="button" class="btn btn-default btn-md custom-button-collapse-folders">
+                    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                </button>
+            </div>
 
-        <div class="custom-wrapper-logo-link">
-            <a ui-sref="dashboard" class="logo-link">CRYPT</a>
+            <div class="custom-wrapper-logo-link">
+                <a ui-sref="dashboard" class="logo-link">CRYPT</a>
+            </div>
         </div>
 
         <div class="bookmarks-form-block">
 
             <form  name="new_bookmark">
-                <div class="input-url">
+                <div class="input-group">
                     <input  ng-model="base.bookmark.url" name="url" class="form-control" id="name" placeholder="URL" required>
-                </div>
-                <button class="btn btn-default submit-button" type="submit" ng-click="
-                    new_bookmark.url.$valid &&
-                            base.store(base.bookmark)">ADD</button>
-                <div class="btn-group import-button" uib-dropdown keyboard-nav>
-                    <button id="simple-btn-keyboard-nav " type="button" class="btn btn-default" uib-dropdown-toggle>
-                        Import from<span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-                        <li  role="menuitem"><a ng-click="base.openImportHtml()" href>HTML file</a></li>
-                    </ul>
+                    <div class="input-group-btn">
+                        <button class="btn btn-default submit-button" type="submit" ng-click="
+                            new_bookmark.url.$valid &&
+                                    base.store(base.bookmark)">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                        <div class="btn-group import-button" uib-dropdown keyboard-nav>
+                            <button id="simple-btn-keyboard-nav " type="button" class="btn btn-default" uib-dropdown-toggle>
+                                Import
+                                <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                            </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                <li  role="menuitem"><a ng-click="base.openImportHtml()" href>HTML file</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
 
         <div class="right-nav">
 
-            <div ng-if="authenticated" class="security-dropdown">
-                <span   uib-dropdown on-toggle="toggled(open)">
-                    <a href id="security-dropdown" uib-dropdown-toggle>
-                        {{ base.currentSecurityClearanceName}}<span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="security-dropdown">
-                        <li><a ng-click="base.changeSecurityClearance(0)" href>Normal</a></li>
-                        <li><a ng-click="base.changeSecurityClearance(1)" href>Confidential</a></li>
-                        <li><a ng-click="base.changeSecurityClearance(2)" href>Secret</a></li>
-                        <li><a ng-click="base.changeSecurityClearance(3)" href>Top Secret</a></li>
-                        <li><a ng-click="base.changeSecurityClearance(4)" href>Crypto</a></li>
-                    </ul>
-                </span>
+            <!-- Split button -->
+            <div class="btn-group security-dropdown" uib-dropdown>
+                <a class="btn btn-default" href id="security-dropdown" uib-dropdown-toggle>
+                    {{ base.currentSecurityClearanceName}}
+                </a>
+                <button type="button" class="btn btn-primary dropdown-toggle" uib-dropdown-toggle>
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="security-dropdown">
+                    <li><a ng-click="base.changeSecurityClearance(0)" href>Normal</a></li>
+                    <li><a ng-click="base.changeSecurityClearance(1)" href>Confidential</a></li>
+                    <li><a ng-click="base.changeSecurityClearance(2)" href>Secret</a></li>
+                    <li><a ng-click="base.changeSecurityClearance(3)" href>Top Secret</a></li>
+                    <li><a ng-click="base.changeSecurityClearance(4)" href>Crypto</a></li>
+                </ul>
             </div>
 
-            <div ng-if="authenticated" class="profile-dropdown">
-                <span   uib-dropdown on-toggle="toggled(open)">
-                    <a href id="simple-dropdown" uib-dropdown-toggle>
-                        {{ currentUser.f_name}}<span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="simple-dropdown">
-                        <li><a ui-sref="settings">Settings</a></li>
-                        <li class="divider"></li>
-                        <li><a ng-click="base.logout()" href>Logout</a></li>
-                    </ul>
-                </span>
+
+
+            <div ng-if="authenticated" class="profile-dropdown btn-group" uib-dropdown>
+                <a class="btn btn-default" href id="simple-dropdown" uib-dropdown-toggle>
+                    {{ currentUser.f_name}}
+                </a>
+                <button type="button" class="btn btn-primary dropdown-toggle" uib-dropdown-toggle>
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                    <li><a ui-sref="settings">Settings</a></li>
+                    <li class="divider"></li>
+                    <li><a ng-click="base.logout()" href>Logout</a></li>
+                </ul>
             </div>
         </div>
 

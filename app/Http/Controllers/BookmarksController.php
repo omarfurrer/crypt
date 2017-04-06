@@ -318,4 +318,36 @@ class BookmarksController extends Controller {
         }
     }
 
+    /**
+     * Check if bookmark exists or not, mainly for the extension.
+     * 
+     * @param string $url
+     */
+    public function getExists(Request $request)
+    {
+        try {
+            
+            $url = urldecode($request->url);
+            
+//            dd($url);
+
+            $bookmark = $this->bookmarksRepository->findWhere([
+                ['user_id', '=', $this->user->id],
+                ['url', '=', $url]
+            ]);
+            
+//            dd($bookmark);
+
+            if (count($bookmark) > 0) {
+                return response()->json(1, 200);
+            }
+
+            return response()->json(0, 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        } catch (QueryException $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
 }
