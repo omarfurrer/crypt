@@ -7955,14 +7955,15 @@ body {
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block {
-  margin: 15px 30px 34px 30px;
+  /*margin: 15px 30px 34px 30px;*/
+  margin: 10px 30px 10px 30px;
   /*background-color: rgb(119, 136, 153);*/
   /*background-color: rgb(68, 86, 123);*/
   background-color: #004e58;
-  padding: 4px 10px;
+  padding: 10px 10px;
   box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
   background-color: #212e39;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .custom-editmode-button-wrapper {
