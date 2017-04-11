@@ -258,7 +258,7 @@ class BookmarksController extends Controller {
                         $url = $link->getAttribute('href');
                         array_push($bookmarks, $url);
                     }
-                    $folder = \App\Folder::where('name', $original_file_name)->first();
+                    $folder = \App\Folder::where('name', $original_file_name)->where('user_id',$user->id)->first();
                     if (!$folder) {
                         $folder = new \App\Folder;
                         $folder->name = $original_file_name;
@@ -277,6 +277,7 @@ class BookmarksController extends Controller {
                             $bookmark->url = $value;
                             $bookmark->user_id = $user->id;
                             $bookmark->folder_id = $folder->id;
+                            $bookmark->security_clearance = $user->security_clearance;
                             $bookmark->save();
                             if ($request->autoRefresh == true) {
                                 $bookmark->refreshMetaData();
