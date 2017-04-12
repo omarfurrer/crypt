@@ -2,7 +2,7 @@
 
     'use strict';
     angular
-            .module('crypt', ['ui.router', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside'])
+            .module('crypt', ['ui.router', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside', 'fsm'])
             .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide) {
 
                 function redirectWhenLoggedOut($q, $injector, $rootScope) {

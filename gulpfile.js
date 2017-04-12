@@ -30,7 +30,8 @@ elixir(function (mix) {
                 '../bower_components/angular-loading-bar/build/loading-bar.min.js',
                 '../bower_components/ng-file-upload/ng-file-upload-all.min.js',
                 '../bower_components/angular-inview/angular-inview.js',
-                '../bower_components/angular-aside/dist/js/angular-aside.js'
+                '../bower_components/angular-aside/dist/js/angular-aside.js',
+                '../bower_components/fsm-sticky-header/src/fsm-sticky-header.js'
             ], 'public/js/app.js')
             .copy('resources/assets/bower_components/font-awesome/fonts/**', 'public/css/fonts')
             .copy('resources/assets/bower_components/bootstrap-sass/assets/fonts/**', 'public/fonts');

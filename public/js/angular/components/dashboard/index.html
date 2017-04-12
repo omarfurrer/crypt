@@ -4,7 +4,7 @@
         <div class="bookmarks-block" >
 
             <div class="bookmarks-list-block">
-                <div class="actions-block" ng-if="DashCtrl.bookmarks.length != 0">
+                <div fsm-sticky-header scroll-body=".bookmarks-list-block" scroll-stop='-10' class="actions-block" ng-if="DashCtrl.bookmarks.length != 0">
                     <div class="custom-editmode-button-wrapper">
                         <button ng-if="!DashCtrl.editMode" class=" btn custom-editmode-button" type="button" ng-click="DashCtrl.editMode = !DashCtrl.editMode">Edit Mode</button>
                         <button  ng-if="DashCtrl.editMode"  type="button" class="btn btn-danger custom-editmode-cancel-button" ng-click="DashCtrl.editMode = !DashCtrl.editMode">
