@@ -17,6 +17,7 @@ elixir(function (mix) {
                 '../bower_components/font-awesome/css/font-awesome.css',
                 '../bower_components/bootstrap-social/bootstrap-social.css',
                 '../bower_components/angular-loading-bar/build/loading-bar.min.css',
+                '../bower_components/angular-aside/dist/css/angular-aside.min.css'
             ], "public/css/pure/")
             .sass('app.scss', 'public/css')
             .scripts([
@@ -28,7 +29,8 @@ elixir(function (mix) {
                 '../bower_components/satellizer/dist/satellizer.js',
                 '../bower_components/angular-loading-bar/build/loading-bar.min.js',
                 '../bower_components/ng-file-upload/ng-file-upload-all.min.js',
-                '../bower_components/angular-inview/angular-inview.js'
+                '../bower_components/angular-inview/angular-inview.js',
+                '../bower_components/angular-aside/dist/js/angular-aside.js'
             ], 'public/js/app.js')
             .copy('resources/assets/bower_components/font-awesome/fonts/**', 'public/css/fonts')
             .copy('resources/assets/bower_components/bootstrap-sass/assets/fonts/**', 'public/fonts');

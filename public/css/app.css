@@ -7861,54 +7861,22 @@ body {
   margin: 40px 0px;
 }
 
-.dashboard {
-  /*height:91vh;*/
-}
-
-.dashboard .inner-block {
-  height: 100%;
-}
-
-.dashboard .inner-block .folders-block {
-  z-index: 1;
-  position: absolute;
-  top: 60px;
-  /*overflow-y: scroll;*/
-  /*background-color: rgb(246, 246, 246);*/
+.folders-aside .modal-content {
   background-color: #212e39;
+  /*box-shadow: 0px 0px 14px 0px rgba(255, 255, 255, 0.46);*/
+}
+
+.folders-aside .modal-content .left-nav-block {
+  margin-top: 50px;
   color: white;
-  box-shadow: 0px 0px 14px 0px rgba(255, 255, 255, 0.46);
-  min-height: 500px;
-  padding: 0px 10px;
-  width: 20%;
-  display: inline-block;
-  vertical-align: top;
-  /*border-right: 1px solid rgb(192, 192, 192);*/
   text-align: center;
 }
 
-.dashboard .inner-block .folders-block.custom-hidden {
-  display: none;
-}
-
-.dashboard .inner-block .folders-block h3 {
+.folders-aside .modal-content .left-nav-block h3 {
   text-align: center;
 }
 
-.dashboard .inner-block .folders-block .add-folder {
-  margin: 20px 0px;
-}
-
-.dashboard .inner-block .folders-block .folders-list {
-  list-style-type: none;
-  padding: 0px;
-}
-
-.dashboard .inner-block .folders-block .folders-list .folder-block {
-  position: relative;
-}
-
-.dashboard .inner-block .folders-block .folders-list .folder {
+.folders-aside .modal-content .left-nav-block .item {
   margin: 10px 20px;
   padding: 15px;
   border: 1px solid #cccccc;
@@ -7917,24 +7885,49 @@ body {
   cursor: pointer;
 }
 
-.dashboard .inner-block .folders-block .folders-list .custom-active {
+.folders-aside .modal-content .left-nav-block .folders-block {
+  margin-top: 50px;
+}
+
+.folders-aside .modal-content .left-nav-block .folders-block .add-folder {
+  margin: 5px 0px;
+}
+
+.folders-aside .modal-content .left-nav-block .folders-block .folders-list {
+  list-style-type: none;
+  padding: 0px 10px;
+}
+
+.folders-aside .modal-content .left-nav-block .folders-block .folders-list .utility-block {
+  position: relative;
+}
+
+.folders-aside .modal-content .left-nav-block .folders-block .folders-list .custom-active {
   border-color: #66afe9;
   outline: 0;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
-.dashboard .inner-block .folders-block .folders-list .custom-edit-folder {
+.folders-aside .modal-content .left-nav-block .folders-block .folders-list .custom-edit-folder {
   position: absolute;
   top: 5px;
   right: 0px;
   cursor: pointer;
 }
 
-.dashboard .inner-block .folders-block .folders-list .custom-delete-folder {
+.folders-aside .modal-content .left-nav-block .folders-block .folders-list .custom-delete-folder {
   position: absolute;
   top: 30px;
   right: 0px;
   cursor: pointer;
+}
+
+.dashboard {
+  /*height:91vh;*/
+}
+
+.dashboard .inner-block {
+  height: 100%;
 }
 
 .dashboard .inner-block .bookmarks-block {

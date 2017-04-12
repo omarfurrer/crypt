@@ -1,25 +1,7 @@
 <div class="dashboard">
     <div class="inner-block">
-        <div class="folders-block" ng-class="{'custom-hidden':DashCtrl.foldersCollapsed}">
-            <h3>FOLDERS</h3>
-            <button type="button" class="btn btn-danger add-folder" ng-click="DashCtrl.storeFolder()">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            </button>
 
-            <div class="folders-list">
-                <div class="folder" ng-class="{'custom-active' : DashCtrl.currentFolder == null}" ng-click="DashCtrl.index(1, {id: folder.id}, DashCtrl.orderBy, DashCtrl.orderByAttribute)">All</div>
-                <div ng-repeat="folder in DashCtrl.folders" class="folder-block">
-                    <div class="folder"
-                         ng-class="{'custom-active' : DashCtrl.currentFolder.id == folder.id}"
-                         ng-click="DashCtrl.index(1, {id: folder.id}, DashCtrl.orderBy, DashCtrl.orderByAttribute)">{{ folder.name}}
-                    </div>
-                    <span class="glyphicon glyphicon-cog custom-edit-folder" ng-click="DashCtrl.editFolder(folder)"></span>
-                    <span class="glyphicon glyphicon-trash custom-delete-folder" ng-really-message="Are you sure you want to delete this folder , all the bookmarks inside will be deleted as well ?" ng-really-click="DashCtrl.deleteFolder(folder)"></span>
-                </div>
-            </div>
-
-        </div>
-        <div class="bookmarks-block" ng-class="{'custom-folders-hidden':DashCtrl.foldersCollapsed}">
+        <div class="bookmarks-block" >
 
             <div class="bookmarks-list-block">
                 <div class="actions-block" ng-if="DashCtrl.bookmarks.length != 0">

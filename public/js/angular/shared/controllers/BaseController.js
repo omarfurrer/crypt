@@ -75,6 +75,8 @@
 
         vm.toggleCollapseFolders = function () {
             DashboardService.foldersCollapsed = !DashboardService.foldersCollapsed;
+
+
         };
 
         vm.changeSecurityClearance = function (level) {

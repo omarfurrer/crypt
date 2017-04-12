@@ -163,77 +163,70 @@ body{
         }
     }
 }
+.folders-aside{
+    .modal-content{
+
+        background-color: rgb(33, 46, 57);
+        /*box-shadow: 0px 0px 14px 0px rgba(255, 255, 255, 0.46);*/
+        .left-nav-block{
+            margin-top: 50px;
+            color: white;
+            text-align:center;
+            h3{
+                text-align: center;
+            }
+            .item{
+                margin: 10px 20px;
+                padding: 15px;
+                border: 1px solid rgb(204, 204, 204);
+                border-radius: 4px;
+                text-align: center;
+                cursor: pointer;
+
+            }
+            .folders-block{
+                margin-top:50px;
+                .add-folder{
+                    margin: 5px 0px;
+                }
+                .folders-list{
+                    list-style-type:none;
+                    padding:0px 10px;
+                    .utility-block{
+                        position: relative;
+                    }
+                    .custom-active{
+                        border-color: rgb(102, 175, 233);
+                        outline: 0;
+                        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+                    }
+
+                    .custom-edit-folder{
+                        position: absolute;
+                        top: 5px;
+                        right: 0px;
+                        cursor: pointer;
+                    }
+
+                    .custom-delete-folder{
+                        position: absolute;
+                        top: 30px;
+                        right: 0px;
+                        cursor: pointer;
+                    }
+
+                }
+            }
+        }
+    }
+}
+
 .dashboard{
     /*height:91vh;*/
     .inner-block{
         height:100%;
 
-        .folders-block{
-            &.custom-hidden{
-                display: none;
-            }
-            z-index: 1;
-            position: absolute;
-            top: 60px;
-            /*overflow-y: scroll;*/
-            /*background-color: rgb(246, 246, 246);*/
-            background-color: rgb(33, 46, 57);
-            color: white;
-            box-shadow: 0px 0px 14px 0px rgba(255, 255, 255, 0.46);
-            min-height:500px;
-            padding: 0px 10px;
-            width: 20%;
-            display: inline-block;
-            vertical-align: top;
-            /*border-right: 1px solid rgb(192, 192, 192);*/
-            text-align:center;
-            h3{
-                text-align: center;
 
-            }
-            .add-folder{
-                margin: 20px 0px;
-            }
-            .folders-list{
-                list-style-type:none;
-                padding:0px;
-                .folder-block{
-
-                    position: relative;
-                }
-
-                .folder{
-
-                    margin: 10px 20px;
-                    padding: 15px;
-                    border: 1px solid rgb(204, 204, 204);
-                    border-radius: 4px;
-                    text-align: center;
-                    cursor: pointer;
-                }
-
-                .custom-active{
-                    border-color: rgb(102, 175, 233);
-                    outline: 0;
-                    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-                }
-
-                .custom-edit-folder{
-                    position: absolute;
-                    top: 5px;
-                    right: 0px;
-                    cursor: pointer;
-                }
-
-                .custom-delete-folder{
-                    position: absolute;
-                    top: 30px;
-                    right: 0px;
-                    cursor: pointer;
-                }
-
-            }
-        }
         .bookmarks-block{
             /*            &.custom-folders-hidden{
                             width: 100%;
