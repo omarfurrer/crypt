@@ -7898,7 +7898,8 @@ body {
 }
 
 .folders-aside .modal-content {
-  background-color: #212e39;
+  /*background-color: rgb(33, 46, 57);*/
+  background-color: #102f4a;
   /*box-shadow: 0px 0px 14px 0px rgba(255, 255, 255, 0.46);*/
 }
 
@@ -7947,16 +7948,18 @@ body {
 
 .folders-aside .modal-content .left-nav-block .folders-block .folders-list .custom-edit-folder {
   position: absolute;
-  top: 5px;
-  right: 0px;
+  top: 8px;
+  right: 27px;
   cursor: pointer;
+  font-size: 12px;
 }
 
 .folders-aside .modal-content .left-nav-block .folders-block .folders-list .custom-delete-folder {
   position: absolute;
   top: 30px;
-  right: 0px;
+  right: 27px;
   cursor: pointer;
+  font-size: 12px;
 }
 
 .dashboard {
