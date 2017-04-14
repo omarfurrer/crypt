@@ -7689,7 +7689,8 @@ button.close {
 
 body {
   /*background-color: rgb(174, 174, 174);*/
-  background-color: black;
+  /*background-color: rgb(0, 0, 0);*/
+  background-color: #1f271b;
 }
 
 .custom-navbar {
@@ -7716,6 +7717,28 @@ body {
 .custom-navbar .inner-block .custom-left-menu .custom-wrapper-button-collapse-folders {
   display: inline-block;
   vertical-align: middle;
+  position: fixed;
+  top: 152px;
+  left: -7px;
+}
+
+.custom-navbar .inner-block .custom-left-menu .custom-wrapper-button-collapse-folders .custom-button-collapse-folders {
+  background-color: #1d4262;
+  box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.6);
+  border: 0;
+  border-radius: 0px 4px 4px 0px;
+  height: 60px;
+  color: white;
+  width: 40px;
+}
+
+.custom-navbar .inner-block .custom-left-menu .custom-wrapper-button-collapse-folders .custom-button-collapse-folders:focus {
+  border: 0px;
+  outline: none;
+}
+
+.custom-navbar .inner-block .custom-left-menu .custom-wrapper-button-collapse-folders .custom-button-collapse-folders .glyphicon {
+  font-size: 19px;
 }
 
 .custom-navbar .inner-block .custom-left-menu .custom-wrapper-logo-link {
@@ -7730,11 +7753,20 @@ body {
   text-decoration: none;
 }
 
+.custom-navbar .inner-block .custom-left-menu .custom-wrapper-logo-link .logo-link p {
+  display: inline-block;
+  font-size: 15px;
+}
+
+.custom-navbar .inner-block .custom-left-menu .custom-wrapper-logo-link .logo-link .logo-image {
+  width: 21%;
+}
+
 .custom-navbar .inner-block .bookmarks-form-block {
   width: 60%;
-  padding: 10px;
+  padding: 11px 10px 7px 10px;
   text-align: center;
-  margin-left: 135px;
+  margin-left: 60px;
   /*border-bottom: 1px solid rgb(192, 192, 192);*/
   display: inline-block;
 }
@@ -7784,6 +7816,7 @@ body {
 
 .custom-navbar .inner-block .right-nav .profile-dropdown {
   display: inline-block;
+  text-transform: capitalize;
 }
 
 .custom-navbar .inner-block .right-nav .profile-dropdown img {
@@ -7795,6 +7828,7 @@ body {
 }
 
 .custom-navbar .inner-block .right-nav .profile-dropdown .dropdown a {
+  /*text-transform: capitalize;*/
   text-decoration: none;
   text-transform: capitalize;
   color: black;
@@ -7808,6 +7842,7 @@ body {
 .custom-navbar .inner-block .right-nav .security-dropdown {
   display: inline-block;
   /*margin-right: 30px;*/
+  text-transform: capitalize;
   margin-right: 10px;
 }
 
@@ -7816,6 +7851,7 @@ body {
 }
 
 .custom-navbar .inner-block .right-nav .security-dropdown .dropdown a {
+  /*text-transform: capitalize;*/
   text-decoration: none;
   text-transform: capitalize;
   color: black;
@@ -7891,6 +7927,7 @@ body {
 
 .folders-aside .modal-content .left-nav-block .folders-block .add-folder {
   margin: 5px 0px;
+  border-radius: 0;
 }
 
 .folders-aside .modal-content .left-nav-block .folders-block .folders-list {
@@ -7950,12 +7987,14 @@ body {
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block {
   /*margin: 15px 30px 34px 30px;*/
   margin: 10px 30px 10px 30px;
+  background-color: white;
+  /*background-color: rgb(255, 255, 255);*/
   /*background-color: rgb(119, 136, 153);*/
   /*background-color: rgb(68, 86, 123);*/
-  background-color: #004e58;
+  /*background-color: rgb(0, 78, 88);*/
+  /*background-color: rgb(33, 46, 57);*/
   padding: 10px 10px;
   box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
-  background-color: #212e39;
   border-radius: 5px;
 }
 
@@ -8040,7 +8079,7 @@ body {
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .custom-block-information p {
-  color: white;
+  color: black;
   font-size: 20px;
   margin: 0px;
 }
@@ -8117,7 +8156,8 @@ body {
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul .selected {
-  background-color: #eeeeee;
+  /*background-color: rgb(238, 238, 238);*/
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks {
@@ -8194,7 +8234,8 @@ body {
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .selected {
-  background-color: #eeeeee;
+  /*background-color: rgb(238, 238, 238);*/
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .load-more-container {

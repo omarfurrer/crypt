@@ -5,12 +5,16 @@
 
             <div class="custom-wrapper-button-collapse-folders">
                 <button ng-click="base.toggleCollapseFolders()" ng-class="{'active':!base.foldersCollapsed}" type="button" class="btn btn-default btn-md custom-button-collapse-folders">
-                    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                 </button>
             </div>
 
             <div class="custom-wrapper-logo-link">
-                <a ui-sref="dashboard" class="logo-link">CRYPT</a>
+                <!--<a ui-sref="dashboard" class="logo-link">CRYPT</a>-->
+                <a ui-sref="dashboard" class="logo-link">
+                    <img class="logo-image" src="assets/images/logo.png">
+                    <p>CRYPT</p>
+                </a>
             </div>
         </div>
 

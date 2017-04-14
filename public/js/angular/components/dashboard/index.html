@@ -6,7 +6,7 @@
             <div class="bookmarks-list-block">
                 <div fsm-sticky-header scroll-body=".bookmarks-list-block" scroll-stop='-10' class="actions-block" ng-if="DashCtrl.bookmarks.length != 0">
                     <div class="custom-editmode-button-wrapper">
-                        <button ng-if="!DashCtrl.editMode" class=" btn custom-editmode-button" type="button" ng-click="DashCtrl.editMode = !DashCtrl.editMode">Edit Mode</button>
+                        <button ng-if="!DashCtrl.editMode" class=" btn btn-default custom-editmode-button" type="button" ng-click="DashCtrl.editMode = !DashCtrl.editMode">Edit Mode</button>
                         <button  ng-if="DashCtrl.editMode"  type="button" class="btn btn-danger custom-editmode-cancel-button" ng-click="DashCtrl.editMode = !DashCtrl.editMode">
                             <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
@@ -58,7 +58,7 @@
                             </div>
                         </form>
                     </div>
-                    <button type="button" class="btn button-switch-list" ng-click="DashCtrl.listBlocks = !DashCtrl.listBlocks">
+                    <button type="button" class="btn btn-default button-switch-list" ng-click="DashCtrl.listBlocks = !DashCtrl.listBlocks">
                         <span ng-if="DashCtrl.listBlocks" class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                         <span ng-if="!DashCtrl.listBlocks" class="glyphicon glyphicon-th" aria-hidden="true"></span>
                     </button>
