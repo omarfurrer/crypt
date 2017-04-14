@@ -8125,8 +8125,9 @@ body {
   /*overflow-y: scroll;*/
   /*                    margin: auto;
                                         width: 93%;*/
+  text-align: center;
   margin: auto;
-  width: 86%;
+  width: 90%;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark {
