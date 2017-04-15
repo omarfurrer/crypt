@@ -9,11 +9,9 @@
             <div class="form-group">
                 <label for="security_clearance">Security Clearance</label>
                 <select id="security_clearance" name="security_clearance" ng-model="folder.security_clearance" class="form-control">
-                    <option ng-selected="folder.security_clearance == 0" value="0">Normal</option>
-                    <option ng-selected="folder.security_clearance == 1" value="1">Confidential</option>
-                    <option ng-selected="folder.security_clearance == 2" value="2">Secret</option>
-                    <option ng-selected="folder.security_clearance == 3" value="3">Top Secret</option>
-                    <option ng-selected="folder.security_clearance == 4" value="4">Crypto</option>
+                    <option ng-selected="folder.security_clearance == 0" value="0">Public</option>
+                    <option ng-selected="folder.security_clearance == 1" value="1">Private</option>
+                    <option ng-selected="folder.security_clearance == 2" value="2">Crypto</option>
                 </select>
             </div>
 

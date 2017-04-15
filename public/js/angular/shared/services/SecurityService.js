@@ -3,7 +3,7 @@
     angular.module('crypt').factory('SecurityService', ['BaseService', '$http', '$rootScope', '$auth', '$window', '$state', function (BaseService, $http, $rootScope, $auth, $window, $state) {
 
             var service = {};
-            service.securityClearances = ['normal', 'confidential', 'secret', 'top secret', 'crypto'];
+            service.securityClearances = ['public', 'private', 'crypto'];
 
 
             service.changeSecurityClearance = function (level) {
