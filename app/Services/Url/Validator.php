@@ -88,11 +88,11 @@ class Validator {
 
         $code = @curl_getinfo($ch, CURLINFO_HTTP_CODE); // note: php.net documentation shows this returns a string, but really it returns an int
         @curl_close($ch);
-        if ($type === 'text/html') {
+//        if ($type === 'text/html') {
             return $code;
-        } else {
-            return $type;
-        }
+//        } else {
+//            return $type;
+//        }
     }
 
 }
