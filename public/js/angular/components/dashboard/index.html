@@ -77,15 +77,16 @@
                         </a>
                         <div class="info-box">
                             <img class="bookmark-icon" src="https://www.google.com/s2/favicons?domain={{ bookmark.url}}">
-                            <a class="title" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}">{{ bookmark.title}}</a>
+                            <a ng-if="bookmark.custom_title == null" class="title" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}">{{ bookmark.title}}</a>
+                            <a ng-if="bookmark.custom_title != null" class="title" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}">{{ bookmark.custom_title}}</a>
                             <p class="description">{{ bookmark.description}}</p>
                             <p class="url">{{ bookmark.url}}</p>
                         </div>
                         <!--                        <button type="button" class="btn btn-danger delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
                                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                 </button>-->
-                        <a class="btn btn-primary download-button" target="_blank" href="http://keepvid.com/?url={{bookmark.url}}">
-                            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                        <a class="btn btn-primary download-button" ng-click="DashCtrl.editBookmark(bookmark.id)">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </a>
                         <div class="clearfix"></div>
                     </li>
@@ -99,8 +100,8 @@
                             <!--                            <button type="button" class="btn btn-danger btn-sm delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
                                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                         </button>-->
-                            <a class="btn btn-primary btn-sm download-button" target="_blank" href="http://keepvid.com/?url={{bookmark.url}}">
-                                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                            <a class="btn btn-primary btn-sm download-button" ng-click="DashCtrl.editBookmark(bookmark.id)">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </a>
                             <div class="clearfix"></div>
                         </div>
@@ -110,7 +111,9 @@
                             </a>
                         </div>
                         <div class="lower-block">
-                            <a class="title-link" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}"><p class="title">{{ bookmark.title}}</p></a>
+                            <a ng-if="bookmark.custom_title == null" class="title-link" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}"><p class="title">{{ bookmark.title}}</p></a>
+                            <a ng-if="bookmark.custom_title != null" class="title-link" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}"><p class="title">{{ bookmark.custom_title}}</p></a>
+
                         </div>
                     </div>
                 </div>
