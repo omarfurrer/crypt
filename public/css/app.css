@@ -8232,6 +8232,18 @@ body {
   color: black;
 }
 
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark .middle-block .glyphicon {
+  position: absolute;
+  top: 23%;
+  border-radius: 50%;
+  right: 30%;
+  padding: 10px;
+  color: white;
+  font-size: 100px;
+  background-color: rgba(31, 39, 27, 0.7);
+  z-index: 100;
+}
+
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark .middle-block .bookmark-image {
   width: 100%;
   height: 231px;

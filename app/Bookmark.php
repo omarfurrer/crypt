@@ -12,13 +12,14 @@ class Bookmark extends Model {
      * @var string
      */
     protected $table = 'bookmarks';
+    protected $appends = array('meta');
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['url','custom_title', 'title', 'description', 'image', 'security_clearance', 'folder_id', 'user_id', 'visit_count'];
+    protected $fillable = ['url', 'custom_title', 'title', 'description', 'image', 'security_clearance', 'folder_id', 'user_id', 'visit_count'];
 
     /**
      * A product can belong to many users
@@ -38,6 +39,32 @@ class Bookmark extends Model {
     public function metas()
     {
         return $this->hasMany('App\Meta');
+    }
+
+    public function getMetaAttribute()
+    {
+        $metas = ['player' => null, 'player_type' => null];
+
+        $playerTag = $this->metas()->where('attribute', 'LIKE', '%player')->first();
+
+        if ($playerTag) {
+
+            $metas['player'] = $playerTag->value;
+            return $metas;
+        }
+
+        $ogVideoTag = $this->metas()->where('attribute', '=', 'og:video')->first();
+
+        if ($ogVideoTag) {
+            $metas['player'] = $ogVideoTag->value;
+            $ogVideoType = $this->metas()->where('attribute', '=',
+                                                 'og:video:type')->first();
+            if ($ogVideoType) {
+                $metas['player_type'] = $ogVideoType->value;
+            }
+        }
+
+        return $metas;
     }
 
     /**

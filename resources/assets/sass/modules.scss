@@ -502,6 +502,17 @@ body{
                             }
                         }
                         .middle-block{
+                            .glyphicon{
+                                position: absolute;
+                                top: 23%;
+                                border-radius: 50%;
+                                right: 30%;
+                                padding: 10px;
+                                color: rgb(255, 255, 255);
+                                font-size: 100px;
+                                background-color: rgba(31, 39, 27, 0.7);
+                                z-index: 100;
+                            }
                             .bookmark-image{
                                 width: 100%;
                                 height: 231px;
@@ -587,12 +598,24 @@ body{
             }
         }
     }
+}
+
+.delete-folder-box-modal{
+    z-index:10060 !important;
+}
+.player-box-modal{
+    .modal-dialog{
+        .modal-content{
+            .player-box{
+                > .inner-block{
+
+                }
+            }
+        }
     }
-    .delete-folder-box-modal{
-        z-index:10060 !important;
-    }
-    .edit-folder-box-modal{
-        z-index:10060 !important;
+}
+.edit-folder-box-modal{
+    z-index:10060 !important;
 
     .modal-dialog{
         margin-top: 11%;

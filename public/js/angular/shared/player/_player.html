@@ -1,0 +1,16 @@
+<div class="player-box" >
+    <div class="inner-block">
+        <iframe ng-if="PlayerCtrl.bookmark.meta.player_type == null" class="bookmark-image"
+                ng-src="{{PlayerCtrl.bookmark.meta.player| trusted}}">
+        </iframe>
+        <object AllowScriptAccess="always" class="bookmark-image" type="application/x-shockwave-flash"
+                ng-if="PlayerCtrl.bookmark.meta.player_type == 'application/x-shockwave-flash'"
+                data="{{PlayerCtrl.bookmark.meta.player| trusted}}">
+            <param name="movie" value="{{PlayerCtrl.bookmark.meta.player| trusted}}" />
+            <param name="quality" value="high" />
+            <!-- Sandwich the embed tag inside the object tag -->
+            <embed AllowScriptAccess="always" src="{{PlayerCtrl.bookmark.meta.player| trusted}}" quality="high" />
+        </object>
+    </div>
+</div>
+

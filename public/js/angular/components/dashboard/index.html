@@ -108,7 +108,9 @@
                         <div class="middle-block">
                             <a class="" target="_blank" ng-click="DashCtrl.bookmarkOpened(bookmark)" href="{{bookmark.url}}">
                                 <img  class="bookmark-image" src="{{ bookmark.image != null ? bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
+                                <span ng-if="bookmark.meta.player != null" ng-click="DashCtrl.openPlayer(bookmark)" class="glyphicon glyphicon-play-circle"></span>
                             </a>
+
                         </div>
                         <div class="lower-block">
                             <a ng-if="bookmark.custom_title == null" class="title-link" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}"><p class="title">{{ bookmark.title}}</p></a>

@@ -191,6 +191,31 @@
             }
         };
 
+        vm.openPlayer = function (bookmark) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'js/angular/shared/player/_player.html',
+                async: true,
+                controllerAs: 'PlayerCtrl',
+                backdrop: true,
+                windowClass: 'player-box-modal',
+                size: 'lg',
+                resolve: {
+                    bookmark: function () {
+                        return angular.copy(bookmark);
+                    }
+                },
+                controller: function ($uibModalInstance, bookmark) {
+                    var vm = this;
+                    vm.bookmark = bookmark;
+
+                    vm.closeBox = function () {
+                        $uibModalInstance.dismiss();
+                    };
+                }
+            });
+        }
+
         $scope.$watch(function () {
             return BookmarksService.bookmarks;
         },
