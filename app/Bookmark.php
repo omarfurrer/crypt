@@ -18,7 +18,7 @@ class Bookmark extends Model {
      *
      * @var array
      */
-    protected $fillable = ['url', 'title', 'description', 'image', 'security_clearance', 'folder_id', 'user_id', 'visit_count'];
+    protected $fillable = ['url','custom_title', 'title', 'description', 'image', 'security_clearance', 'folder_id', 'user_id', 'visit_count'];
 
     /**
      * A product can belong to many users
@@ -50,7 +50,6 @@ class Bookmark extends Model {
     {
         $crawler = new Services\Meta\Crawler($this->url);
         $data = $crawler->crawl();
-//        dd($data);
 
         foreach ($data as $key => $value) {
             $this->metas()->updateOrCreate(['attribute' => $key],
