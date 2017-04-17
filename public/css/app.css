@@ -7908,6 +7908,10 @@ body {
   border-radius: 10px;
 }
 
+.folders-aside {
+  z-index: 10050 !important;
+}
+
 .folders-aside .modal-content {
   /*background-color: rgb(33, 46, 57);*/
   /*background-color: rgb(16, 47, 74);*/
