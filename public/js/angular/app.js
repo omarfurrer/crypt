@@ -132,6 +132,11 @@
                     };
                 }
             ])
+            .filter('trusted', ['$sce', function ($sce) {
+                    return function (url) {
+                        return $sce.trustAsResourceUrl(url);
+                    };
+                }])
 
             .run(function ($rootScope, $state, $window, $location, $timeout) {
 
