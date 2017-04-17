@@ -1,0 +1,19 @@
+<div class="edit-bookmark-wrapper" >
+    <div class="inner-block">
+        <div class="image-wrapper">
+            <img class="image" src="{{ EditBookmarkCtrl.bookmark.image != null ? EditBookmarkCtrl.bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
+        </div>
+        <form>
+            <div class="form-group">
+                <label>Title</label>
+                <!--<input type="text" ng-model="EditBookmarkCtrl.bookmark.title" class="form-control title" id="title" autofocus>-->
+                <textarea ng-if="EditBookmarkCtrl.bookmark.custom_title == null" name="title" ng-model="EditBookmarkCtrl.bookmark.title" class="form-control title" id="title" cols="40" rows="5" autofocus></textarea>
+                <textarea ng-if="EditBookmarkCtrl.bookmark.custom_title != null" name="custom_title" ng-model="EditBookmarkCtrl.bookmark.custom_title" class="form-control title" id="custom-title" cols="40" rows="5" autofocus></textarea>
+            </div>
+
+            <button class="btn btn-primary btn-block" type="submit" ng-click="EditBookmarkCtrl.update(EditBookmarkCtrl.bookmark)">Save</button>
+            <a class="btn btn-danger  btn-block" ng-click="EditBookmarkCtrl.closeBox()">Cancel</a>
+        </form>
+    </div>
+</div>
+

@@ -123,6 +123,37 @@ class BookmarksController extends Controller {
      * @param  int  $id
      * @return Response2
      */
+    public function update(Request $request, Bookmark $bookmark)
+    {
+        try {
+//            dd($request->custom_title);
+
+            $data = [
+                'custom_title' => $request->custom_title == "" ? null : $request->custom_title
+            ];
+
+            if ($request->title != $bookmark->title && $bookmark->custom_title == null) {
+                $data['custom_title'] = $request->title;
+            }
+
+            $bookmark = $this->bookmarksRepository->update($data, $bookmark->id);
+
+            $bookmark = $bookmark->toArray();
+
+            return response()->json(compact('bookmark'), 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        } catch (QueryException $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response2
+     */
     public function postRefresh(Request $request)
     {
         try {
@@ -258,7 +289,8 @@ class BookmarksController extends Controller {
                         $url = $link->getAttribute('href');
                         array_push($bookmarks, $url);
                     }
-                    $folder = \App\Folder::where('name', $original_file_name)->where('user_id',$user->id)->first();
+                    $folder = \App\Folder::where('name', $original_file_name)->where('user_id',
+                                                                                     $user->id)->first();
                     if (!$folder) {
                         $folder = new \App\Folder;
                         $folder->name = $original_file_name;
@@ -327,16 +359,16 @@ class BookmarksController extends Controller {
     public function getExists(Request $request)
     {
         try {
-            
+
             $url = urldecode($request->url);
-            
+
 //            dd($url);
 
             $bookmark = $this->bookmarksRepository->findWhere([
                 ['user_id', '=', $this->user->id],
                 ['url', '=', $url]
             ]);
-            
+
 //            dd($bookmark);
 
             if (count($bookmark) > 0) {

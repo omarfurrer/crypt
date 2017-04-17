@@ -66,6 +66,25 @@
                         });
             };
 
+            service.update = function (bookmark) {
+                BaseService.load();
+                return $http.patch(url + '/' + bookmark.id, bookmark)
+                        .success(function (data) {
+                            var id = bookmark.id;
+                            id = findInArray(service.bookmarks, id);
+                            if (id == null) {
+                                return false;
+                            }
+                            service.bookmarks[id] = data.bookmark;
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
 //            service.delete = function (bookmark) {
 //                BaseService.load();
 //                return $http.delete(url + '/' + bookmark.id)
@@ -113,6 +132,7 @@
                             BaseService.unload();
                         });
             };
+
 
             service.refresh = function (bookmarks) {
                 BaseService.load();
@@ -188,6 +208,15 @@
                         .finally(function () {
                             BaseService.unload();
                         });
+            };
+
+            service.get = function (id) {
+                var id = id;
+                id = findInArray(service.bookmarks, id);
+                if (id == null) {
+                    return false;
+                }
+                return service.bookmarks[id];
             };
 
             function findInArray(arraytosearch, valuetosearch) {

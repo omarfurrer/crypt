@@ -157,6 +157,40 @@
                     }
                 }, true);
 
+        vm.editBookmark = function (id) {
+            var bookmark = BookmarksService.get(id);
+            console.log(bookmark.custom_title);
+            if (bookmark != false) {
+                var asideInstance = $aside.open({
+                    templateUrl: 'js/angular/shared/bookmarks/_edit.html',
+                    controllerAs: 'EditBookmarkCtrl',
+                    windowClass: 'edit-bookmark-aside',
+                    placement: 'right',
+                    size: 'sm',
+                    resolve: {
+                        bookmark: function () {
+                            return angular.copy(bookmark);
+                        }
+                    },
+                    controller: function ($uibModalInstance, bookmark) {
+                        var vm = this;
+                        vm.bookmark = bookmark;
+                        console.log(bookmark.custom_title);
+
+                        vm.update = function (bookmark) {
+                            BookmarksService.update(bookmark).then(function (data) {
+                                $uibModalInstance.dismiss();
+                            });
+                        };
+                        vm.closeBox = function () {
+                            $uibModalInstance.dismiss();
+                        };
+                    }
+
+                });
+            }
+        };
+
         $scope.$watch(function () {
             return BookmarksService.bookmarks;
         },
