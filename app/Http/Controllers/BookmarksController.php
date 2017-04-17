@@ -103,6 +103,7 @@ class BookmarksController extends Controller {
             $data = [
                 'user_id' => $request->has('user_id') ? $request->get('user_id') : $this->user->id,
                 'security_clearance' => $request->has('security_clearance') ? $request->get('security_clearance') : $this->user->security_clearance,
+                'custom_title' => $request->has('custom_title') ? $request->get('custom_title') : null
             ];
 
             $bookmark = $this->bookmarksRepository->create(array_merge($data,
