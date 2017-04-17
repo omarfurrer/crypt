@@ -117,6 +117,7 @@
                                 modalHtml += '<div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">OK</button><button class="btn btn-warning" ng-click="cancel()">Cancel</button></div>';
                                 var modalInstance = $uibModal.open({
                                     template: modalHtml,
+                                    windowClass: 'delete-folder-box-modal',
                                     controller: ModalInstanceCtrl
                                 });
                                 modalInstance.result.then(function () {

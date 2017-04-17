@@ -8301,6 +8301,14 @@ body {
   padding: 20px;
 }
 
+.delete-folder-box-modal {
+  z-index: 10060 !important;
+}
+
+.edit-folder-box-modal {
+  z-index: 10060 !important;
+}
+
 .edit-folder-box-modal .modal-dialog {
   margin-top: 11%;
 }

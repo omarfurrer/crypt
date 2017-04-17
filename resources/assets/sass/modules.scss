@@ -586,8 +586,13 @@ body{
             }
         }
     }
-}
-.edit-folder-box-modal{
+    }
+    .delete-folder-box-modal{
+        z-index:10060 !important;
+    }
+    .edit-folder-box-modal{
+        z-index:10060 !important;
+
     .modal-dialog{
         margin-top: 11%;
         .modal-content{
