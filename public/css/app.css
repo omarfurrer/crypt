@@ -7864,6 +7864,7 @@ body {
 
 .home {
   overflow: hidden;
+  background-color: black;
 }
 
 .home > .inner-block {
