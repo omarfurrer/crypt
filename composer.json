@@ -16,7 +16,8 @@
         "weidner/goutte": "@dev",
         "barryvdh/laravel-cors": "^0.8.2",
         "prettus/l5-repository": "^2.6",
-        "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "^2.5",
+        "pda/pheanstalk": "^3.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
