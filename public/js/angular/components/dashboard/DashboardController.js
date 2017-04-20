@@ -12,6 +12,7 @@
         vm.folders = [];
         vm.currentFolder = undefined;
         vm.selected = [];
+        vm.searchResults = [];
         vm.listBlocks = false;
         vm.isLoadingMore = false;
         vm.foldersCollapsed = angular.copy(DashboardService.foldersCollapsed);
@@ -19,11 +20,27 @@
         vm.orderBy = undefined;
         vm.orderByAttribute = undefined;
 
+        vm.search = function (q) {
+            if (q.length > 1) {
+                BookmarksService.search(q);
+            } else {
+                BookmarksService.searchResults = [];
+            }
+        }
+
         $scope.$watch(function () {
             return BookmarksService.pagination;
         },
                 function (newValue, oldValue) {
                     vm.pagination = angular.copy(BookmarksService.pagination);
+                }, true);
+
+        $scope.$watch(function () {
+            return BookmarksService.searchResults;
+        },
+                function (newValue, oldValue) {
+                    vm.searchResults = angular.copy(BookmarksService.searchResults);
+                    console.log(vm.searchResults);
                 }, true);
 
         $scope.$watch(function () {

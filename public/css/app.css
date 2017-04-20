@@ -8082,6 +8082,25 @@ body {
   margin-left: 10px;
 }
 
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .filters-block .search-results {
+  position: absolute;
+  z-index: 10;
+  /*background-color: rgb(255, 255, 255);*/
+  width: 39.4%;
+  /*width: 36.8%;*/
+  border: 1px solid silver;
+  border-radius: 0px 0px 10px 10px;
+  max-height: 10px;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .filters-block .search-results ul {
+  /*padding-left:10px;*/
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .filters-block .search-results ul li {
+  list-style: none;
+}
+
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .button-switch-list {
   float: right;
   margin-left: 10px;

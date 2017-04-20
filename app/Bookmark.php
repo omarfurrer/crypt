@@ -3,8 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Elasticquent\ElasticquentTrait;
 
 class Bookmark extends Model {
+
+    use ElasticquentTrait;
 
     /**
      * The database table used by the model.

@@ -52,9 +52,14 @@
                     <div class="filters-block">
                         <form class="filter-form">
                             <div >
-                                <input type="text" ng-model="DashCtrl.search.text" id="search_text" placeholder="SEARCH" name="search_text" class="form-control" >
+                                <input type="text" ng-model="DashCtrl.search.text" ng-change="DashCtrl.search(DashCtrl.search.text)" id="search_text" placeholder="SEARCH" name="search_text" class="form-control" >
                             </div>
                         </form>
+                        <span class="search-results" ng-if="DashCtrl.searchResults.length != 0">
+                            <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="bookmark in DashCtrl.searchResults">{{ bookmark.title}}</li>
+                            </ul>
+                        </span>
                     </div>
                     <button type="button" class="btn btn-default button-switch-list" ng-click="DashCtrl.listBlocks = !DashCtrl.listBlocks">
                         <span ng-if="DashCtrl.listBlocks" class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
@@ -70,7 +75,7 @@
                     <li ng-click="DashCtrl.selectBookmark($event, bookmark)"
                         class="bookmark"
                         ng-class="{'selected':DashCtrl.isBookmarkSelected(bookmark.id) && DashCtrl.editMode}"
-                        ng-repeat="bookmark in DashCtrl.bookmarks| filter:DashCtrl.search.text">
+                        ng-repeat="bookmark in DashCtrl.bookmarks">
                         <!--<p class="security-clearance">{{ bookmark.security_clearance + 1}}</p>-->
                         <a class="" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}">
                             <img class="bookmark-image" src="{{ bookmark.image != null ? bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
@@ -95,7 +100,7 @@
                     <div class="bookmark"
                          ng-click="DashCtrl.selectBookmark($event, bookmark)"
                          ng-class="{'selected':DashCtrl.isBookmarkSelected(bookmark.id) && DashCtrl.editMode}"
-                         ng-repeat="bookmark in DashCtrl.bookmarks| filter:DashCtrl.search.text">
+                         ng-repeat="bookmark in DashCtrl.bookmarks">
                         <div class="upper-block">
                             <!--                            <button type="button" class="btn btn-danger btn-sm delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
                                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>

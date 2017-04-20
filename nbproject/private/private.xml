@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/config/app.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/config/elasticquent.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Http/Controllers/BookmarksController.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/shared/services/BookmarksService.js</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/routes/api.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Bookmark.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/composer.json</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/components/dashboard/DashboardController.js</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/components/dashboard/index.html</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/resources/assets/sass/modules.scss</file>
+        </group>
     </open-files>
 </project-private>

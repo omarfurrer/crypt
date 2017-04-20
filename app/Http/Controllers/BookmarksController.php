@@ -73,6 +73,26 @@ class BookmarksController extends Controller {
      * @param  int  $id
      * @return Response2
      */
+    public function postSearch(Request $request)
+    {
+        try {
+
+            $bookmarks = Bookmark::search($request->q);
+
+            return response()->json(compact('bookmarks'), 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        } catch (QueryException $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response2
+     */
     public function indexFolder(Folder $folder)
     {
         try {

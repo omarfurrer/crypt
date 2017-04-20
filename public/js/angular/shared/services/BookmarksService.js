@@ -7,6 +7,7 @@
             service.bookmarks = [];
             service.pagination = {};
             service.error = {};
+            service.searchResults = [];
 
             service.index = function (page = 1, folder_id, order_by, order_by_attribute) {
                 BaseService.load();
@@ -57,6 +58,20 @@
                 return $http.post(url, bookmark)
                         .success(function (data) {
                             service.bookmarks.splice(0, 0, data.bookmark);
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
+            service.search = function (q) {
+                BaseService.load();
+                return $http.post(url + '/search', {q: q})
+                        .success(function (data) {
+                            service.searchResults = data.bookmarks;
                         })
                         .error(function (error) {
                             service.error = error;

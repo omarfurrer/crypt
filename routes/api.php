@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
     Route::post('users/login', ['uses' => 'UsersController@postLogin']);
 
 
+    Route::post('bookmarks/search', ['uses' => 'BookmarksController@postSearch']);
     Route::get('bookmarks/exists', ['uses' => 'BookmarksController@getExists']);
     Route::get('bookmarks/folder/{folders}', ['uses' => 'BookmarksController@indexFolder']);
     Route::post('bookmarks/all/refresh', ['uses' => 'BookmarksController@postRefresh']);

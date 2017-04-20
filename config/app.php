@@ -160,6 +160,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Elasticquent\ElasticquentServiceProvider::class,
     ],
     /*
       |--------------------------------------------------------------------------
@@ -207,5 +208,6 @@ return [
         'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
         'Goutte' => Weidner\Goutte\GoutteFacade::class,
         'Helper' => 'App\Helpers\Helper::class',
+        'Es' => Elasticquent\ElasticquentElasticsearchFacade::class,
     ],
 ];
