@@ -8,6 +8,7 @@
             service.pagination = {};
             service.error = {};
             service.searchResults = [];
+            service.searchInProgress = false;
 
             service.index = function (page = 1, folder_id, order_by, order_by_attribute) {
                 BaseService.load();
@@ -69,6 +70,7 @@
 
             service.search = function (q) {
                 BaseService.load();
+                service.searchInProgress = true;
                 return $http.post(url + '/search', {q: q})
                         .success(function (data) {
                             service.searchResults = data.bookmarks;
@@ -77,6 +79,7 @@
                             service.error = error;
                         })
                         .finally(function () {
+                            service.searchInProgress = false;
                             BaseService.unload();
                         });
             };

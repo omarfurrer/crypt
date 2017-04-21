@@ -4,7 +4,7 @@
 
     angular.module('crypt').controller('DashboardController', DashboardController);
 
-    function DashboardController($auth, $state, $stateParams, $rootScope, BaseService, $scope, $aside, BookmarksService, FoldersService, DashboardService, $uibModal) {
+    function DashboardController($window, $auth, $state, $stateParams, $rootScope, BaseService, $scope, $aside, BookmarksService, FoldersService, DashboardService, $uibModal) {
 
         var vm = this;
         vm.bookmarks = [];
@@ -20,11 +20,30 @@
         vm.orderBy = undefined;
         vm.orderByAttribute = undefined;
 
+        $scope.typeAheadOptions = {
+            debounce: {
+                default: 500,
+                blur: 250
+            },
+            getterSetter: true
+        };
+
+        vm.searchSelected = function ($item, $model, $label, $event) {
+            $window.open($item.url, '_blank');
+            vm.search.text = '';
+
+        };
+
         vm.search = function (q) {
-            if (q.length > 1) {
-                BookmarksService.search(q);
-            } else {
-                BookmarksService.searchResults = [];
+            console.log(BookmarksService.searchInProgress);
+            if (q.length > 1 && !BookmarksService.searchInProgress) {
+                console.log(q);
+                setTimeout(function () {
+                    BookmarksService.search(q).then(function (data) {
+                        console.log(vm.searchResults);
+                    });
+                }, 1000);
+
             }
         }
 
@@ -40,7 +59,7 @@
         },
                 function (newValue, oldValue) {
                     vm.searchResults = angular.copy(BookmarksService.searchResults);
-                    console.log(vm.searchResults);
+//                    console.log(vm.searchResults);
                 }, true);
 
         $scope.$watch(function () {
