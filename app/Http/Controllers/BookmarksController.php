@@ -80,31 +80,57 @@ class BookmarksController extends Controller {
 //            $bookmarks = Bookmark::search('*' . $request->q . '*');
 //            $bookmarks = Bookmark::searchByQuery(array('bool' => array('should' => array('wildcard' => array('title' => '*' . $request->q . '*')))),
 //                                                 array(), '*');
-
-            $shouldQuery = [];
-            $filterQuery = [];
-
-            if ($request->has('q')) {
-                $q = $request->q;
-                array_push($shouldQuery,
-                           ['wildcard' => ['title' => '*' . $q . '*']]);
+//            $shouldQuery = [];
+//            $filterQuery = [];
+//            if ($request->has('q')) {
+//                $q = $request->q;
+//                array_push($shouldQuery,
+//                           ['wildcard' => ['title' => '*' . $q . '*']]);
 //                array_push($shouldQuery,
 //                           ['wildcard' => ['url' => '*' . $q . '*']]);
-            }
-
-            array_push($filterQuery,
-                       ['range' => ['security_clearance' => ['lte' => $this->user->security_clearance]]]);
-
+//            }
+//            array_push($filterQuery,
+//                       ['range' => ['security_clearance' => ['lte' => $this->user->security_clearance]]]);
+//            $query = [
+////                'index' => 'crypt',
+////                'type' => 'bookmarks',
+//                'body' =>
+//                [
+//                    'query' =>
+//                    [
+//                        "wildcard" => [
+//                            "title" => [
+//                                "value" => "*" . $request->q . "*",
+//                                "boost" => 2.0
+//                            ]
+//                        ],
+//                        'bool' => [
+////                            'should' => $shouldQuery,
+//                            'filter' => $filterQuery
+//                        ]
+//                    ]
+//                ]
+//            ];
             $query = [
-//                'index' => 'crypt',
-//                'type' => 'bookmarks',
-                'body' =>
-                [
-                    'query' =>
-                    [
+                'body' => [
+                    'query' => [
                         'bool' => [
-                            'should' => $shouldQuery,
-                            'filter' => $filterQuery
+                            'should' => [
+                                'wildcard' => [
+                                    'title' => [
+                                        'value' => '*' . $request->q . '*',
+                                        'boost' => 2
+                                    ]
+                                ]
+                            ],
+                            'must' => [
+                                'range' => [
+                                    'security_clearance' => [
+                                        'lte' => $this->user->security_clearance,
+                                        'boost' => 2
+                                    ]
+                                ]
+                            ]
                         ]
                     ]
                 ]
