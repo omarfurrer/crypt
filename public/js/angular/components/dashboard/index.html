@@ -59,10 +59,13 @@
                                     placeholder="SEARCH"
                                     name="search_text"
                                     class="form-control"
-                                    ng-change="DashCtrl.search(DashCtrl.search.text)"
-                                    uib-typeahead="bookmark.title for bookmark in DashCtrl.searchResults"
+                                    uib-typeahead="bookmark as bookmark.title for bookmark in DashCtrl.search($viewValue)"
                                     typeahead-on-select="DashCtrl.searchSelected($item, $model, $label, $event)"
+                                    typeahead-min-length="2"
+                                    typeahead-show-hint="true"
                                     autocomplete="off"
+                                    ng-model-options="DashCtrl.typeAheadOptions"
+                                    typeahead-wait-ms="200"
                                     >
                             </div>
                         </form>

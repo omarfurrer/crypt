@@ -60,17 +60,16 @@ class Bookmark extends Model {
             ],
         ],
     ];
-    
-    protected $mappingProperties = array(
-        'title' => array(
-            'type' => 'string'
-//            'analyzer' => 'standard'
-        ),
-        'url' => array(
-            'type' => 'string'
-//            'analyzer' => 'standard'
-        )
-    );
+//    protected $mappingProperties = array(
+//        'title' => array(
+//            'type' => 'string'
+////            'analyzer' => 'standard'
+//        ),
+//        'url' => array(
+//            'type' => 'string'
+////            'analyzer' => 'standard'
+//        )
+//    );
 
     /**
      * The attributes that are mass assignable.
@@ -166,6 +165,7 @@ class Bookmark extends Model {
     {
         $this->getMetaData();
         $this->save();
+        $this->addToIndex();
     }
 
     function getIndexDocumentData()
@@ -173,7 +173,8 @@ class Bookmark extends Model {
         return array(
             'id' => $this->id,
             'title' => $this->title,
-            'url' => $this->url
+            'url' => $this->url,
+            'security_clearance' => $this->security_clearance
         );
     }
 

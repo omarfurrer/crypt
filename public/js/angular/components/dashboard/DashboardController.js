@@ -20,7 +20,7 @@
         vm.orderBy = undefined;
         vm.orderByAttribute = undefined;
 
-        $scope.typeAheadOptions = {
+        vm.typeAheadOptions = {
             debounce: {
                 default: 500,
                 blur: 250
@@ -31,21 +31,13 @@
         vm.searchSelected = function ($item, $model, $label, $event) {
             $window.open($item.url, '_blank');
             vm.search.text = '';
-
         };
 
         vm.search = function (q) {
-            console.log(BookmarksService.searchInProgress);
-            if (q.length > 1 && !BookmarksService.searchInProgress) {
-                console.log(q);
-                setTimeout(function () {
-                    BookmarksService.search(q).then(function (data) {
-                        console.log(vm.searchResults);
-                    });
-                }, 1000);
-
-            }
-        }
+            return BookmarksService.search(q).then(function (data) {
+                return data.data.bookmarks;
+            });
+        };
 
         $scope.$watch(function () {
             return BookmarksService.pagination;
@@ -59,7 +51,6 @@
         },
                 function (newValue, oldValue) {
                     vm.searchResults = angular.copy(BookmarksService.searchResults);
-//                    console.log(vm.searchResults);
                 }, true);
 
         $scope.$watch(function () {

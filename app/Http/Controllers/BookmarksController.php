@@ -77,7 +77,40 @@ class BookmarksController extends Controller {
     {
         try {
 
-            $bookmarks = Bookmark::search($request->q);
+//            $bookmarks = Bookmark::search('*' . $request->q . '*');
+//            $bookmarks = Bookmark::searchByQuery(array('bool' => array('should' => array('wildcard' => array('title' => '*' . $request->q . '*')))),
+//                                                 array(), '*');
+
+            $shouldQuery = [];
+            $filterQuery = [];
+
+            if ($request->has('q')) {
+                $q = $request->q;
+                array_push($shouldQuery,
+                           ['wildcard' => ['title' => '*' . $q . '*']]);
+//                array_push($shouldQuery,
+//                           ['wildcard' => ['url' => '*' . $q . '*']]);
+            }
+
+            array_push($filterQuery,
+                       ['range' => ['security_clearance' => ['lte' => $this->user->security_clearance]]]);
+
+            $query = [
+//                'index' => 'crypt',
+//                'type' => 'bookmarks',
+                'body' =>
+                [
+                    'query' =>
+                    [
+                        'bool' => [
+                            'should' => $shouldQuery,
+                            'filter' => $filterQuery
+                        ]
+                    ]
+                ]
+            ];
+
+            $bookmarks = Bookmark::complexSearch($query);
 
             return response()->json(compact('bookmarks'), 200);
         } catch (Exception $e) {
