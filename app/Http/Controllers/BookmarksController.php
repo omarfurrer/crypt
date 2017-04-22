@@ -113,6 +113,7 @@ class BookmarksController extends Controller {
 //            ];
             $query = [
                 'body' => [
+                    'min_score' => 2,
                     'query' => [
                         'bool' => [
                             'should' => [
@@ -121,13 +122,19 @@ class BookmarksController extends Controller {
                                         'value' => '*' . $request->q . '*',
                                         'boost' => 2
                                     ]
-                                ]
+                                ],
+//                                'wildcard' => [
+//                                    'custom_title' => [
+//                                        'value' => '*' . $request->q . '*',
+//                                        'boost' => 2
+//                                    ]
+//                                ]
                             ],
                             'must' => [
                                 'range' => [
                                     'security_clearance' => [
                                         'lte' => $this->user->security_clearance,
-                                        'boost' => 2
+//                                        'boost' => 2
                                     ]
                                 ]
                             ]

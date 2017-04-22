@@ -173,6 +173,7 @@ class Bookmark extends Model {
         return array(
             'id' => $this->id,
             'title' => $this->title,
+            'custom_title' => $this->custom_title,
             'url' => $this->url,
             'security_clearance' => $this->security_clearance
         );
