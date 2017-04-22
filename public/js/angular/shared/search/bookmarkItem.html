@@ -1,10 +1,8 @@
-
-
-
-<script type="text/ng-template" id="bookmarkItem.html">
-    <a>
-    <img ng-src="{{match.model.image}}" width="16">
-    <span ng-bind-html="match.label "></span>
-    </a>
-</script>
+<!--<span class="search-bookmark-item">-->
+<a>
+    <img class="image" ng-src="{{match.model.image != null ? match.model.image : 'assets/images/bookmark-image-placeholder.png'}}" >
+    <p class="title" ng-bind-html="match.label | uibTypeaheadHighlight:query"></p>
+    <!--    <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>-->
+</a>
+<!--</span>-->
 

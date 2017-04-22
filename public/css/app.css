@@ -8372,4 +8372,13 @@ body {
   color: red;
 }
 
+.uib-typeahead-match .image {
+  width: 10%;
+  height: 49px;
+}
+
+.uib-typeahead-match .title {
+  display: inline-block;
+}
+
 /*# sourceMappingURL=app.css.map */

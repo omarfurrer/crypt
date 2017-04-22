@@ -660,3 +660,13 @@ body{
 .custom-form-input-required{
     color:red;
 }
+
+.uib-typeahead-match{
+    .image{
+        width : 10%;
+        height: 49px;
+    }
+    .title{
+        display: inline-block;
+    }
+}
