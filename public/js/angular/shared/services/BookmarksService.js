@@ -8,6 +8,20 @@
             service.pagination = {};
             service.error = {};
 
+            service.discover = function () {
+                BaseService.load();
+                return $http.get(url + '/discover')
+                        .success(function (data) {
+                            return data.bookmarks;
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
             service.index = function (page = 1, folder_id, order_by, order_by_attribute) {
                 BaseService.load();
                 var full_url = url + '?page=' + page;

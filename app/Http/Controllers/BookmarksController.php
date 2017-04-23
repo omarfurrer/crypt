@@ -29,7 +29,32 @@ class BookmarksController extends Controller {
 
         $this->bookmarksRepository = $bookmarksRepository;
         $this->middleware('jwt.auth',
-                          ['except' => ['postStoreFromPlugin', 'store']]);
+                          ['except' => ['postStoreFromPlugin', 'store', 'discover']]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response2
+     */
+    public function discover()
+    {
+        try {
+
+//            $bookmarks = $this->bookmarksRepository->orderBy('visit_count','DESC')->all();
+            $bookmarks = Bookmark::where('security_clearance', '=', 0)
+                    ->where('title', '!=', null)
+                    ->orderBy('visit_count', 'DESC')
+                    ->limit(30)
+                    ->get();
+
+            return response()->json(compact('bookmarks'), 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        } catch (QueryException $e) {
+            return response()->json(['error' => $e], 500);
+        }
     }
 
     /**

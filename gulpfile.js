@@ -22,6 +22,7 @@ elixir(function (mix) {
             .sass('app.scss', 'public/css')
             .scripts([
                 '../bower_components/jquery/dist/jquery.min.js',
+                '../js/constelation.js',
                 '../bower_components/angular/angular.js',
                 '../bower_components/ngstorage/ngStorage.min.js',
                 '../bower_components/angular-ui-router/release/angular-ui-router.min.js',
