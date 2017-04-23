@@ -45,10 +45,18 @@ class BookmarksController extends Controller {
 //            $bookmarks = $this->bookmarksRepository->orderBy('visit_count','DESC')->all();
             $bookmarks = Bookmark::where('security_clearance', '=', 0)
                     ->where('title', '!=', null)
+                    ->where('visit_count', '>', 0)
                     ->orderBy('visit_count', 'DESC')
-                    ->limit(30)
+                    ->limit(100)
                     ->get();
 
+            foreach ($bookmarks as $key => $bookmark) {
+//                $titleLength = strlen($bookmark->title);
+//                $limit = $titleLength > 11 ? 10 : ($titleLength - 1);
+//                $title = substr($bookmark->title, 0, $limit);
+//                $bookmarks[$key]['title'] = $title;
+                $bookmarks[$key]['domain_url'] = parse_url($bookmark->url)['host'];
+            }
             return response()->json(compact('bookmarks'), 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
