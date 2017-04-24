@@ -115,6 +115,11 @@ class BookmarksController extends Controller {
                 'body' => [
                     'min_score' => 2,
                     'query' => [
+//                        'term' => [
+//                            'user_id' => [
+//                                'value' => $this->user->id
+//                            ]
+//                        ],
                         'bool' => [
                             'should' => [
                                 'wildcard' => [
@@ -130,13 +135,36 @@ class BookmarksController extends Controller {
 //                                    ]
 //                                ]
                             ],
+//                            'must' => [
+//                                'match' => [
+//                                    "term" => [
+//                                        "user_id" => $this->user->id
+//                                    ]
+//                                ]
+//                            ],
                             'must' => [
-                                'range' => [
-                                    'security_clearance' => [
-                                        'lte' => $this->user->security_clearance,
+//                                'match' => [
+                                ['term' => [
+                                        'user_id' => [
+                                            'value' => $this->user->id
+                                        ]
+                                    ]]
+//                                ]
+                                ,
+                                [
+                                    'range' => [
+                                        'security_clearance' => [
+                                            'lte' => $this->user->security_clearance
 //                                        'boost' => 2
+                                        ]
                                     ]
                                 ]
+//                                ,
+//                                'range' => [
+//                                    'user_id' => [
+//                                        'e' => $this->user->id
+//                                    ]
+//                                ]
                             ]
                         ]
                     ]
