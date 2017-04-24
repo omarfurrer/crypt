@@ -45,9 +45,9 @@ class BookmarksController extends Controller {
 //            $bookmarks = $this->bookmarksRepository->orderBy('visit_count','DESC')->all();
             $bookmarks = Bookmark::where('security_clearance', '=', 0)
                     ->where('title', '!=', null)
-                    ->where('visit_count', '>', 0)
+//                    ->where('visit_count', '>', 0)
                     ->orderBy('visit_count', 'DESC')
-                    ->limit(100)
+                    ->limit(200)
                     ->get();
 
             foreach ($bookmarks as $key => $bookmark) {

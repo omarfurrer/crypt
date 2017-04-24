@@ -50,7 +50,8 @@ if (!window.requestAnimationFrame) {
                     velocity: 0.1,
 //                    length: 150,
 //                    length: 20,
-                    distance: 120,
+//                    distance: 120,
+                    distance: 500,
 //                    radius: 250,
 //                    radius: 5,
                     radius: 7,
@@ -82,7 +83,7 @@ if (!window.requestAnimationFrame) {
 
 //            this.radius = Math.random() * config.star.width;
             this.data = bookmark;
-            this.radius = config.star.width * ((bookmark.visit_count / config.star.width) / 0.7);
+            this.radius = config.star.width * ((bookmark.visit_count == 0 ? 0.4 : bookmark.visit_count / config.star.width) / 0.7);
             this.originalRadius = this.radius;
 //            this.hoverRadius = config.radius;
             this.hoverRadius = this.radius;
@@ -201,10 +202,10 @@ if (!window.requestAnimationFrame) {
                             }
 //                            console.log(iStar.data.title);
                             if (
-//                                    (iStar.x - jStar.x) < config.distance &&
-//                                    (iStar.y - jStar.y) < config.distance &&
-//                                    (iStar.x - jStar.x) > -config.distance &&
-//                                    (iStar.y - jStar.y) > -config.distance
+                                    (iStar.x - jStar.x) < config.distance &&
+                                    (iStar.y - jStar.y) < config.distance &&
+                                    (iStar.x - jStar.x) > -config.distance &&
+                                    (iStar.y - jStar.y) > -config.distance &&
                                     iStar.data.domain_url == jStar.data.domain_url
                                     ) {
                                 context.beginPath();
