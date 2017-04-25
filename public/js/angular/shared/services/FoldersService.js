@@ -8,6 +8,11 @@
             service.currentFolder = undefined;
             service.error = {};
 
+            service.logout = function () {
+                service.folders = [];
+                service.currentFolder = undefined;
+            }
+
 
             service.index = function () {
                 BaseService.load();

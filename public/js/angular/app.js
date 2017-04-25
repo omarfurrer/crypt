@@ -2,8 +2,13 @@
 
     'use strict';
     angular
-            .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside', 'fsm'])
-            .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide) {
+            .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside', 'fsm', 'ngIdle'])
+            .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, IdleProvider, KeepaliveProvider) {
+
+                // configure Idle settings
+                IdleProvider.idle(30); // in seconds
+                IdleProvider.timeout(9000); // in seconds
+                KeepaliveProvider.interval(5000); // in seconds
 
                 function redirectWhenLoggedOut($q, $injector, $rootScope) {
 
@@ -138,10 +143,17 @@
                     };
                 }])
 
-            .run(function ($rootScope, $state, $window, $location, $timeout) {
+            .run(function ($rootScope, $state, $window, $location, $timeout, Idle, UsersService) {
+
 
                 var user = JSON.parse(localStorage.getItem('user'));
                 if (user) {
+
+                    if (user.security_clearance > 1) {
+                        UsersService.postchangeSecurityClearance('', 0);
+                    }
+
+                    Idle.watch();
 
                     // The user's authenticated state gets flipped to
                     // true so we can now show parts of the UI that rely

@@ -7,6 +7,11 @@
             service.user = {};
             service.error = {};
 
+            service.logout = function () {
+                service.user = {};
+                service.error = {};
+            }
+
             service.postchangeSecurityClearance = function (password, level) {
                 BaseService.load();
                 return $http.post(url + '/security/clearance/change', {password: password, level: level})

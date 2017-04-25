@@ -5,6 +5,10 @@
             var service = {};
             service.securityClearances = ['public', 'private', 'crypto'];
 
+            service.logout = function () {
+                service.currentSecurityClearance = undefined;
+                service.currentSecurityClearanceName = undefined;
+            }
 
             service.changeSecurityClearance = function (level) {
                 service.currentSecurityClearance = level;

@@ -10,6 +10,14 @@
             service.searchResults = [];
             service.searchInProgress = false;
 
+            service.logout = function () {
+                service.bookmarks = [];
+                service.pagination = {};
+                service.error = {};
+                service.searchResults = [];
+                service.searchInProgress = false;
+            }
+
             service.index = function (page = 1, folder_id, order_by, order_by_attribute) {
                 BaseService.load();
                 var full_url = url + '?page=' + page;

@@ -24,7 +24,8 @@ class UsersController extends Controller {
         parent::__construct();
 
         $this->usersRepository = $usersRepository;
-        $this->middleware('jwt.auth', ['except' => ['postAuthenticateGoogle','postLogin']]);
+        $this->middleware('jwt.auth',
+                          ['except' => ['postAuthenticateGoogle', 'postLogin']]);
     }
 
     /**
@@ -87,6 +88,10 @@ class UsersController extends Controller {
 
             $user = User::findOrCreateUserGoogle($user, $provider);
 
+            if ($user->security_clearance != 0) {
+                $user->security_clearance = 0;
+            }
+
             $user->save();
 
             $user = User::find($user->id);
@@ -101,7 +106,7 @@ class UsersController extends Controller {
             return response()->json(['error' => $e], 500);
         }
     }
-    
+
     /**
      * Authenticates a user with JWT and sends back the token if successful
      *
@@ -118,6 +123,10 @@ class UsersController extends Controller {
             }
 
             $user = JWTAuth::toUser($token);
+            if ($user->security_clearance != 0) {
+                $user->security_clearance = 0;
+                $user->save();
+            }
 //            if (!$user->active) {
 //                return response()->json(['error' => 'email_not_confirmed'], 403);
 //            }
@@ -127,7 +136,7 @@ class UsersController extends Controller {
         }
 
         // if no errors are encountered we can return a JWT
-        return response()->json(compact('token','user'));
+        return response()->json(compact('token', 'user'));
     }
 
 }

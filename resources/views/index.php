@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="css/pure/all.css">
 
     </head>
-    <body ng-app="crypt" ng-controller="BaseController as base">
+    <body ng-app="crypt" ng-controller="BaseController as base" >
 
     <ng-include ng-if="!$state.includes('home')"  src="'js/angular/shared/navbar/_navbar.html'"></ng-include>
 
