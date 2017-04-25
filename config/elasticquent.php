@@ -13,7 +13,7 @@ return array(
      */
 
     'config' => [
-        'hosts' => ['192.168.10.10:9200'],
+        'hosts' => [env('ELASTIC_HOST', '127.0.0.1:9200')],
         'retries' => 1,
     ],
     /*
