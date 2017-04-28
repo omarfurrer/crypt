@@ -143,48 +143,16 @@
                     };
                 }])
 
-            .run(function ($rootScope, $state, $window, $location, $timeout, Idle, UsersService) {
+            .run(['$rootScope', '$state', '$window', '$location', '$timeout', 'Idle', 'SecurityService', 'UsersService',
+                function ($rootScope, $state, $window, $location, $timeout, Idle, SecurityService, UsersService) {
 
 
-                var user = JSON.parse(localStorage.getItem('user'));
-                if (user) {
-
-                    if (user.security_clearance > 1) {
-                        UsersService.postchangeSecurityClearance('', 0);
-                    }
-
-                    Idle.watch();
-
-                    // The user's authenticated state gets flipped to
-                    // true so we can now show parts of the UI that rely
-                    // on the user being logged in
-                    $rootScope.authenticated = true;
-                    // Putting the user's data on $rootScope allows
-                    // us to access it anywhere across the app. Here
-                    // we are grabbing what is in local storage
-                    $rootScope.currentUser = user;
-                } else {
-                    $rootScope.authenticated = false;
-                    $rootScope.currentUser = null;
-                }
-
-
-                // $stateChangeStart is fired whenever the state changes. We can use some parameters
-                // such as toState to hook into details about the state as it is changing
-                $rootScope.$on('$stateChangeStart', function (event, toState) {
-                    //scroll to top automatically
-
-                    document.body.scrollTop = document.documentElement.scrollTop = 0;
-                    // Grab the user from local storage and parse it to an object
                     var user = JSON.parse(localStorage.getItem('user'));
-//                    var allowed_states_for_guest = ['login'];
-                    // If there is any user data in local storage then the user is quite
-                    // likely authenticated. If their token is expired, or if they are
-                    // otherwise not actually authenticated, they will be redirected to
-                    // the auth state because of the rejected request anyway
-
-
                     if (user) {
+
+
+
+                        Idle.watch();
 
                         // The user's authenticated state gets flipped to
                         // true so we can now show parts of the UI that rely
@@ -194,23 +162,61 @@
                         // us to access it anywhere across the app. Here
                         // we are grabbing what is in local storage
                         $rootScope.currentUser = user;
-                        if (toState.name == 'home') {
-                            // add state.go in a timeout function because it does not work properly in the run function
-                            $timeout(function () {
-                                $state.go('dashboard');
-                            });
-                        }
 
-                        if ($rootScope.currentUser.password == null && toState.name != 'settings') {
-                            $timeout(function () {
-                                $state.go('settings');
-                            });
+                        SecurityService.update();
+
+                        if (user.security_clearance > 1) {
+                            UsersService.postchangeSecurityClearance('', 0);
                         }
 
                     } else {
                         $rootScope.authenticated = false;
                         $rootScope.currentUser = null;
                     }
-                });
-            });
+
+
+                    // $stateChangeStart is fired whenever the state changes. We can use some parameters
+                    // such as toState to hook into details about the state as it is changing
+                    $rootScope.$on('$stateChangeStart', function (event, toState) {
+                        //scroll to top automatically
+
+                        document.body.scrollTop = document.documentElement.scrollTop = 0;
+                        // Grab the user from local storage and parse it to an object
+                        var user = JSON.parse(localStorage.getItem('user'));
+//                    var allowed_states_for_guest = ['login'];
+                        // If there is any user data in local storage then the user is quite
+                        // likely authenticated. If their token is expired, or if they are
+                        // otherwise not actually authenticated, they will be redirected to
+                        // the auth state because of the rejected request anyway
+
+
+                        if (user) {
+
+                            // The user's authenticated state gets flipped to
+                            // true so we can now show parts of the UI that rely
+                            // on the user being logged in
+                            $rootScope.authenticated = true;
+                            // Putting the user's data on $rootScope allows
+                            // us to access it anywhere across the app. Here
+                            // we are grabbing what is in local storage
+                            $rootScope.currentUser = user;
+                            if (toState.name == 'home') {
+                                // add state.go in a timeout function because it does not work properly in the run function
+                                $timeout(function () {
+                                    $state.go('dashboard');
+                                });
+                            }
+
+                            if ($rootScope.currentUser.password == null && toState.name != 'settings') {
+                                $timeout(function () {
+                                    $state.go('settings');
+                                });
+                            }
+
+                        } else {
+                            $rootScope.authenticated = false;
+                            $rootScope.currentUser = null;
+                        }
+                    });
+                }]);
 })();

@@ -8016,6 +8016,7 @@ body {
   padding: 10px 10px;
   box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
   border-radius: 5px;
+  z-index: 1 !important;
 }
 
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .actions-block .custom-editmode-button-wrapper {
