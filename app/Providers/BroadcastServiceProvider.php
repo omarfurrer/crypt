@@ -4,8 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
-use App\Bookmark;
-use JWTAuth;
+use App\User;
 
 class BroadcastServiceProvider extends ServiceProvider {
 
@@ -16,8 +15,8 @@ class BroadcastServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        Broadcast::routes();
-//        Broadcast::routes(['middleware' => ['api', 'jwt.auth']]);
+//        Broadcast::routes();
+        Broadcast::routes(['middleware' => ['api', 'jwt.auth']]);
 
         /*
          * Authenticate the user's personal channel...
@@ -27,11 +26,10 @@ class BroadcastServiceProvider extends ServiceProvider {
 //            return (int) $user->id === (int) $userId;
 //        });
 //        
-//        Broadcast::channel('bookmarks.*',
-//                           function ($user, $bookmarkID) {
-//            dd('hey');
-//            return (int) $user->id === (int) Bookmark::find($bookmarkID)->user_id;
-//        });
+        Broadcast::channel('users.*.bookmarks',
+                           function ($user, $userID) {
+            return (int) $user->id === (int) User::find($userID)->id;
+        });
     }
 
 }

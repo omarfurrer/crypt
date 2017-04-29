@@ -34,8 +34,8 @@ class Stored implements ShouldBroadcast {
      */
     public function broadcastOn()
     {
-//        return new Channel('bookmarks.' . $this->bookmark->id);
-        return new Channel('bookmarks');
+//        return new Channel('users.' . $this->bookmark->user_id . '.bookmarks');
+        return new PrivateChannel('users.' . $this->bookmark->user_id . '.bookmarks');
     }
 
 }

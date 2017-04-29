@@ -41,7 +41,7 @@ import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 
 
-
+var user = JSON.parse(localStorage.getItem('user'));
 var token = localStorage.getItem('satellizer_token');
 console.log(token);
 window.Echo = new Echo({
@@ -50,16 +50,16 @@ window.Echo = new Echo({
     cluster: 'eu',
     encrypted: true,
 //    host: window.location.hostname,
-//    auth:
-//            {
-//                headers:
-//                        {
-//                            'Authorization': 'Bearer ' + token
-//                        }
-//            }
+    auth:
+            {
+                headers:
+                        {
+                            'Authorization': 'Bearer ' + token
+                        }
+            }
 });
 
-window.Echo.channel('bookmarks')
+window.Echo.private('users.' + user.id + '.bookmarks')
         .listen('.App.Events.Bookmarks.Stored', (e) => {
             console.log('hi');
             console.log(e);
