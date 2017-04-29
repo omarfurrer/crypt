@@ -143,6 +143,8 @@
                 var user = JSON.parse(localStorage.getItem('user'));
                 if (user) {
 
+
+
                     // The user's authenticated state gets flipped to
                     // true so we can now show parts of the UI that rely
                     // on the user being logged in

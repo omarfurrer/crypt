@@ -34,7 +34,9 @@ elixir(function (mix) {
                 '../bower_components/fsm-sticky-header/src/fsm-sticky-header.js'
             ], 'public/js/app.js')
             .copy('resources/assets/bower_components/font-awesome/fonts/**', 'public/css/fonts')
-            .copy('resources/assets/bower_components/bootstrap-sass/assets/fonts/**', 'public/fonts');
+            .copy('resources/assets/bower_components/bootstrap-sass/assets/fonts/**', 'public/fonts')
+            .webpack('app.js', './public/js/webpack/app.js');
+
 
 
 

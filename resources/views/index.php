@@ -11,7 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="css/app.css">
         <link rel="stylesheet" href="css/pure/all.css">
-
+        <meta name="csrf-token" content="<?= csrf_token() ?>" />
     </head>
     <body ng-app="crypt" ng-controller="BaseController as base">
 
@@ -34,5 +34,6 @@
     <script src="js/angular/components/home/HomeController.js"></script>
     <script src="js/angular/components/dashboard/DashboardController.js"></script>
     <script src="js/angular/components/settings/SettingsController.js"></script>
+    <script src="js/webpack/app.js"></script>
 </body>
 </html>

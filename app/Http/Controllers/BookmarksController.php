@@ -13,6 +13,7 @@ use App\Criteria\EqualsFolderCriteria;
 use App\Criteria\EqualsUserIDCriteria;
 use JWTAuth;
 use Validator;
+use App\Events\Bookmarks\Stored;
 
 class BookmarksController extends Controller {
 
@@ -108,7 +109,9 @@ class BookmarksController extends Controller {
 
             $bookmark = $this->bookmarksRepository->create(array_merge($data,
                                                                        $request->all()));
-            $bookmark->refreshMetaData();
+            
+            event(new Stored($bookmark));
+            
 
             return response()->json(compact('bookmark'), 200);
         } catch (Exception $e) {
