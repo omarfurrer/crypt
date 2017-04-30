@@ -111,7 +111,7 @@ class BookmarksController extends Controller {
             $bookmark = $this->bookmarksRepository->create(array_merge($data,
                                                                        $request->all()));
             
-            event(new Stored($bookmark));
+            event(new Stored($bookmark, $this->user));
             
 
             return response()->json(compact('bookmark'), 200);

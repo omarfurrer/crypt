@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Bookmark;
+use App\User;
 
 class Stored implements ShouldBroadcast {
 
@@ -16,15 +17,17 @@ class Stored implements ShouldBroadcast {
         SerializesModels;
 
     public $bookmark;
+    protected $user;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Bookmark $bookmark)
+    public function __construct(Bookmark $bookmark, User $user)
     {
         $this->bookmark = $bookmark;
+        $this->user = $user;
     }
 
     /**
@@ -35,7 +38,10 @@ class Stored implements ShouldBroadcast {
     public function broadcastOn()
     {
 //        return new Channel('users.' . $this->bookmark->user_id . '.bookmarks');
-        return new PrivateChannel('users.' . $this->bookmark->user_id . '.bookmarks');
+        if ($this->user->security_clearance >= $this->bookmark->security_clearance) {
+            return new PrivateChannel('users.' . $this->bookmark->user_id . '.bookmarks');
+        }
+        return [];
     }
 
     /**

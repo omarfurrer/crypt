@@ -40,7 +40,8 @@ class refresh implements ShouldQueue {
     public function handle()
     {
         $this->bookmark->refreshMetaData();
-        event(new MetaRefreshed($this->bookmark));
+        $user = \App\User::find($this->bookmark->user_id);
+        event(new MetaRefreshed($this->bookmark, $user));
     }
 
 }
