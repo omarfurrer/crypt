@@ -32,8 +32,8 @@
     <script src="js/angular/shared/services/FoldersService.js"></script>
     <script src="js/angular/shared/services/DashboardService.js"></script>
     <script src="js/angular/components/home/HomeController.js"></script>
+    <script src="js/webpack/app.js"></script>
     <script src="js/angular/components/dashboard/DashboardController.js"></script>
     <script src="js/angular/components/settings/SettingsController.js"></script>
-    <script src="js/webpack/app.js"></script>
 </body>
 </html>

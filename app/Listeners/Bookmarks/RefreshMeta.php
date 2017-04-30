@@ -27,7 +27,7 @@ class RefreshMeta {
      */
     public function handle(Stored $event)
     {
-//        dispatch(new refresh($event->bookmark));
+        dispatch(new refresh($event->bookmark));
         
     }
 

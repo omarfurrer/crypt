@@ -2,7 +2,7 @@
 
     'use strict';
     angular
-            .module('crypt', ['ui.router', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside', 'fsm'])
+            .module('crypt', ['ui.router', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside', 'fsm', 'pusher-angular'])
             .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide) {
 
                 function redirectWhenLoggedOut($q, $injector, $rootScope) {
@@ -143,6 +143,22 @@
                 var user = JSON.parse(localStorage.getItem('user'));
                 if (user) {
 
+                    var token = localStorage.getItem('satellizer_token');
+
+                    window.client = new Pusher('d1e5009554a0bcd357a4', {
+                        authEndpoint: '/broadcasting/auth',
+                        cluster: 'eu',
+                        encrypted: true,
+                        auth:
+                                {
+                                    headers:
+                                            {
+                                                'Authorization': 'Bearer ' + token
+                                            }
+                                }
+                    });
+
+
 
 
                     // The user's authenticated state gets flipped to
@@ -175,6 +191,8 @@
 
 
                     if (user) {
+
+
 
                         // The user's authenticated state gets flipped to
                         // true so we can now show parts of the UI that rely

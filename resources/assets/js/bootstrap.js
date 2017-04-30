@@ -37,30 +37,31 @@
  * allows your team to easily build robust real-time web applications.
  */
 
-import Echo from "laravel-echo";
-import Pusher from "pusher-js";
+//import Echo from "laravel-echo";
+//import Pusher from "pusher-js";
 
 
-var user = JSON.parse(localStorage.getItem('user'));
-var token = localStorage.getItem('satellizer_token');
-console.log(token);
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'd1e5009554a0bcd357a4',
-    cluster: 'eu',
-    encrypted: true,
-//    host: window.location.hostname,
-    auth:
-            {
-                headers:
-                        {
-                            'Authorization': 'Bearer ' + token
-                        }
-            }
-});
+//var token = localStorage.getItem('satellizer_token');
+//console.log(token);
+//window.Echo = new Echo();
+//window.Echo = new Echo({
+//    broadcaster: 'pusher',
+//    key: 'd1e5009554a0bcd357a4',
+//    cluster: 'eu',
+//    encrypted: true,
+////    host: window.location.hostname,
+//    auth:
+//            {
+//                headers:
+//                        {
+//                            'Authorization': 'Bearer ' + token
+//                        }
+//            }
+//});
 
-window.Echo.private('users.' + user.id + '.bookmarks')
-        .listen('.App.Events.Bookmarks.Stored', (e) => {
-            console.log('hi');
-            console.log(e);
-        });
+//var user = JSON.parse(localStorage.getItem('user'));
+//window.Echo.private('users.' + user.id + '.bookmarks')
+//        .listen('.App.Events.Bookmarks.Stored', (e) => {
+//            console.log('hi');
+//            console.log(e);
+//        });

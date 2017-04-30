@@ -4,7 +4,7 @@
 
     angular.module('crypt').controller('DashboardController', DashboardController);
 
-    function DashboardController($auth, $state, $stateParams, $rootScope, BaseService, $scope, $aside, BookmarksService, FoldersService, DashboardService, $uibModal) {
+    function DashboardController($auth, $state, $stateParams, $pusher, $window, $rootScope, BaseService, $scope, $aside, SecurityService, BookmarksService, FoldersService, DashboardService, $uibModal) {
 
         var vm = this;
         vm.bookmarks = [];
@@ -19,12 +19,77 @@
         vm.orderBy = undefined;
         vm.orderByAttribute = undefined;
 
+        var pusher = $pusher(window.client);
+
+        var bookmarksStored = pusher.subscribe('private-users.' + $rootScope.currentUser.id + '.bookmarks');
+
+        bookmarksStored.bind('bookmarks.stored',
+                function (data) {
+                    if (data.bookmark.security_clearance <= SecurityService.currentSecurityClearance) {
+                        var index = findInArray(BookmarksService.bookmarks, data.bookmark.id);
+                        if (index == null) {
+                            if (typeof FoldersService.currentFolder === 'undefined') {
+                                BookmarksService.bookmarks.splice(0, 0, data.bookmark);
+                            } else {
+                                if (data.bookmark.folder_id == FoldersService.currentFolder.id) {
+                                    BookmarksService.bookmarks.splice(0, 0, data.bookmark);
+                                }
+                            }
+                        }
+                    }
+                }
+        );
+
+        bookmarksStored.bind('bookmarks.refreshed',
+                function (data) {
+                    if (data.bookmark.security_clearance <= SecurityService.currentSecurityClearance) {
+                        var index = findInArray(BookmarksService.bookmarks, data.bookmark.id);
+                        if (index != null) {
+                            BookmarksService.bookmarks[index] = data.bookmark;
+                        }
+                    }
+                }
+        );
+
         $scope.$watch(function () {
             return BookmarksService.pagination;
         },
                 function (newValue, oldValue) {
                     vm.pagination = angular.copy(BookmarksService.pagination);
                 }, true);
+
+        $scope.$watch(function () {
+            return BookmarksService.bookmarks;
+        },
+                function (newValue, oldValue) {
+                    syncBookmarks();
+                }, true);
+
+        $scope.$watch(function () {
+            return FoldersService.folders;
+        },
+                function (newValue, oldValue) {
+                    syncFolders();
+                }, true);
+
+        $scope.$watch(function () {
+            return FoldersService.currentFolder;
+        },
+                function (newValue, oldValue) {
+                    syncCurrentFolder();
+                    vm.selected = [];
+
+                }, true);
+
+        function syncBookmarks() {
+            vm.bookmarks = angular.copy(BookmarksService.bookmarks);
+        }
+        function syncFolders() {
+            vm.folders = angular.copy(FoldersService.folders);
+        }
+        function syncCurrentFolder() {
+            vm.currentFolder = angular.copy(FoldersService.currentFolder);
+        }
 
         $scope.$watch(function () {
             return DashboardService.foldersCollapsed;
@@ -216,38 +281,7 @@
             });
         }
 
-        $scope.$watch(function () {
-            return BookmarksService.bookmarks;
-        },
-                function (newValue, oldValue) {
-                    syncBookmarks();
-                }, true);
 
-        $scope.$watch(function () {
-            return FoldersService.folders;
-        },
-                function (newValue, oldValue) {
-                    syncFolders();
-                }, true);
-
-        $scope.$watch(function () {
-            return FoldersService.currentFolder;
-        },
-                function (newValue, oldValue) {
-                    syncCurrentFolder();
-                    vm.selected = [];
-
-                }, true);
-
-        function syncBookmarks() {
-            vm.bookmarks = angular.copy(BookmarksService.bookmarks);
-        }
-        function syncFolders() {
-            vm.folders = angular.copy(FoldersService.folders);
-        }
-        function syncCurrentFolder() {
-            vm.currentFolder = angular.copy(FoldersService.currentFolder);
-        }
 
         vm.toggleSelectAll = function () {
             if (vm.selected.length == 0) {

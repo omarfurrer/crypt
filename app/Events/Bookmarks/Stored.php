@@ -38,4 +38,14 @@ class Stored implements ShouldBroadcast {
         return new PrivateChannel('users.' . $this->bookmark->user_id . '.bookmarks');
     }
 
+    /**
+     * The event's broadcast name.
+     *
+     * @return string
+     */
+    public function broadcastAs()
+    {
+        return 'bookmarks.stored';
+    }
+
 }

@@ -39,8 +39,8 @@ class refresh implements ShouldQueue {
      */
     public function handle()
     {
-//        $this->bookmark->refreshMetaData();
-//        event(new MetaRefreshed($this->bookmark));
+        $this->bookmark->refreshMetaData();
+        event(new MetaRefreshed($this->bookmark));
     }
 
 }
