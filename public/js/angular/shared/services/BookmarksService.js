@@ -18,6 +18,8 @@
                 service.searchInProgress = false;
             }
 
+
+
             service.index = function (page = 1, folder_id, order_by, order_by_attribute) {
                 BaseService.load();
                 var full_url = url + '?page=' + page;
@@ -164,9 +166,9 @@
                 BaseService.load();
                 return $http.post(url + '/all/refresh', {bookmarks: bookmarks})
                         .success(function (data) {
-                            for (var i = 0; i < data.bookmarks.length; i++) {
-                                service.bookmarks[findInArray(service.bookmarks, data.bookmarks[i].id)] = data.bookmarks[i];
-                            }
+//                            for (var i = 0; i < data.bookmarks.length; i++) {
+//                                service.bookmarks[findInArray(service.bookmarks, data.bookmarks[i].id)] = data.bookmarks[i];
+//                            }
                         })
                         .error(function (error) {
                             service.error = error;

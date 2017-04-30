@@ -13,6 +13,8 @@ use App\Criteria\EqualsFolderCriteria;
 use App\Criteria\EqualsUserIDCriteria;
 use JWTAuth;
 use Validator;
+use App\Events\Bookmarks\Stored;
+use App\Jobs\Bookmark\refresh;
 
 class BookmarksController extends Controller {
 
@@ -222,7 +224,9 @@ class BookmarksController extends Controller {
 
             $bookmark = $this->bookmarksRepository->create(array_merge($data,
                                                                        $request->all()));
-            $bookmark->refreshMetaData();
+            
+            event(new Stored($bookmark, $this->user));
+            
 
             return response()->json(compact('bookmark'), 200);
         } catch (Exception $e) {
@@ -277,11 +281,12 @@ class BookmarksController extends Controller {
 
             foreach ($request->bookmarks as $key => $value) {
                 $bookmark = $this->bookmarksRepository->find($value['id']);
-                $bookmark->refreshMetaData();
+//                $bookmark->refreshMetaData();
+                dispatch(new refresh($bookmark));
                 array_push($bookmarks, $bookmark);
             }
 
-            return response()->json(compact('bookmarks'), 200);
+            return response()->json(compact(''), 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
         } catch (QueryException $e) {

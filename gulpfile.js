@@ -33,10 +33,15 @@ elixir(function (mix) {
                 '../bower_components/angular-aside/dist/js/angular-aside.js',
                 '../bower_components/fsm-sticky-header/src/fsm-sticky-header.js',
                 '../bower_components/angular-sanitize/angular-sanitize.js',
-                '../bower_components/ng-idle/angular-idle.js'
+                '../bower_components/ng-idle/angular-idle.js',
+                '../bower_components/pusher-js/dist/pusher.js',
+                '../bower_components/pusher-angular/lib/pusher-angular.js'
             ], 'public/js/app.js')
             .copy('resources/assets/bower_components/font-awesome/fonts/**', 'public/css/fonts')
-            .copy('resources/assets/bower_components/bootstrap-sass/assets/fonts/**', 'public/fonts');
+            .copy('resources/assets/bower_components/bootstrap-sass/assets/fonts/**', 'public/fonts')
+//            .webpack('app.js', './public/js/webpack/app.js')
+            ;
+
 
 
 

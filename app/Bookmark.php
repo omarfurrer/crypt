@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
+use App\Events\Bookmarks\MetaRefreshed;
 
 class Bookmark extends Model {
 

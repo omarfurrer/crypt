@@ -7,6 +7,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Bookmark;
+use App\Events\Bookmarks\MetaRefreshed;
 
 class refresh implements ShouldQueue {
 
@@ -39,6 +40,8 @@ class refresh implements ShouldQueue {
     public function handle()
     {
         $this->bookmark->refreshMetaData();
+        $user = \App\User::find($this->bookmark->user_id);
+        event(new MetaRefreshed($this->bookmark, $user));
     }
 
 }

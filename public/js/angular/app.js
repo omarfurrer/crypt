@@ -2,9 +2,10 @@
 
     'use strict';
     angular
-            .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside', 'fsm', 'ngIdle'])
-            .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, IdleProvider, KeepaliveProvider) {
 
+
+            .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside', 'fsm', 'pusher-angular', 'ngIdle'])
+            .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide) {
                 // configure Idle settings
                 IdleProvider.idle(30); // in seconds
                 IdleProvider.timeout(9000); // in seconds
@@ -149,10 +150,24 @@
 
                     var user = JSON.parse(localStorage.getItem('user'));
                     if (user) {
-
-
-
                         Idle.watch();
+
+                        var token = localStorage.getItem('satellizer_token');
+                        window.client = new Pusher('d1e5009554a0bcd357a4', {
+                            authEndpoint: '/broadcasting/auth',
+                            cluster: 'eu',
+                            encrypted: true,
+                            auth:
+                                    {
+                                        headers:
+                                                {
+                                                    'Authorization': 'Bearer ' + token
+                                                }
+                                    }
+                        });
+
+
+
 
                         // The user's authenticated state gets flipped to
                         // true so we can now show parts of the UI that rely
@@ -162,13 +177,10 @@
                         // us to access it anywhere across the app. Here
                         // we are grabbing what is in local storage
                         $rootScope.currentUser = user;
-
                         SecurityService.update();
-
                         if (user.security_clearance > 1) {
                             UsersService.postchangeSecurityClearance('', 0);
                         }
-
                     } else {
                         $rootScope.authenticated = false;
                         $rootScope.currentUser = null;
@@ -183,7 +195,7 @@
                         document.body.scrollTop = document.documentElement.scrollTop = 0;
                         // Grab the user from local storage and parse it to an object
                         var user = JSON.parse(localStorage.getItem('user'));
-//                    var allowed_states_for_guest = ['login'];
+                        // var allowed_states_for_guest = ['login'];
                         // If there is any user data in local storage then the user is quite
                         // likely authenticated. If their token is expired, or if they are
                         // otherwise not actually authenticated, they will be redirected to
