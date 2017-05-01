@@ -21,6 +21,20 @@
         vm.orderBy = undefined;
         vm.orderByAttribute = undefined;
 
+        vm.getFolder = function (folder_id) {
+            if (folder_id != null) {
+                var index = findInArray(FoldersService.folders, folder_id);
+                if (index != null) {
+                    return FoldersService.folders[index];
+                }
+            }
+            return false;
+        };
+
+        vm.getSecurityClearance = function (security_clearance) {
+            return SecurityService.securityClearances[security_clearance];
+        };
+
         vm.typeAheadOptions = {
             debounce: {
                 default: 500,
@@ -45,11 +59,14 @@
 
         bookmarksStored.bind('bookmarks.stored',
                 function (data) {
+                    console.log(data.bookmark);
                     if (data.bookmark.security_clearance <= SecurityService.currentSecurityClearance) {
                         var index = findInArray(BookmarksService.bookmarks, data.bookmark.id);
                         if (index == null) {
                             if (typeof FoldersService.currentFolder === 'undefined') {
-                                BookmarksService.bookmarks.splice(0, 0, data.bookmark);
+                                FoldersService.index().then(function () {
+                                    BookmarksService.bookmarks.splice(0, 0, data.bookmark);
+                                })
                             } else {
                                 if (data.bookmark.folder_id == FoldersService.currentFolder.id) {
                                     BookmarksService.bookmarks.splice(0, 0, data.bookmark);

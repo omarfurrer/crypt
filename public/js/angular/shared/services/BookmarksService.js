@@ -151,6 +151,11 @@
                                 for (var i = 0; i < bookmarks.length; i++) {
                                     service.bookmarks.splice(findInArray(service.bookmarks, bookmarks[i].id), 1);
                                 }
+                            } else {
+                                for (var i = 0; i < bookmarks.length; i++) {
+                                    service.bookmarks[findInArray(service.bookmarks, bookmarks[i].id)] = data.bookmarks[i];
+                                }
+
                             }
                         })
                         .error(function (error) {
@@ -186,6 +191,11 @@
                                 for (var i = 0; i < bookmarks.length; i++) {
                                     service.bookmarks.splice(findInArray(service.bookmarks, bookmarks[i].id), 1);
                                 }
+                            } else {
+                                for (var i = 0; i < bookmarks.length; i++) {
+                                    service.bookmarks[findInArray(service.bookmarks, bookmarks[i].id)] = data.bookmarks[i];
+                                }
+
                             }
                         })
                         .error(function (error) {

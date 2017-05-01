@@ -32,7 +32,7 @@ class StoreBookmarkRequest extends FormRequest {
         }
 
         return [
-//            'url' => 'required|url|unique:bookmarks,url,NULL,id,user_id,' . $user_id,
+            'url' => 'required|url|unique:bookmarks,url,NULL,id,user_id,' . $user_id,
         ];
     }
 

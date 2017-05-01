@@ -5,7 +5,7 @@
 
 
             .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside', 'fsm', 'pusher-angular', 'ngIdle'])
-            .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide) {
+            .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, IdleProvider, KeepaliveProvider) {
                 // configure Idle settings
                 IdleProvider.idle(30); // in seconds
                 IdleProvider.timeout(9000); // in seconds

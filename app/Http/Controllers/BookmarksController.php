@@ -15,6 +15,7 @@ use JWTAuth;
 use Validator;
 use App\Events\Bookmarks\Stored;
 use App\Jobs\Bookmark\refresh;
+use App\Repositories\FoldersRepository;
 
 class BookmarksController extends Controller {
 
@@ -24,12 +25,15 @@ class BookmarksController extends Controller {
      * @var BookmarksRepository
      */
     protected $bookmarksRepository;
+    protected $foldersRepository;
 
-    public function __construct(BookmarksRepository $bookmarksRepository)
+    public function __construct(BookmarksRepository $bookmarksRepository,
+            FoldersRepository $foldersRepository)
     {
         parent::__construct();
 
         $this->bookmarksRepository = $bookmarksRepository;
+        $this->foldersRepository = $foldersRepository;
         $this->middleware('jwt.auth',
                           ['except' => ['postStoreFromPlugin', 'store']]);
     }
@@ -222,11 +226,23 @@ class BookmarksController extends Controller {
                 'custom_title' => $request->has('custom_title') ? $request->get('custom_title') : null
             ];
 
+            if ($request->has('new_folder')) {
+                $folderData = [
+                    'user_id' => $data['user_id'],
+                    'security_clearance' => $data['security_clearance'],
+                    'name' => $request->get('new_folder')
+                ];
+
+                $folder = $this->foldersRepository->create($folderData);
+                $data['folder_id'] = $folder->id;
+            }
+
             $bookmark = $this->bookmarksRepository->create(array_merge($data,
                                                                        $request->all()));
             
+
             event(new Stored($bookmark, $this->user));
-            
+
 
             return response()->json(compact('bookmark'), 200);
         } catch (Exception $e) {
@@ -303,12 +319,15 @@ class BookmarksController extends Controller {
     public function postChangeFolderAll(Request $request)
     {
         try {
+            $bookmarks = [];
+
             foreach ($request->bookmarks as $key => $value) {
-                $this->bookmarksRepository->update(['folder_id' => $request->id],
-                                                   $value['id']);
+                $bookmark = $this->bookmarksRepository->update(['folder_id' => $request->id],
+                                                               $value['id']);
+                array_push($bookmarks, $bookmark);
             }
 
-            return response()->json(compact(''), 200);
+            return response()->json(compact('bookmarks'), 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
         } catch (QueryException $e) {
@@ -345,13 +364,15 @@ class BookmarksController extends Controller {
     public function postChangeSecurityClearanceAll(Request $request)
     {
         try {
+            $bookmarks = [];
 
             foreach ($request->bookmarks as $key => $value) {
-                $this->bookmarksRepository->update(['security_clearance' => $request->level],
-                                                   $value['id']);
+                $bookmark = $this->bookmarksRepository->update(['security_clearance' => $request->level],
+                                                               $value['id']);
+                array_push($bookmarks, $bookmark);
             }
 
-            return response()->json(compact(''), 200);
+            return response()->json(compact('bookmarks'), 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
         } catch (QueryException $e) {

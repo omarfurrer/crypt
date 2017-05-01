@@ -103,7 +103,7 @@
                             <a ng-if="bookmark.custom_title == null" class="title" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}">{{ bookmark.title}}</a>
                             <a ng-if="bookmark.custom_title != null" class="title" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}">{{ bookmark.custom_title}}</a>
                             <p class="description">{{ bookmark.description}}</p>
-                            <p class="url">{{ bookmark.url}}</p>
+                            <!--<p class="url">{{ bookmark.url}}</p>-->
                         </div>
                         <!--                        <button type="button" class="btn btn-danger delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
                                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
@@ -111,6 +111,9 @@
                         <a class="btn btn-primary download-button" ng-click="DashCtrl.editBookmark(bookmark.id)">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </a>
+                        <p class="folder" ng-if="DashCtrl.getFolder(bookmark.folder_id) != false" ng-bind="DashCtrl.getFolder(bookmark.folder_id).name"></p>
+                        <p class="security-clearance-name" ng-bind="DashCtrl.getSecurityClearance(bookmark.security_clearance)"></p>
+
                         <div class="clearfix"></div>
                     </li>
                 </ul>
