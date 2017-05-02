@@ -5,6 +5,9 @@
 
 
             .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside', 'fsm', 'pusher-angular', 'ngIdle'])
+            .constant("customConfig", {
+                "PUSHER_APP_KEY": "d1e5009554a0bcd357a4"
+            })
             .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, IdleProvider, KeepaliveProvider) {
                 // configure Idle settings
                 IdleProvider.idle(30); // in seconds
@@ -144,8 +147,8 @@
                     };
                 }])
 
-            .run(['$rootScope', '$state', '$window', '$location', '$timeout', 'Idle', 'SecurityService', 'UsersService',
-                function ($rootScope, $state, $window, $location, $timeout, Idle, SecurityService, UsersService) {
+            .run(['$rootScope', '$state', '$window', '$location', '$timeout', 'Idle', 'SecurityService', 'UsersService', 'customConfig',
+                function ($rootScope, $state, $window, $location, $timeout, Idle, SecurityService, UsersService, customConfig) {
 
 
                     var user = JSON.parse(localStorage.getItem('user'));
@@ -153,7 +156,7 @@
                         Idle.watch();
 
                         var token = localStorage.getItem('satellizer_token');
-                        window.client = new Pusher('d1e5009554a0bcd357a4', {
+                        window.client = new Pusher(customConfig.PUSHER_APP_KEY, {
                             authEndpoint: '/broadcasting/auth',
                             cluster: 'eu',
                             encrypted: true,

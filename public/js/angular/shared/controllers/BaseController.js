@@ -4,7 +4,7 @@
 
     angular.module('crypt').controller('BaseController', BaseController);
 
-    function BaseController($scope, $auth, $state, $stateParams, $rootScope, BaseService, $window, UsersService, BookmarksService, FoldersService, SecurityService, $uibModal, DashboardService) {
+    function BaseController($scope, $auth, $state, $stateParams, customConfig, $rootScope, BaseService, $window, UsersService, BookmarksService, FoldersService, SecurityService, $uibModal, DashboardService) {
 
         var vm = this;
         vm.currentSecurityClearanceName = angular.copy(SecurityService.currentSecurityClearanceName);
@@ -164,7 +164,7 @@
             UsersService.authenticate(provider).then(function () {
                 var token = localStorage.getItem('satellizer_token');
 
-                window.client = new Pusher('d1e5009554a0bcd357a4', {
+                window.client = new Pusher(customConfig.PUSHER_APP_KEY, {
                     authEndpoint: '/broadcasting/auth',
                     cluster: 'eu',
                     encrypted: true,
