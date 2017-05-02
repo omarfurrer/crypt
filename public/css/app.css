@@ -8106,6 +8106,16 @@ body {
   margin: 0px;
 }
 
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .no-bookmarks-msg-wrapper {
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .no-bookmarks-msg-wrapper .no-bookmarks-msg {
+  margin-bottom: 0;
+}
+
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block > ul {
   /*height: 83%;*/
   /*overflow-y: scroll;*/

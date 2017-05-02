@@ -293,6 +293,7 @@ body{
 
 
             .bookmarks-list-block{
+
                 /*height: 88%;*/
                 /*overflow-y: scroll;*/
                 /*width: 86%;*/
@@ -402,6 +403,15 @@ body{
                             font-size: 20px;
                             margin: 0px;
                         }
+                    }
+                }
+
+                .no-bookmarks-msg-wrapper{
+                    text-align: center;
+                    color: rgb(255, 255, 255);
+                    margin-top: 20px;
+                    .no-bookmarks-msg{
+                        margin-bottom: 0;
                     }
                 }
 

@@ -117,6 +117,10 @@
                         <div class="clearfix"></div>
                     </li>
                 </ul>
+                <div ng-if="DashCtrl.bookmarks.length == 0" class="no-bookmarks-msg-wrapper">
+                    <p class="no-bookmarks-msg">Add a bookmark by inserting the URL above</p>
+                    <p class="no-bookmarks-msg">Or download our Chrome extension from <a target="_blank" href="https://chrome.google.com/webstore/detail/pefnocepdboehhkknilkiajilkooakhh">here</a></p>
+                </div>
                 <div ng-if="DashCtrl.listBlocks" class="bookmarks-list-blocks">
                     <div class="bookmark"
                          ng-click="DashCtrl.selectBookmark($event, bookmark)"
