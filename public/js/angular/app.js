@@ -4,7 +4,7 @@
     angular
 
 
-            .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside', 'fsm', 'pusher-angular', 'ngIdle'])
+            .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside', 'fsm', 'pusher-angular', 'ngIdle', 'picardy.fontawesome'])
             .constant("customConfig", {
                 "PUSHER_APP_KEY": "d1e5009554a0bcd357a4"
             })
@@ -181,9 +181,9 @@
                         // we are grabbing what is in local storage
                         $rootScope.currentUser = user;
                         SecurityService.update();
-                        if (user.security_clearance > 1) {
-                            UsersService.postchangeSecurityClearance('', 0);
-                        }
+//                        if (user.security_clearance > 1) {
+//                            UsersService.postchangeSecurityClearance('', 0);
+//                        }
                     } else {
                         $rootScope.authenticated = false;
                         $rootScope.currentUser = null;

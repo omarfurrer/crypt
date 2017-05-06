@@ -1,0 +1,16 @@
+{
+    "elements": {
+        "fa": {}
+    },
+    "attributes": {
+        "uib-dropdown-menu": {
+            "context": "ul"
+        },
+        "uib-dropdown-toggle": {
+            "context": "a"
+        },
+        "ui-sref": {
+            "context": "a"
+        }
+    }
+}

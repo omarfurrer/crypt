@@ -7,6 +7,7 @@
     function BaseController($scope, $auth, $state, $stateParams, customConfig, $rootScope, BaseService, $window, UsersService, BookmarksService, FoldersService, SecurityService, $uibModal, DashboardService) {
 
         var vm = this;
+        vm.currentSecurityClearance = angular.copy(SecurityService.currentSecurityClearance);
         vm.currentSecurityClearanceName = angular.copy(SecurityService.currentSecurityClearanceName);
         vm.currentFolder = undefined;
         vm.bookmark = {};
@@ -104,6 +105,7 @@
             return SecurityService.currentSecurityClearance;
         },
                 function (newValue, oldValue) {
+                    vm.currentSecurityClearance = angular.copy(SecurityService.currentSecurityClearance);
                     vm.currentSecurityClearanceName = angular.copy(SecurityService.currentSecurityClearanceName);
 
                 }, true);

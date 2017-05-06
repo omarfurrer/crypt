@@ -111,10 +111,16 @@
                         <a class="btn btn-primary download-button" ng-click="DashCtrl.editBookmark(bookmark.id)">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </a>
-                        <p class="folder" ng-if="DashCtrl.getFolder(bookmark.folder_id) != false" ng-bind="DashCtrl.getFolder(bookmark.folder_id).name"></p>
-                        <p class="security-clearance-name" ng-bind="DashCtrl.getSecurityClearance(bookmark.security_clearance)"></p>
+                        <p class="folder" ng-if="DashCtrl.getFolder(bookmark.folder_id) != false"><fa name="folder-open"></fa>{{ DashCtrl.getFolder(bookmark.folder_id).name}}</p>
 
-                        <div class="clearfix"></div>
+                    <p class="security-clearance-name">
+                    <fa ng-if="bookmark.security_clearance == 0" name="unlock"></fa>
+                    <fa class="crypto-icon" ng-if="bookmark.security_clearance == 2" name="lock"></fa>
+                    <fa ng-if="bookmark.security_clearance == 1 || bookmark.security_clearance == 2" name="lock"></fa>
+                    {{DashCtrl.getSecurityClearance(bookmark.security_clearance)}}
+                    </p>
+
+                    <div class="clearfix"></div>
                     </li>
                 </ul>
                 <div ng-if="DashCtrl.bookmarks.length == 0" class="no-bookmarks-msg-wrapper">

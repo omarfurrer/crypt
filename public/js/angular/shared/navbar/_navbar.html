@@ -5,6 +5,7 @@
 
             <div class="custom-wrapper-button-collapse-folders">
                 <button ng-click="base.toggleCollapseFolders()" ng-class="{'active':!base.foldersCollapsed}" type="button" class="btn btn-default btn-md custom-button-collapse-folders">
+                    <!--<fa name="folder-open"></fa>-->
                     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                 </button>
             </div>
@@ -48,6 +49,9 @@
             <!-- Split button -->
             <div class="btn-group security-dropdown" uib-dropdown>
                 <a class="btn btn-default" href id="security-dropdown" uib-dropdown-toggle>
+                    <fa ng-if="base.currentSecurityClearance == 0" name="unlock"></fa>
+                    <fa class="crypto-icon" ng-if="base.currentSecurityClearance == 2" name="lock"></fa>
+                    <fa ng-if="base.currentSecurityClearance == 1 || base.currentSecurityClearance == 2" name="lock"></fa>
                     {{ base.currentSecurityClearanceName}}
                 </a>
                 <button type="button" class="btn btn-primary dropdown-toggle" uib-dropdown-toggle>
@@ -55,9 +59,12 @@
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="security-dropdown">
-                    <li><a ng-click="base.changeSecurityClearance(0)" href>Public</a></li>
-                    <li><a ng-click="base.changeSecurityClearance(1)" href>Private</a></li>
-                    <li><a ng-click="base.changeSecurityClearance(2)" href>Crypto</a></li>
+                    <li><a ng-click="base.changeSecurityClearance(0)" href><fa name="unlock"></fa>Public</a></li>
+                    <li><a ng-click="base.changeSecurityClearance(1)" href><fa name="lock"></fa>Private</a></li>
+                    <li><a ng-click="base.changeSecurityClearance(2)" href>
+                            <fa class="crypto-icon" name="lock"></fa>
+                            <fa name="lock"></fa>
+                            Crypto</a></li>
                 </ul>
             </div>
 
@@ -65,6 +72,7 @@
 
             <div ng-if="authenticated" class="profile-dropdown btn-group" uib-dropdown>
                 <a class="btn btn-default" href id="simple-dropdown" uib-dropdown-toggle>
+                    <fa name="user"></fa>
                     {{ currentUser.f_name}}
                 </a>
                 <button type="button" class="btn btn-primary dropdown-toggle" uib-dropdown-toggle>

@@ -35,7 +35,8 @@ elixir(function (mix) {
                 '../bower_components/angular-sanitize/angular-sanitize.js',
                 '../bower_components/ng-idle/angular-idle.js',
                 '../bower_components/pusher-js/dist/pusher.js',
-                '../bower_components/pusher-angular/lib/pusher-angular.js'
+                '../bower_components/pusher-angular/lib/pusher-angular.js',
+                '../bower_components/angular-fontawesome/dist/angular-fontawesome.js'
             ], 'public/js/app.js')
             .copy('resources/assets/bower_components/font-awesome/fonts/**', 'public/css/fonts')
             .copy('resources/assets/bower_components/bootstrap-sass/assets/fonts/**', 'public/fonts')
