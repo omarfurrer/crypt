@@ -21,6 +21,7 @@
 
 
     <script src="js/app.js"></script>
+    <script src="js/angular/config.js"></script>
     <script src="js/angular/app.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/stats.js/r11/Stats.js"></script>
 

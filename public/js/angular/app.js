@@ -5,9 +5,7 @@
 
 
             .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside', 'fsm', 'pusher-angular', 'ngIdle', 'picardy.fontawesome'])
-            .constant("customConfig", {
-                "PUSHER_APP_KEY": "d1e5009554a0bcd357a4"
-            })
+            .constant("customConfig", JSON.parse(customConfig))
             .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, IdleProvider, KeepaliveProvider) {
                 // configure Idle settings
                 IdleProvider.idle(30); // in seconds

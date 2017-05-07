@@ -1,5 +1,6 @@
 /node_modules
 /public/storage
+/public/js/angular/config.js
 /vendor
 /.idea
 Homestead.json
