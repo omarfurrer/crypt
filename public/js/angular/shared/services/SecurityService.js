@@ -20,8 +20,8 @@
             service.update = function () {
                 service.currentSecurityClearance = $rootScope.currentUser.security_clearance;
                 service.currentSecurityClearanceName = service.securityClearances[service.currentSecurityClearance];
-                console.log(service.currentSecurityClearance);
-                console.log(service.currentSecurityClearanceName);
+//                console.log(service.currentSecurityClearance);
+//                console.log(service.currentSecurityClearanceName);
             };
 
 

@@ -7,6 +7,10 @@
             service.foldersCollapsed = true;
             service.playerVisible = true;
             service.isPlaying = false;
+            var listBlocksLocalStorage = localStorage.getItem('listBlocks');
+            service.listBlocks = listBlocksLocalStorage == null ? false : listBlocksLocalStorage === 'true' ? true : false;
+
+
 
 
 

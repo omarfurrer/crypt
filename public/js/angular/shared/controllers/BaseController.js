@@ -14,7 +14,7 @@
 
         $rootScope.$on('IdleStart', function () {
             // the user appears to have gone idle
-            console.log('start');
+//            console.log('start');
 
         });
 
@@ -23,7 +23,7 @@
             // the countdown arg is the number of seconds remaining until then.
             // you can change the title or display a warning dialog from here.
             // you can let them resume their session by calling Idle.watch()
-            console.log('warn');
+//            console.log('warn');
         });
 
         $rootScope.$on('IdleTimeout', function () {
@@ -36,12 +36,12 @@
 
         $rootScope.$on('IdleEnd', function () {
             // the user has come back from AFK and is doing stuff. if you are warning them, you can use this to hide the dialog
-            console.log('back');
+//            console.log('back');
         });
 
         $rootScope.$on('Keepalive', function () {
             // do something to keep the user's session alive
-            console.log('help');
+//            console.log('help');
         });
 
 
@@ -190,7 +190,8 @@
                 SecurityService.logout();
 
                 // Remove the authenticated user from local storage
-                localStorage.removeItem('user');
+//                localStorage.removeItem('user');
+                localStorage.clear();
 
                 // Flip authenticated to false so that we no longer
                 // show UI elements dependant on the user being logged in

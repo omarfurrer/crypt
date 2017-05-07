@@ -14,7 +14,7 @@
         vm.currentFolder = undefined;
         vm.selected = [];
         vm.searchResults = [];
-        vm.listBlocks = false;
+        vm.listBlocks = angular.copy(DashboardService.listBlocks);
         vm.isLoadingMore = false;
         vm.foldersCollapsed = angular.copy(DashboardService.foldersCollapsed);
         vm.editMode = false;
@@ -33,6 +33,18 @@
             modal.removeClass('player-box-modal-minimize');
         };
 
+        vm.switchView = function () {
+            DashboardService.listBlocks = angular.copy(!DashboardService.listBlocks);
+            localStorage.setItem('listBlocks', DashboardService.listBlocks);
+        };
+
+        $scope.$watch(function () {
+            return DashboardService.listBlocks;
+        },
+                function (newValue, oldValue) {
+                    vm.listBlocks = angular.copy(DashboardService.listBlocks);
+                }, true);
+
         $scope.$watch(function () {
             return DashboardService.playerVisible;
         },
@@ -45,7 +57,6 @@
         },
                 function (newValue, oldValue) {
                     vm.isPlaying = angular.copy(DashboardService.isPlaying);
-                    console.log(vm.isPlaying);
                 }, true);
 
         vm.getFolder = function (folder_id) {
@@ -86,7 +97,6 @@
 
         bookmarksStored.bind('bookmarks.stored',
                 function (data) {
-                    console.log(data.bookmark);
                     if (data.bookmark.security_clearance <= SecurityService.currentSecurityClearance) {
                         var index = findInArray(BookmarksService.bookmarks, data.bookmark.id);
                         if (index == null) {
