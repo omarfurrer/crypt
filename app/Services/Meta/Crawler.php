@@ -58,7 +58,7 @@ class Crawler {
         curl_close($ch);
 
         $dom_obj = new \DOMDocument();
-        @$dom_obj->loadHTML($page_content);
+        @$dom_obj->loadHTML(mb_convert_encoding($page_content, 'HTML-ENTITIES', 'utf8mb4'));
 
         $data = [];
 
