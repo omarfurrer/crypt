@@ -163,6 +163,9 @@
                         <img ng-if="DashCtrl.isLoadingMore"  src="assets/images/spinner.gif">
                     </a>
                 </div>
+                <div class="player-show-box" ng-if="!DashCtrl.playerVisible">
+                    <fa ng-click="DashCtrl.showPlayerBox()" class="show-player" name="square-o"></fa>
+                </div>
             </div>
         </div>
     </div>

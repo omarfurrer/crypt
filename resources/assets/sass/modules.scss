@@ -619,6 +619,24 @@ body{
                         }
                     }
                 }
+                .player-show-box{
+                    position: fixed;
+                    bottom: -6px;
+                    right: 54px;
+                    width: 95px;
+                    height: 25px;
+                    display: inline-block;
+                    background-color: rgb(255, 255, 255);
+                    text-align:center;
+                    cursor:pointer;
+                    background-color: rgb(29, 66, 98);
+                    box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.6);
+                    color:white;
+
+                    .show-player{
+
+                    }
+                }
             }
         }
     }
@@ -694,11 +712,13 @@ body{
                 > .inner-block{
                     .header{
                         .close-player{
+                            font-size: 16px;
                             float: right;
                             padding: 4px;
                             cursor: pointer;
                         }
                         .minimize-player{
+                            font-size: 16px;
                             float: right;
                             padding: 4px;
                             cursor: pointer;
@@ -712,14 +732,7 @@ body{
                         width: 100%;
                         height: 507px;
                     }
-                    .player-show-box{
-                        .show-player{
 
-                        }
-                    }
-                    .player-show-box-hidden{
-                        display: none;
-                    }
                 }
             }
         }

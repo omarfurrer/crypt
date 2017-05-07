@@ -5,6 +5,8 @@
 
             var service = {};
             service.foldersCollapsed = true;
+            service.playerVisible = true;
+            service.isPlaying = false;
 
 
 

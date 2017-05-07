@@ -5,7 +5,7 @@
     angular.module('crypt').controller('DashboardController', DashboardController);
 
 
-    function DashboardController($auth, $state, $stateParams, $pusher, $window, $rootScope, BaseService, $scope, $aside, SecurityService, BookmarksService, FoldersService, DashboardService, $uibModal) {
+    function DashboardController($uibModalStack, $auth, $state, $stateParams, $pusher, $window, $rootScope, BaseService, $scope, $aside, SecurityService, BookmarksService, FoldersService, DashboardService, $uibModal) {
 
         var vm = this;
         vm.bookmarks = [];
@@ -20,6 +20,33 @@
         vm.editMode = false;
         vm.orderBy = undefined;
         vm.orderByAttribute = undefined;
+        vm.playerVisible = angular.copy(DashboardService.playerVisible);
+        vm.isPlaying = angular.copy(DashboardService.isPlaying);
+
+        vm.showPlayerBox = function () {
+            DashboardService.playerVisible = true;
+            var backdrop = angular.element(document.querySelector(".modal-backdrop"));
+            var body = angular.element(document.querySelector(".modal-open"));
+            var modal = angular.element(document.querySelector(".player-box-modal"));
+            backdrop.removeClass('player-box-modal-backdrop-minmize');
+            body.removeClass('player-box-modal-body-minmize');
+            modal.removeClass('player-box-modal-minimize');
+        };
+
+        $scope.$watch(function () {
+            return DashboardService.playerVisible;
+        },
+                function (newValue, oldValue) {
+                    vm.playerVisible = angular.copy(DashboardService.playerVisible);
+                }, true);
+
+        $scope.$watch(function () {
+            return DashboardService.isPlaying;
+        },
+                function (newValue, oldValue) {
+                    vm.isPlaying = angular.copy(DashboardService.isPlaying);
+                    console.log(vm.isPlaying);
+                }, true);
 
         vm.getFolder = function (folder_id) {
             if (folder_id != null) {
@@ -268,7 +295,6 @@
 
         vm.editBookmark = function (id) {
             var bookmark = BookmarksService.get(id);
-            console.log(bookmark.custom_title);
             if (bookmark != false) {
                 var asideInstance = $aside.open({
                     templateUrl: 'js/angular/shared/bookmarks/_edit.html',
@@ -284,7 +310,6 @@
                     controller: function ($uibModalInstance, bookmark) {
                         var vm = this;
                         vm.bookmark = bookmark;
-                        console.log(bookmark.custom_title);
 
                         vm.update = function (bookmark) {
                             BookmarksService.update(bookmark).then(function (data) {
@@ -301,12 +326,18 @@
         };
 
         vm.openPlayer = function (bookmark) {
-            var modalInstance = $uibModal.open({
+
+            if (vm.isPlaying) {
+                $uibModalStack.dismissAll('playing different video');
+            }
+
+            var playerModalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'js/angular/shared/player/_player.html',
                 async: true,
                 controllerAs: 'PlayerCtrl',
-                backdrop: true,
+//                backdrop: true,
+                backdrop: 'static',
                 windowClass: 'player-box-modal',
                 size: 'lg',
                 resolve: {
@@ -314,17 +345,34 @@
                         return angular.copy(bookmark);
                     }
                 },
-                controller: function ($uibModalInstance, bookmark) {
+                controller: function ($uibModalInstance, bookmark, DashboardService) {
                     var vm = this;
                     vm.bookmark = bookmark;
-                    vm.visible = true;
+                    vm.visible = angular.copy(DashboardService.playerVisible);
+                    DashboardService.isPlaying = true;
+                    vm.isPlaying = angular.copy(DashboardService.isPlaying);
 
+                    $scope.$watch(function () {
+                        return DashboardService.playerVisible;
+                    },
+                            function (newValue, oldValue) {
+                                vm.visible = angular.copy(DashboardService.playerVisible);
+                            }, true);
+
+                    $scope.$watch(function () {
+                        return DashboardService.isPlaying;
+                    },
+                            function (newValue, oldValue) {
+                                vm.isPlaying = angular.copy(DashboardService.isPlaying);
+
+                            }, true);
 
                     vm.closeBox = function () {
-                        $uibModalInstance.dismiss();
+                        $uibModalInstance.close();
                     };
+
                     vm.hideBox = function () {
-                        vm.visible = false;
+                        DashboardService.playerVisible = false;
                         var backdrop = angular.element(document.querySelector(".modal-backdrop"));
                         var body = angular.element(document.querySelector(".modal-open"));
                         var modal = angular.element(document.querySelector(".player-box-modal"));
@@ -333,18 +381,23 @@
                         modal.addClass('player-box-modal-minimize');
 
                     };
-                    vm.showBox = function () {
-                        vm.visible = true;
-                        var backdrop = angular.element(document.querySelector(".modal-backdrop"));
-                        var body = angular.element(document.querySelector(".modal-open"));
-                        var modal = angular.element(document.querySelector(".player-box-modal"));
-                        backdrop.removeClass('player-box-modal-backdrop-minmize');
-                        body.removeClass('player-box-modal-body-minmize');
-                        modal.removeClass('player-box-modal-minimize');
-                    };
+
                 }
+            }).result.then(function () {
+                //Get triggers when modal is closed
+            }, function (reason) {
+
+
+            }).finally(function () {
+                DashboardService.playerVisible = true;
+                DashboardService.isPlaying = false;
+                var backdrop = angular.element(document.querySelector(".modal-backdrop"));
+                var body = angular.element(document.querySelector(".modal-open"));
+                var modal = angular.element(document.querySelector(".player-box-modal"));
+                backdrop.removeClass('player-box-modal-backdrop-minmize');
+                body.removeClass('player-box-modal-body-minmize');
+                modal.removeClass('player-box-modal-minimize');
             });
-            console.log(modalInstance);
         }
 
 
