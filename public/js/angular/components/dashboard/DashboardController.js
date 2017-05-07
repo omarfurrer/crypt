@@ -23,21 +23,6 @@
         vm.playerVisible = angular.copy(DashboardService.playerVisible);
         vm.isPlaying = angular.copy(DashboardService.isPlaying);
 
-        vm.showPlayerBox = function () {
-            DashboardService.playerVisible = true;
-            var backdrop = angular.element(document.querySelector(".modal-backdrop"));
-            var body = angular.element(document.querySelector(".modal-open"));
-            var modal = angular.element(document.querySelector(".player-box-modal"));
-            backdrop.removeClass('player-box-modal-backdrop-minmize');
-            body.removeClass('player-box-modal-body-minmize');
-            modal.removeClass('player-box-modal-minimize');
-        };
-
-        vm.switchView = function () {
-            DashboardService.listBlocks = angular.copy(!DashboardService.listBlocks);
-            localStorage.setItem('listBlocks', DashboardService.listBlocks);
-        };
-
         $scope.$watch(function () {
             return DashboardService.listBlocks;
         },
@@ -58,6 +43,67 @@
                 function (newValue, oldValue) {
                     vm.isPlaying = angular.copy(DashboardService.isPlaying);
                 }, true);
+        $scope.$watch(function () {
+            return BookmarksService.pagination;
+        },
+                function (newValue, oldValue) {
+                    vm.pagination = angular.copy(BookmarksService.pagination);
+                }, true);
+
+        $scope.$watch(function () {
+            return BookmarksService.searchResults;
+        },
+                function (newValue, oldValue) {
+                    vm.searchResults = angular.copy(BookmarksService.searchResults);
+                }, true);
+
+        $scope.$watch(function () {
+            return BookmarksService.bookmarks;
+        },
+                function (newValue, oldValue) {
+                    syncBookmarks();
+                }, true);
+
+        $scope.$watch(function () {
+            return FoldersService.folders;
+        },
+                function (newValue, oldValue) {
+                    syncFolders();
+                }, true);
+
+        $scope.$watch(function () {
+            return FoldersService.currentFolder;
+        },
+                function (newValue, oldValue) {
+                    syncCurrentFolder();
+                    vm.selected = [];
+
+                }, true);
+
+        function syncBookmarks() {
+            vm.bookmarks = angular.copy(BookmarksService.bookmarks);
+        }
+        function syncFolders() {
+            vm.folders = angular.copy(FoldersService.folders);
+        }
+        function syncCurrentFolder() {
+            vm.currentFolder = angular.copy(FoldersService.currentFolder);
+        }
+
+        vm.showPlayerBox = function () {
+            DashboardService.playerVisible = true;
+            var backdrop = angular.element(document.querySelector(".modal-backdrop"));
+            var body = angular.element(document.querySelector(".modal-open"));
+            var modal = angular.element(document.querySelector(".player-box-modal"));
+            backdrop.removeClass('player-box-modal-backdrop-minmize');
+            body.removeClass('player-box-modal-body-minmize');
+            modal.removeClass('player-box-modal-minimize');
+        };
+
+        vm.switchView = function () {
+            DashboardService.listBlocks = angular.copy(!DashboardService.listBlocks);
+            localStorage.setItem('listBlocks', DashboardService.listBlocks);
+        };
 
         vm.getFolder = function (folder_id) {
             if (folder_id != null) {
@@ -125,52 +171,7 @@
                 }
         );
 
-        $scope.$watch(function () {
-            return BookmarksService.pagination;
-        },
-                function (newValue, oldValue) {
-                    vm.pagination = angular.copy(BookmarksService.pagination);
-                }, true);
 
-        $scope.$watch(function () {
-            return BookmarksService.searchResults;
-        },
-                function (newValue, oldValue) {
-                    vm.searchResults = angular.copy(BookmarksService.searchResults);
-                }, true);
-
-        $scope.$watch(function () {
-            return BookmarksService.bookmarks;
-        },
-                function (newValue, oldValue) {
-                    syncBookmarks();
-                }, true);
-
-        $scope.$watch(function () {
-            return FoldersService.folders;
-        },
-                function (newValue, oldValue) {
-                    syncFolders();
-                }, true);
-
-        $scope.$watch(function () {
-            return FoldersService.currentFolder;
-        },
-                function (newValue, oldValue) {
-                    syncCurrentFolder();
-                    vm.selected = [];
-
-                }, true);
-
-        function syncBookmarks() {
-            vm.bookmarks = angular.copy(BookmarksService.bookmarks);
-        }
-        function syncFolders() {
-            vm.folders = angular.copy(FoldersService.folders);
-        }
-        function syncCurrentFolder() {
-            vm.currentFolder = angular.copy(FoldersService.currentFolder);
-        }
 
         $scope.$watch(function () {
             return DashboardService.foldersCollapsed;

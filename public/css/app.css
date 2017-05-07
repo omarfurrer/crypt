@@ -8343,7 +8343,7 @@ body {
   position: fixed;
   bottom: -6px;
   right: 54px;
-  width: 95px;
+  width: 60px;
   height: 25px;
   display: inline-block;
   background-color: white;
@@ -8352,6 +8352,128 @@ body {
   background-color: #1d4262;
   box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.6);
   color: white;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar {
+  background: #fff;
+  bottom: 1px;
+  height: 3px;
+  position: absolute;
+  width: 3px;
+  -webkit-animation: sound 0ms -800ms linear infinite alternate;
+  animation: sound 0ms -800ms linear infinite alternate;
+}
+
+@-webkit-keyframes sound {
+  0% {
+    opacity: .35;
+    height: 3px;
+  }
+  100% {
+    opacity: 1;
+    height: 23px;
+  }
+}
+
+@keyframes sound {
+  0% {
+    opacity: .35;
+    height: 3px;
+  }
+  100% {
+    opacity: 1;
+    height: 23px;
+  }
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(1) {
+  left: 1px;
+  -webkit-animation-duration: 474ms;
+  animation-duration: 474ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(2) {
+  left: 5px;
+  -webkit-animation-duration: 433ms;
+  animation-duration: 433ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(3) {
+  left: 9px;
+  -webkit-animation-duration: 407ms;
+  animation-duration: 407ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(4) {
+  left: 13px;
+  -webkit-animation-duration: 458ms;
+  animation-duration: 458ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(5) {
+  left: 17px;
+  -webkit-animation-duration: 400ms;
+  animation-duration: 400ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(6) {
+  left: 21px;
+  -webkit-animation-duration: 427ms;
+  animation-duration: 427ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(7) {
+  left: 25px;
+  -webkit-animation-duration: 441ms;
+  animation-duration: 441ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(8) {
+  left: 29px;
+  -webkit-animation-duration: 419ms;
+  animation-duration: 419ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(9) {
+  left: 33px;
+  -webkit-animation-duration: 487ms;
+  animation-duration: 487ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(10) {
+  left: 37px;
+  -webkit-animation-duration: 442ms;
+  animation-duration: 442ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(11) {
+  left: 41px;
+  -webkit-animation-duration: 458ms;
+  animation-duration: 458ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(12) {
+  left: 45px;
+  -webkit-animation-duration: 433ms;
+  animation-duration: 433ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(13) {
+  left: 49px;
+  -webkit-animation-duration: 441ms;
+  animation-duration: 441ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(14) {
+  left: 53px;
+  -webkit-animation-duration: 407ms;
+  animation-duration: 407ms;
+}
+
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box .bar:nth-child(15) {
+  left: 57px;
+  -webkit-animation-duration: 474ms;
+  animation-duration: 474ms;
 }
 
 .import-html-box-modal .modal-dialog {
