@@ -674,6 +674,17 @@ body{
 .delete-folder-box-modal{
     z-index:10060 !important;
 }
+.player-box-modal-minimize{
+    display: none !important;
+}
+
+.player-box-modal-backdrop-minmize{
+    display: none !important;
+}
+.player-box-modal-body-minmize{
+    overflow: auto;
+}
+
 .player-box-modal{
     z-index:10060 !important;
 
@@ -681,6 +692,18 @@ body{
         .modal-content{
             .player-box{
                 > .inner-block{
+                    .header{
+                        .close-player{
+                            float: right;
+                            padding: 4px;
+                            cursor: pointer;
+                        }
+                        .minimize-player{
+                            float: right;
+                            padding: 4px;
+                            cursor: pointer;
+                        }
+                    }
                     iframe{
                         width: 100%;
                         height: 507px;
@@ -688,6 +711,14 @@ body{
                     object{
                         width: 100%;
                         height: 507px;
+                    }
+                    .player-show-box{
+                        .show-player{
+
+                        }
+                    }
+                    .player-show-box-hidden{
+                        display: none;
                     }
                 }
             }

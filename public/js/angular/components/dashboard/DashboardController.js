@@ -317,12 +317,34 @@
                 controller: function ($uibModalInstance, bookmark) {
                     var vm = this;
                     vm.bookmark = bookmark;
+                    vm.visible = true;
+
 
                     vm.closeBox = function () {
                         $uibModalInstance.dismiss();
                     };
+                    vm.hideBox = function () {
+                        vm.visible = false;
+                        var backdrop = angular.element(document.querySelector(".modal-backdrop"));
+                        var body = angular.element(document.querySelector(".modal-open"));
+                        var modal = angular.element(document.querySelector(".player-box-modal"));
+                        backdrop.addClass('player-box-modal-backdrop-minmize');
+                        body.addClass('player-box-modal-body-minmize');
+                        modal.addClass('player-box-modal-minimize');
+
+                    };
+                    vm.showBox = function () {
+                        vm.visible = true;
+                        var backdrop = angular.element(document.querySelector(".modal-backdrop"));
+                        var body = angular.element(document.querySelector(".modal-open"));
+                        var modal = angular.element(document.querySelector(".player-box-modal"));
+                        backdrop.removeClass('player-box-modal-backdrop-minmize');
+                        body.removeClass('player-box-modal-body-minmize');
+                        modal.removeClass('player-box-modal-minimize');
+                    };
                 }
             });
+            console.log(modalInstance);
         }
 
 
