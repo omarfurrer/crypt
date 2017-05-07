@@ -119,7 +119,7 @@ class BookmarksController extends Controller {
 //            ];
             $query = [
                 'body' => [
-                    'min_score' => 2,
+                    'min_score' => 3,
                     'query' => [
 //                        'term' => [
 //                            'user_id' => [
@@ -160,7 +160,7 @@ class BookmarksController extends Controller {
                                 [
                                     'range' => [
                                         'security_clearance' => [
-                                            'lte' => $this->user->security_clearance
+                                            'lte' => $this->user->security_clearance,
 //                                        'boost' => 2
                                         ]
                                     ]
@@ -239,7 +239,7 @@ class BookmarksController extends Controller {
 
             $bookmark = $this->bookmarksRepository->create(array_merge($data,
                                                                        $request->all()));
-            
+
 
             event(new Stored($bookmark, $this->user));
 
