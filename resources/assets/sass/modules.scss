@@ -614,8 +614,16 @@ body{
                 .load-more-container{
                     text-align:center;
                     a{
+
                         img{
                             width: 2%;
+                        }
+                        p{
+                            display: inline-block;
+                            background-color: rgb(47, 79, 79);
+                            padding: 10px;
+                            border-radius: 10px;
+                            color: rgb(100, 149, 237);
                         }
                     }
                 }

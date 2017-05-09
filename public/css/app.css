@@ -8339,6 +8339,14 @@ body {
   width: 2%;
 }
 
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .load-more-container a p {
+  display: inline-block;
+  background-color: darkslategray;
+  padding: 10px;
+  border-radius: 10px;
+  color: cornflowerblue;
+}
+
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .player-show-box {
   position: fixed;
   bottom: -6px;

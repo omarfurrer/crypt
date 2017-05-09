@@ -160,6 +160,7 @@
                     <a  in-view="$inview
                         && !DashCtrl.isLoadingMore
                         && DashCtrl.index(DashCtrl.pagination.current_page + 1,DashCtrl.currentFolder,DashCtrl.orderBy,DashCtrl.orderByAttribute)">
+                        <p ng-if="!DashCtrl.isLoadingMore">Load More</p>
                         <img ng-if="DashCtrl.isLoadingMore"  src="assets/images/spinner.gif">
                     </a>
                 </div>
