@@ -227,6 +227,13 @@
                             }
 
                         } else {
+                            if (toState.name == 'dashboard') {
+                                // add state.go in a timeout function because it does not work properly in the run function
+                                $timeout(function () {
+                                    $state.go('home');
+                                });
+                            }
+
                             $rootScope.authenticated = false;
                             $rootScope.currentUser = null;
                         }
