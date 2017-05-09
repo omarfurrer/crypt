@@ -15,10 +15,9 @@
             }
 
             if ((onMobile === false)) {
-                console.log(data.data.bookmarks);
+                console.log(data.data.bookmarks.length);
                 // Init plugin
                 $('canvas').constellation({bookmarks: data.data.bookmarks, length: data.data.bookmarks.length});
-                console.log('lol');
             } else {
             }
         });
