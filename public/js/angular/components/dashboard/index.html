@@ -156,7 +156,7 @@
                         </div>
                     </div>
                 </div>
-                <div  class="load-more-container">
+                <div ng-if="DashCtrl.isEmpty(DashCtrl.pagination) || DashCtrl.pagination.next_page_url != null"  class="load-more-container">
                     <a  in-view="$inview
                         && !DashCtrl.isLoadingMore
                         && DashCtrl.index(DashCtrl.pagination.current_page + 1,DashCtrl.currentFolder,DashCtrl.orderBy,DashCtrl.orderByAttribute)">
