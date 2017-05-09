@@ -44,22 +44,26 @@ class Crawler {
             return false;
 
         $ch = curl_init();
-
+//        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+//        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_URL, $this->_url);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_USERAGENT,
-                    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.89 Safari/537.36');        
+                    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.89 Safari/537.36');
         curl_setopt($ch, CURLOPT_REFERER, env('APP_URL'));
         curl_setopt($ch, CURLOPT_AUTOREFERER, true);
         curl_setopt($ch, CURLOPT_VERBOSE, 1);
+//        curl_setopt($ch, CURLOPT_COOKIEJAR, 'cookie.txt');
+//        curl_setopt($ch, CURLOPT_COOKIEFILE, 'cookie.txt');
+//        curl_setopt($ch, CURLOPT_COOKIE, 'key=value;anotherkey=anothervalue');
         $page_content = curl_exec($ch);
         curl_close($ch);
 
         $dom_obj = new \DOMDocument();
-        @$dom_obj->loadHTML(mb_convert_encoding($page_content, 'HTML-ENTITIES', 'utf8mb4'));
-
+        @$dom_obj->loadHTML(mb_convert_encoding($page_content, 'HTML-ENTITIES',
+                                                'utf8mb4'));
         $data = [];
 
         $metaTags = $dom_obj->getElementsByTagName('meta');
