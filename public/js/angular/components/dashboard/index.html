@@ -105,12 +105,20 @@
                             <p class="description">{{ bookmark.description}}</p>
                             <!--<p class="url">{{ bookmark.url}}</p>-->
                         </div>
+                        <div class="info-block">
+                            <p class="created">{{bookmark.created_at| date:'EEE d MMM yy'}}</p>
+                            <!--<p class="created">9 days ago</p>-->
+                            <!--<p class="shared-by"><span>shared by</span>Karim Goda</p>-->
+                            <div class="clearfix"></div>
+                        </div>
+
                         <!--                        <button type="button" class="btn btn-danger delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
                                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                 </button>-->
                         <a class="btn btn-primary download-button" ng-click="DashCtrl.editBookmark(bookmark.id)">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </a>
+
                         <p class="folder" ng-if="DashCtrl.getFolder(bookmark.folder_id) != false"><fa name="folder-open"></fa>{{ DashCtrl.getFolder(bookmark.folder_id).name}}</p>
 
                     <p class="security-clearance-name">
@@ -119,6 +127,8 @@
                     <fa ng-if="bookmark.security_clearance == 1 || bookmark.security_clearance == 2" name="lock"></fa>
                     {{DashCtrl.getSecurityClearance(bookmark.security_clearance)}}
                     </p>
+
+
 
                     <div class="clearfix"></div>
                     </li>
@@ -153,6 +163,12 @@
                             <a ng-if="bookmark.custom_title == null" class="title-link" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}"><p class="title">{{ bookmark.title}}</p></a>
                             <a ng-if="bookmark.custom_title != null" class="title-link" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}"><p class="title">{{ bookmark.custom_title}}</p></a>
 
+                        </div>
+                        <div class="info-block">
+                            <p class="created">{{bookmark.created_at| date:'EEE d MMM yy'}}</p>
+                            <!--<p class="created">9 days ago</p>-->
+                            <!--<p class="shared-by"><span>shared by</span>Karim Goda</p>-->
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>

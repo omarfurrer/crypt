@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
 use App\Events\Bookmarks\MetaRefreshed;
+use Carbon;
 
 class Bookmark extends Model {
 
@@ -173,6 +174,16 @@ class Bookmark extends Model {
     {
         $data = $this->toArray();
         return $data;
+    }
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
     }
 
 }

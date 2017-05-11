@@ -4,7 +4,8 @@
     angular
 
 
-            .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview', 'ngAside', 'fsm', 'pusher-angular', 'ngIdle', 'picardy.fontawesome'])
+            .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview',
+                'ngAside', 'fsm', 'pusher-angular', 'ngIdle', 'picardy.fontawesome'])
             .constant("customConfig", JSON.parse(customConfig))
             .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, IdleProvider, KeepaliveProvider) {
                 // configure Idle settings
