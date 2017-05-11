@@ -2,7 +2,7 @@
 
     'use strict';
 
-    angular.module('crypt').controller('SettingsController', SettingsController);
+    angular.module('crypt').controller('SettingsController', ['$auth', '$state', '$stateParams', '$rootScope', 'BaseService', 'UsersService', '$scope', SettingsController]);
 
     function SettingsController($auth, $state, $stateParams, $rootScope, BaseService, UsersService, $scope) {
 

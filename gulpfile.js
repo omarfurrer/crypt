@@ -38,8 +38,24 @@ elixir(function (mix) {
                 '../bower_components/pusher-angular/lib/pusher-angular.js',
                 '../bower_components/angular-fontawesome/dist/angular-fontawesome.js'
             ], 'public/js/app.js')
-            .copy('resources/assets/bower_components/font-awesome/fonts/**', 'public/css/fonts')
-            .copy('resources/assets/bower_components/bootstrap-sass/assets/fonts/**', 'public/fonts')
+//            .copy('resources/assets/bower_components/font-awesome/fonts/**', 'public/css/fonts')
+//            .copy('resources/assets/bower_components/bootstrap-sass/assets/fonts/**', 'public/fonts')
+            .copy('resources/assets/bower_components/font-awesome/fonts/**', 'public/build/css/fonts')
+            .copy('resources/assets/bower_components/bootstrap-sass/assets/fonts/**', 'public/build/fonts')
+            .scripts([
+                './public/js/angular/app.js',
+                './public/js/angular/shared/controllers/BaseController.js',
+                './public/js/angular/shared/services/BaseService.js',
+                './public/js/angular/shared/services/UsersService.js',
+                './public/js/angular/shared/services/BookmarksService.js',
+                './public/js/angular/shared/services/SecurityService.js',
+                './public/js/angular/shared/services/FoldersService.js',
+                './public/js/angular/shared/services/DashboardService.js',
+                './public/js/angular/components/home/HomeController.js',
+                './public/js/angular/components/dashboard/DashboardController.js',
+                './public/js/angular/components/settings/SettingsController.js',
+            ], 'public/js/angular/all.js')
+            .version(["public/js/app.js", "public/css/pure/all.css", "public/css/app.css", "public/js/angular/all.js"])
 //            .webpack('app.js', './public/js/webpack/app.js')
             ;
 

@@ -2,7 +2,7 @@
 
     'use strict';
 
-    angular.module('crypt').controller('HomeController', HomeController);
+    angular.module('crypt').controller('HomeController', ['$auth', '$state', '$stateParams', '$rootScope', 'BaseService', '$scope', HomeController]);
 
     function HomeController($auth, $state, $stateParams, $rootScope, BaseService, $scope) {
 

@@ -2,7 +2,9 @@
 
     'use strict';
 
-    angular.module('crypt').controller('BaseController', BaseController);
+    angular.module('crypt').controller('BaseController', ['$scope', '$auth', '$state', '$stateParams', 'customConfig', '$rootScope', 'BaseService',
+        '$window', 'UsersService', 'BookmarksService', 'FoldersService', 'SecurityService', '$uibModal', 'DashboardService'
+                , BaseController]);
 
     function BaseController($scope, $auth, $state, $stateParams, customConfig, $rootScope, BaseService, $window, UsersService, BookmarksService, FoldersService, SecurityService, $uibModal, DashboardService) {
 

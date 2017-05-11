@@ -2,7 +2,10 @@
 
     'use strict';
 
-    angular.module('crypt').controller('DashboardController', DashboardController);
+    angular.module('crypt').controller('DashboardController', ['$uibModalStack', '$auth', '$state', '$stateParams', '$pusher',
+        '$window', '$rootScope', 'BaseService', '$scope', '$aside', 'SecurityService',
+        'BookmarksService', 'FoldersService', 'DashboardService', '$uibModal'
+                , DashboardController]);
 
 
     function DashboardController($uibModalStack, $auth, $state, $stateParams, $pusher, $window, $rootScope, BaseService, $scope, $aside, SecurityService, BookmarksService, FoldersService, DashboardService, $uibModal) {
@@ -22,6 +25,7 @@
         vm.orderByAttribute = undefined;
         vm.playerVisible = angular.copy(DashboardService.playerVisible);
         vm.isPlaying = angular.copy(DashboardService.isPlaying);
+
 
         $scope.$watch(function () {
             return DashboardService.listBlocks;
@@ -48,6 +52,7 @@
         },
                 function (newValue, oldValue) {
                     vm.pagination = angular.copy(BookmarksService.pagination);
+                    console.log(vm.pagination);
                 }, true);
 
         $scope.$watch(function () {
