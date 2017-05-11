@@ -35,7 +35,7 @@ class BookmarksController extends Controller {
         $this->bookmarksRepository = $bookmarksRepository;
         $this->foldersRepository = $foldersRepository;
         $this->middleware('jwt.auth',
-                          ['except' => ['postStoreFromPlugin', 'store']]);
+                          ['except' => ['getCaptureDirect', 'postStoreFromPlugin', 'store']]);
     }
 
     /**
@@ -245,6 +245,42 @@ class BookmarksController extends Controller {
 
 
             return response()->json(compact('bookmark'), 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        } catch (QueryException $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response2
+     */
+    public function getCaptureDirect($user, $level = 0)
+    {
+        try {
+
+            $url = \Request::get('url');
+
+            if (filter_var($user, FILTER_VALIDATE_EMAIL)) {
+                $user = \App\User::where('email', $user)->first();
+            } else {
+                $user = \App\User::find($user);
+            }
+
+            $data = [
+                'url' => $url,
+                'user_id' => $user->id,
+                'security_clearance' => $level
+            ];
+
+            $bookmark = $this->bookmarksRepository->create($data);
+
+            event(new Stored($bookmark, $user));
+
+            return redirect($url);
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
         } catch (QueryException $e) {

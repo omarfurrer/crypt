@@ -10,20 +10,27 @@
   | to using a Closure or controller method. Build something great!
   |
  */
+Route::get('/capture/{user}/{level?}', 'BookmarksController@getCaptureDirect');
+
+//Route::get('/{url}', function () {
+//    return view('index');
+//})->where('url', '(.*)');
 
 Route::get('/', function () {
     return view('index');
 });
+
 Route::get('/mycrypt', function () {
     return view('index');
 });
+
 Route::get('/login', function () {
     return view('index');
 });
+
 Route::get('/settings', function () {
     return view('index');
 });
-
 
 //
 //Route::group(['prefix' => 'api'], function() {
