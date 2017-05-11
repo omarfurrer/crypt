@@ -52,7 +52,6 @@
         },
                 function (newValue, oldValue) {
                     vm.pagination = angular.copy(BookmarksService.pagination);
-                    console.log(vm.pagination);
                 }, true);
 
         $scope.$watch(function () {
