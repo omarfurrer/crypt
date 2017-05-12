@@ -84,6 +84,8 @@
                     </button>
                     <div class="custom-block-information">
                         <p ng-if="DashCtrl.currentFolder != undefined">{{ DashCtrl.getCurrentFolder(DashCtrl.currentFolder.id).name}}</p>
+                        <p ng-if="DashCtrl.currentFolder == 'Shared With Me' || DashCtrl.currentFolder == 'Shared By Me'">
+                            {{ DashCtrl.currentFolder}}</p>
                         <p ng-if="DashCtrl.currentFolder == undefined">All Bookmarks</p>
                     </div>
                     <div class="clearfix"></div>
@@ -193,9 +195,27 @@
                     </div>
                 </div>
                 <div ng-if="DashCtrl.isEmpty(DashCtrl.pagination) || DashCtrl.pagination.next_page_url != null"  class="load-more-container">
-                    <a  in-view="$inview
+                    <a
+                        ng-if="DashCtrl.currentFolder != 'Shared With Me' && DashCtrl.currentFolder != 'Shared By Me'"
+                        in-view="$inview
                         && !DashCtrl.isLoadingMore
                         && DashCtrl.index(DashCtrl.pagination.current_page + 1,DashCtrl.currentFolder,DashCtrl.orderBy,DashCtrl.orderByAttribute)">
+                        <p ng-if="!DashCtrl.isLoadingMore">Load More</p>
+                        <img ng-if="DashCtrl.isLoadingMore"  src="assets/images/spinner.gif">
+                    </a>
+                    <a
+                        ng-if="DashCtrl.currentFolder == 'Shared With Me'"
+                        in-view="$inview
+                        && !DashCtrl.isLoadingMore
+                        && DashCtrl.indexSharedWithMe(DashCtrl.pagination.current_page + 1)">
+                        <p ng-if="!DashCtrl.isLoadingMore">Load More</p>
+                        <img ng-if="DashCtrl.isLoadingMore"  src="assets/images/spinner.gif">
+                    </a>
+                    <a
+                        ng-if="DashCtrl.currentFolder == 'Shared By Me'"
+                        in-view="$inview
+                        && !DashCtrl.isLoadingMore
+                        && DashCtrl.indexSharedByMe(DashCtrl.pagination.current_page + 1)">
                         <p ng-if="!DashCtrl.isLoadingMore">Load More</p>
                         <img ng-if="DashCtrl.isLoadingMore"  src="assets/images/spinner.gif">
                     </a>

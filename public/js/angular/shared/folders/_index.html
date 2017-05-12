@@ -11,7 +11,24 @@
         </button>
 
         <div class="folders-list">
-            <div class="item" ng-class="{'custom-active' : DashboardFoldersCtrl.currentFolder == null}" ng-click="DashCtrl.index(1, {id: folder.id}, DashCtrl.orderBy, DashCtrl.orderByAttribute)">All</div>
+            <div 
+                class="item"
+                ng-class="{'custom-active' : DashboardFoldersCtrl.currentFolder == null}"
+                ng-click="DashCtrl.index(1, {id: folder.id}, DashCtrl.orderBy, DashCtrl.orderByAttribute)"
+                >All</div>
+
+            <div 
+                class="item"
+                ng-class="{'custom-active' : DashboardFoldersCtrl.currentFolder == 'Shared With Me'}"
+                ng-click="DashCtrl.indexSharedWithMe(1)"
+                >Shared With Me</div>
+
+            <div
+                class="item"
+                ng-class="{'custom-active' : DashboardFoldersCtrl.currentFolder == 'Shared By Me'}"
+                ng-click="DashCtrl.indexSharedByMe(1)"
+                >Shared By Me</div>
+
             <div ng-repeat="folder in DashboardFoldersCtrl.folders" class="utility-block">
                 <div class="item"
                      ng-class="{'custom-active' : DashboardFoldersCtrl.currentFolder.id == folder.id}"

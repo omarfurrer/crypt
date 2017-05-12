@@ -468,6 +468,25 @@
             ;
         };
 
+        vm.indexSharedWithMe = function (page) {
+            if (vm.currentFolder != 'Shared With Me') {
+                BookmarksService.bookmarks = [];
+            }
+            FoldersService.currentFolder = 'Shared With Me';
+            BookmarksService.indexSharedWithMe(page).then(function () {
+                DashboardService.foldersCollapsed = true;
+            });
+        };
+        vm.indexSharedByMe = function (page) {
+            if (vm.currentFolder != 'Shared By Me') {
+                BookmarksService.bookmarks = [];
+            }
+            FoldersService.currentFolder = 'Shared By Me';
+            BookmarksService.indexSharedByMe(page).then(function () {
+                DashboardService.foldersCollapsed = true;
+            });
+        };
+
         vm.indexFolders = function () {
             FoldersService.index();
         };
