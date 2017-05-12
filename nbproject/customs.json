@@ -6,6 +6,7 @@
         "uib-dropdown-menu": {
             "context": "ul"
         },
+        "popover-title": {},
         "uib-dropdown-toggle": {
             "context": "a"
         },

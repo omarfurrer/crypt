@@ -97,6 +97,7 @@
                         <!--<p class="security-clearance">{{ bookmark.security_clearance + 1}}</p>-->
                         <a class="" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}">
                             <img class="bookmark-image" src="{{ bookmark.image != null ? bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
+
                         </a>
                         <div class="info-box">
                             <img class="bookmark-icon" src="https://www.google.com/s2/favicons?domain={{ bookmark.url}}">
@@ -118,6 +119,16 @@
                         <a class="btn btn-primary download-button" ng-click="DashCtrl.editBookmark(bookmark.id)">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </a>
+                        <a class="btn btn-primary btn-sm share-button"
+                           uib-popover-template="'js/angular/shared/sharing/_search.html'"
+                           popover-title="Share With"
+                           popover-trigger="'outsideClick'"
+                           popover-append-to-body="true"
+                           >
+                            <fa name="share-square-o"></fa>
+                        </a>
+
+
 
                         <p class="folder" ng-if="DashCtrl.getFolder(bookmark.folder_id) != false"><fa name="folder-open"></fa>{{ DashCtrl.getFolder(bookmark.folder_id).name}}</p>
 
@@ -150,6 +161,15 @@
                             <a class="btn btn-primary btn-sm download-button" ng-click="DashCtrl.editBookmark(bookmark.id)">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </a>
+                            <a class="btn btn-primary btn-sm share-button"
+                               uib-popover-template="'js/angular/shared/sharing/_search.html'"
+                               popover-title="Share With"
+                               popover-trigger="'outsideClick'"
+                               popover-append-to-body="true"
+                               >
+                                <fa name="share-square-o"></fa>
+                            </a>
+
                             <div class="clearfix"></div>
                         </div>
                         <div class="middle-block">

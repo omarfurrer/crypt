@@ -6,6 +6,7 @@
             var url = 'api/users';
             service.user = {};
             service.error = {};
+            service.searchResults = [];
 
             service.logout = function () {
                 service.user = {};
@@ -26,6 +27,20 @@
                                     BookmarksService.index(1, FoldersService.currentFolder.id);
                                 }
                             });
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
+            service.search = function (q) {
+                BaseService.load();
+                return $http.post(url + '/search', {q: q})
+                        .success(function (data) {
+                            service.searchResults = data.users;
                         })
                         .error(function (error) {
                             service.error = error;

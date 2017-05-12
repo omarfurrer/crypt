@@ -79,6 +79,83 @@ class BookmarksController extends Controller {
      * @param  int  $id
      * @return Response2
      */
+    public function indexSharedWithMe()
+    {
+        try {
+
+            $bookmarks = $this->user
+                    ->sharedWithMe()
+                    ->where('security_clearance', '<=',
+                            $this->user->security_clearance)
+                    ->orderBy('id', 'DESC')
+                    ->paginate();
+
+            return response()->json(compact('bookmarks'), 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        } catch (QueryException $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response2
+     */
+    public function indexSharedByMe()
+    {
+        try {
+
+            $bookmarks = $this->user
+                    ->sharedByMe()
+                    ->where('security_clearance', '<=',
+                            $this->user->security_clearance)
+                    ->orderBy('id', 'DESC')
+                    ->paginate();
+
+            return response()->json(compact('bookmarks'), 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        } catch (QueryException $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response2
+     */
+    public function postShare()
+    {
+        try {
+
+            $bookmark_id = \Request::get('bookmark_id');
+            $user_id = \Request::get('user_id');
+
+            \DB::table('shared_bookmarks')->insert([
+                'bookmark_id' => $bookmark_id,
+                'shared_with_id' => $user_id,
+                'shared_by_id' => $this->user->id
+            ]);
+
+            return response()->json(compact(''), 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        } catch (QueryException $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response2
+     */
     public function postSearch(Request $request)
     {
         try {
@@ -150,11 +227,13 @@ class BookmarksController extends Controller {
 //                            ],
                             'must' => [
 //                                'match' => [
-                                ['term' => [
+                                [
+                                    'term' => [
                                         'user_id' => [
                                             'value' => $this->user->id
                                         ]
-                                    ]]
+                                    ]
+                                ]
 //                                ]
                                 ,
                                 [

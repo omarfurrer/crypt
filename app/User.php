@@ -5,11 +5,57 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Socialite;
+use Elasticquent\ElasticquentTrait;
 use Hash;
 
 class User extends Authenticatable {
 
     use Notifiable;
+    use ElasticquentTrait;
+
+    /**
+     * The elasticsearch settings.
+     *
+     * @var array
+     */
+    protected $indexSettings = [
+        'analysis' => [
+            'char_filter' => [
+                'replace' => [
+                    'type' => 'mapping',
+                    'mappings' => [
+                        '&=> and '
+                    ],
+                ],
+            ],
+            'filter' => [
+                'word_delimiter' => [
+                    'type' => 'word_delimiter',
+                    'split_on_numerics' => false,
+                    'split_on_case_change' => true,
+                    'generate_word_parts' => true,
+                    'generate_number_parts' => true,
+                    'catenate_all' => true,
+                    'preserve_original' => true,
+                    'catenate_numbers' => true,
+                ]
+            ],
+            'analyzer' => [
+                'default' => [
+                    'type' => 'custom',
+                    'char_filter' => [
+                        'html_strip',
+                        'replace',
+                    ],
+                    'tokenizer' => 'whitespace',
+                    'filter' => [
+                        'lowercase',
+                        'word_delimiter',
+                    ],
+                ],
+            ],
+        ],
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -91,6 +137,34 @@ class User extends Authenticatable {
             $newUser->save();
             return $newUser;
         }
+    }
+
+    function getIndexDocumentData()
+    {
+        $data = $this->toArray();
+        return $data;
+    }
+
+    /**
+     * A product can belong to many users
+     *
+     * @return BelongsToMany
+     */
+    public function sharedWithMe()
+    {
+        return $this->belongsToMany('App\Bookmark', 'shared_bookmarks',
+                                    'shared_with_id', 'bookmark_id')->withTimestamps();
+    }
+
+    /**
+     * A product can belong to many users
+     *
+     * @return BelongsToMany
+     */
+    public function sharedByMe()
+    {
+        return $this->belongsToMany('App\Bookmark', 'shared_bookmarks',
+                                    'shared_by_id', 'bookmark_id')->withTimestamps();
     }
 
 }

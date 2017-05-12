@@ -4,11 +4,12 @@
 
     angular.module('crypt').controller('DashboardController', ['$uibModalStack', '$auth', '$state', '$stateParams', '$pusher',
         '$window', '$rootScope', 'BaseService', '$scope', '$aside', 'SecurityService',
-        'BookmarksService', 'FoldersService', 'DashboardService', '$uibModal'
+        'BookmarksService', 'FoldersService', 'DashboardService', '$uibModal', 'UsersService'
                 , DashboardController]);
 
 
-    function DashboardController($uibModalStack, $auth, $state, $stateParams, $pusher, $window, $rootScope, BaseService, $scope, $aside, SecurityService, BookmarksService, FoldersService, DashboardService, $uibModal) {
+    function DashboardController($uibModalStack, $auth, $state, $stateParams, $pusher, $window, $rootScope, BaseService, $scope, $aside, SecurityService,
+            BookmarksService, FoldersService, DashboardService, $uibModal, UsersService) {
 
         var vm = this;
         vm.bookmarks = [];
@@ -25,6 +26,11 @@
         vm.orderByAttribute = undefined;
         vm.playerVisible = angular.copy(DashboardService.playerVisible);
         vm.isPlaying = angular.copy(DashboardService.isPlaying);
+        vm.sharing = {
+            search: {
+                q: ''
+            }
+        };
 
 
         $scope.$watch(function () {
@@ -141,6 +147,19 @@
                 return data.data.bookmarks;
             });
         };
+
+        vm.searchSelectedShare = function ($item, $model, $label, $event, bookmark) {
+            return BookmarksService.share(bookmark, $item).then(function (data) {
+                vm.sharing.search.q = '';
+            });
+        };
+
+        vm.searchUser = function (q) {
+            return UsersService.search(q).then(function (data) {
+                return data.data.users;
+            });
+        };
+
         var pusher = $pusher(window.client);
 
         var bookmarksStored = pusher.subscribe('private-users.' + $rootScope.currentUser.id + '.bookmarks');

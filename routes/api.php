@@ -18,11 +18,15 @@ use Illuminate\Http\Request;
 //})->middleware('auth:api');
 
  Route::patch('users/update/password', ['uses' => 'UsersController@patchChangePassword']);
+    Route::post('users/search', ['uses' => 'UsersController@postSearch']);
     Route::post('users/security/clearance/change', ['uses' => 'UsersController@postChangeSecurityClearance']);
     Route::post('users/authenticate/google', ['uses' => 'UsersController@postAuthenticateGoogle']);
     Route::post('users/login', ['uses' => 'UsersController@postLogin']);
 
 
+    Route::post('bookmarks/share', ['uses' => 'BookmarksController@postShare']);
+    Route::get('bookmarks/shared/mine', ['uses' => 'BookmarksController@indexSharedWithMe']);
+    Route::get('bookmarks/shared/others', ['uses' => 'BookmarksController@indexSharedByMe']);
     Route::post('bookmarks/search', ['uses' => 'BookmarksController@postSearch']);
     Route::get('bookmarks/exists', ['uses' => 'BookmarksController@getExists']);
     Route::get('bookmarks/folder/{folders}', ['uses' => 'BookmarksController@indexFolder']);

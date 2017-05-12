@@ -34,6 +34,68 @@ class UsersController extends Controller {
      * @param  int  $id
      * @return Response2
      */
+    public function postSearch(Request $request)
+    {
+        try {
+
+
+            $query = [
+                'body' => [
+//                    'min_score' => 3,
+                    'query' => [
+                        'bool' => [
+                            'should' => [
+                                [
+                                    'wildcard' => [
+                                        'email' => [
+                                            'value' => '*' . $request->q . '*',
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    'wildcard' => [
+                                        'f_name' => [
+                                            'value' => '*' . $request->q . '*',
+                                        ]
+                                    ]
+                                ]
+                                ,
+                                [
+                                    'wildcard' => [
+                                        'l_name' => [
+                                            'value' => '*' . $request->q . '*',
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            'must_not' => [
+                                'term' => [
+                                    'id' => [
+                                        'value' => $this->user->id
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ];
+
+            $users = User::complexSearch($query);
+
+            return response()->json(compact('users'), 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        } catch (QueryException $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response2
+     */
     public function postChangeSecurityClearance(\App\Http\Requests\ChangeSecurityClearance $request)
     {
         try {
@@ -93,6 +155,8 @@ class UsersController extends Controller {
             }
 
             $user->save();
+
+            $user->addToIndex();
 
             $user = User::find($user->id);
 

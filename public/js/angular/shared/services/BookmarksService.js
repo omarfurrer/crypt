@@ -49,6 +49,38 @@
                         });
             };
 
+            service.indexSharedWithMe = function (page = 1) {
+                BaseService.load();
+                var full_url = url + '/shared/mine' + '?page=' + page;
+                return $http.get(full_url)
+                        .success(function (data) {
+                            service.bookmarks = service.bookmarks.concat(data.bookmarks.data);
+                            service.pagination = data.bookmarks;
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
+            service.indexSharedByMe = function (page = 1) {
+                BaseService.load();
+                var full_url = url + '/shared/others' + '?page=' + page;
+                return $http.get(full_url)
+                        .success(function (data) {
+                            service.bookmarks = service.bookmarks.concat(data.bookmarks.data);
+                            service.pagination = data.bookmarks;
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
 //            service.indexFolder = function (id) {
 //                BaseService.load();
 //                return $http.get(url + '/folder/' + id)
@@ -69,6 +101,19 @@
                 return $http.post(url, bookmark)
                         .success(function (data) {
                             service.bookmarks.splice(0, 0, data.bookmark);
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
+            service.share = function (bookmark, user) {
+                BaseService.load();
+                return $http.post(url + '/share', {bookmark_id: bookmark.id, user_id: user.id})
+                        .success(function (data) {
                         })
                         .error(function (error) {
                             service.error = error;
