@@ -17,6 +17,7 @@ use App\Events\Bookmarks\Stored;
 use App\Jobs\Bookmark\refresh;
 use App\Repositories\FoldersRepository;
 use Carbon;
+use App\Mail\BookmarkShared;
 
 class BookmarksController extends Controller {
 
@@ -155,8 +156,15 @@ class BookmarksController extends Controller {
                 'bookmark_id' => $bookmark_id,
                 'shared_with_id' => $user_id,
                 'shared_by_id' => $this->user->id,
-                'created_at' => \Carbon\Carbon::now()->toDateTimeString()
+                'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
+
+            $sharedWith = \App\User::find($user_id);
+            $bookmark = Bookmark::find($bookmark_id);
+            \Mail::to($sharedWith->email)->send(new BookmarkShared($this->user,
+                                                                   $sharedWith,
+                                                                   $bookmark));
 
             return response()->json(compact(''), 200);
         } catch (Exception $e) {
@@ -178,7 +186,7 @@ class BookmarksController extends Controller {
 
             $pivotID = \Request::get('id');
 
-            \DB::table('shared_bookmarks')->where('id',$pivotID)->delete();
+            \DB::table('shared_bookmarks')->where('id', $pivotID)->delete();
 //        ->delete();
 
             return response()->json(compact(''), 200);

@@ -7,19 +7,24 @@
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/shared/folders/_index.html</file>
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/routes/api.php</file>
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/shared/sharing/_userItem.html</file>
-            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/shared/services/BaseService.js</file>
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/shared/navbar/_navbar.html</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/shared/services/BaseService.js</file>
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/database/migrations/2017_03_26_205643_create_metas_table.php</file>
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/database/migrations/2017_05_12_115053_create_shared_bookmarks_table.php</file>
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/shared/controllers/BaseController.js</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/app.js</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Http/Requests/StoreBookmarkRequest.php</file>
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/resources/views/index.blade.php</file>
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Http/Controllers/BookmarksController.php</file>
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/shared/sharing/_search.html</file>
-            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Bookmark.php</file>
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/shared/services/FoldersService.js</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Bookmark.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/SharedBookmark.php</file>
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/User.php</file>
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/components/dashboard/DashboardController.js</file>
             <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/components/dashboard/index.html</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/resources/assets/sass/modules.scss</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/shared/services/DashboardService.js</file>
         </group>
     </open-files>
 </project-private>
