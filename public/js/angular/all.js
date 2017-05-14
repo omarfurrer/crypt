@@ -6,7 +6,7 @@
 
             .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview',
                 'ngAside', 'fsm', 'pusher-angular', 'ngIdle', 'picardy.fontawesome'])
-            .constant("customConfig", JSON.parse(customConfig))
+//            .constant("customConfig", JSON.parse(customConfigInline))
             .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, IdleProvider, KeepaliveProvider) {
                 // configure Idle settings
                 IdleProvider.idle(30); // in seconds
@@ -146,11 +146,11 @@
                     };
                 }])
 
-            .run(['$rootScope', '$state', '$window', '$location', '$timeout', 'Idle', 'SecurityService', 'UsersService', 'customConfig',
+            .run(['$rootScope', '$state', '$window', '$location', '$timeout', 'Idle', 'SecurityService', 'UsersService',
                 function ($rootScope, $state, $window, $location, $timeout, Idle,
                         SecurityService,
 //                 UsersService,
-                        customConfig) {
+                        ) {
 
 
                     var user = JSON.parse(localStorage.getItem('user'));
@@ -158,7 +158,7 @@
                         Idle.watch();
 
                         var token = localStorage.getItem('satellizer_token');
-                        window.client = new Pusher(customConfig.PUSHER_APP_KEY, {
+                        window.client = new Pusher(JSON.parse(customConfig).PUSHER_APP_KEY, {
                             authEndpoint: '/broadcasting/auth',
                             cluster: 'eu',
                             encrypted: true,
@@ -248,11 +248,11 @@
 
     'use strict';
 
-    angular.module('crypt').controller('BaseController', ['$scope', '$auth', '$state', '$stateParams', 'customConfig', '$rootScope', 'BaseService',
+    angular.module('crypt').controller('BaseController', ['$scope', '$auth', '$state', '$stateParams', '$rootScope', 'BaseService',
         '$window', 'UsersService', 'BookmarksService', 'FoldersService', 'SecurityService', '$uibModal', 'DashboardService'
                 , BaseController]);
 
-    function BaseController($scope, $auth, $state, $stateParams, customConfig, $rootScope, BaseService, $window, UsersService, BookmarksService, FoldersService, SecurityService, $uibModal, DashboardService) {
+    function BaseController($scope, $auth, $state, $stateParams, $rootScope, BaseService, $window, UsersService, BookmarksService, FoldersService, SecurityService, $uibModal, DashboardService) {
 
         var vm = this;
         vm.currentSecurityClearance = angular.copy(SecurityService.currentSecurityClearance);
@@ -414,7 +414,7 @@
             UsersService.authenticate(provider).then(function () {
                 var token = localStorage.getItem('satellizer_token');
 
-                window.client = new Pusher(customConfig.PUSHER_APP_KEY, {
+                window.client = new Pusher(JSON.parse(customConfig).PUSHER_APP_KEY, {
                     authEndpoint: '/broadcasting/auth',
                     cluster: 'eu',
                     encrypted: true,

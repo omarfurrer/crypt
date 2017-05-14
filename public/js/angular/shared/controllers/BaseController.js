@@ -2,11 +2,11 @@
 
     'use strict';
 
-    angular.module('crypt').controller('BaseController', ['$scope', '$auth', '$state', '$stateParams', 'customConfig', '$rootScope', 'BaseService',
+    angular.module('crypt').controller('BaseController', ['$scope', '$auth', '$state', '$stateParams', '$rootScope', 'BaseService',
         '$window', 'UsersService', 'BookmarksService', 'FoldersService', 'SecurityService', '$uibModal', 'DashboardService'
                 , BaseController]);
 
-    function BaseController($scope, $auth, $state, $stateParams, customConfig, $rootScope, BaseService, $window, UsersService, BookmarksService, FoldersService, SecurityService, $uibModal, DashboardService) {
+    function BaseController($scope, $auth, $state, $stateParams, $rootScope, BaseService, $window, UsersService, BookmarksService, FoldersService, SecurityService, $uibModal, DashboardService) {
 
         var vm = this;
         vm.currentSecurityClearance = angular.copy(SecurityService.currentSecurityClearance);
@@ -168,7 +168,7 @@
             UsersService.authenticate(provider).then(function () {
                 var token = localStorage.getItem('satellizer_token');
 
-                window.client = new Pusher(customConfig.PUSHER_APP_KEY, {
+                window.client = new Pusher(JSON.parse(customConfig).PUSHER_APP_KEY, {
                     authEndpoint: '/broadcasting/auth',
                     cluster: 'eu',
                     encrypted: true,
