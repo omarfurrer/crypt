@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
     Route::post('users/login', ['uses' => 'UsersController@postLogin']);
 
 
+    Route::post('bookmarks/unshare', ['uses' => 'BookmarksController@postUnshare']);
     Route::post('bookmarks/share', ['uses' => 'BookmarksController@postShare']);
     Route::get('bookmarks/shared/mine', ['uses' => 'BookmarksController@indexSharedWithMe']);
     Route::get('bookmarks/shared/others', ['uses' => 'BookmarksController@indexSharedByMe']);

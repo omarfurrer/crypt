@@ -154,6 +154,10 @@
             });
         };
 
+        vm.unshare = function (id) {
+            return BookmarksService.unshare(id);
+        };
+
         vm.searchUser = function (q) {
             return UsersService.search(q).then(function (data) {
                 return data.data.users;
@@ -194,7 +198,9 @@
                 }
         );
 
-
+        vm.storeFromShare = function (bookmark) {
+            BookmarksService.storeFromShare({url: bookmark.url});
+        };
 
         $scope.$watch(function () {
             return DashboardService.foldersCollapsed;
@@ -454,14 +460,16 @@
                 BookmarksService.bookmarks = [];
             }
 
+            if (folder_id != undefined) {
+                FoldersService.currentFolder = {id: folder_id};
+            } else {
+                FoldersService.currentFolder = folder_id;
+            }
+
             vm.isLoadingMore = true;
             BookmarksService.index(page, folder_id, order_by, order_by_attribute).then(function () {
                 vm.isLoadingMore = false;
-                if (folder_id != undefined) {
-                    FoldersService.currentFolder = {id: folder_id};
-                } else {
-                    FoldersService.currentFolder = folder_id;
-                }
+
 
                 DashboardService.foldersCollapsed = true;
             });
@@ -469,18 +477,18 @@
         };
 
         vm.indexSharedWithMe = function (page) {
-            if (vm.currentFolder != 'Shared With Me') {
-                BookmarksService.bookmarks = [];
-            }
+//            if (vm.currentFolder != 'Shared With Me') {
+            BookmarksService.bookmarks = [];
+//            }
             FoldersService.currentFolder = 'Shared With Me';
             BookmarksService.indexSharedWithMe(page).then(function () {
                 DashboardService.foldersCollapsed = true;
             });
         };
         vm.indexSharedByMe = function (page) {
-            if (vm.currentFolder != 'Shared By Me') {
-                BookmarksService.bookmarks = [];
-            }
+//            if (vm.currentFolder != 'Shared By Me') {
+            BookmarksService.bookmarks = [];
+//            }
             FoldersService.currentFolder = 'Shared By Me';
             BookmarksService.indexSharedByMe(page).then(function () {
                 DashboardService.foldersCollapsed = true;

@@ -16,6 +16,7 @@ use Validator;
 use App\Events\Bookmarks\Stored;
 use App\Jobs\Bookmark\refresh;
 use App\Repositories\FoldersRepository;
+use Carbon;
 
 class BookmarksController extends Controller {
 
@@ -90,6 +91,13 @@ class BookmarksController extends Controller {
                     ->orderBy('id', 'DESC')
                     ->paginate();
 
+            $bookmarks->getCollection()->transform(function ($bookmark) {
+                $bookmark['shared_by_user'] = \App\User::find($bookmark->pivot->shared_by_id)->toArray();
+                $bookmark['shared_at'] = Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                                                         $bookmark->pivot->created_at)->format('Y-m-d');
+                return $bookmark;
+            });
+
             return response()->json(compact('bookmarks'), 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
@@ -115,6 +123,13 @@ class BookmarksController extends Controller {
                     ->orderBy('id', 'DESC')
                     ->paginate();
 
+            $bookmarks->getCollection()->transform(function ($bookmark) {
+                $bookmark['shared_with_user'] = \App\User::find($bookmark->pivot->shared_with_id)->toArray();
+                $bookmark['shared_at'] = Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                                                         $bookmark->pivot->created_at)->format('Y-m-d');
+                return $bookmark;
+            });
+
             return response()->json(compact('bookmarks'), 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
@@ -139,8 +154,33 @@ class BookmarksController extends Controller {
             \DB::table('shared_bookmarks')->insert([
                 'bookmark_id' => $bookmark_id,
                 'shared_with_id' => $user_id,
-                'shared_by_id' => $this->user->id
+                'shared_by_id' => $this->user->id,
+                'created_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
+
+            return response()->json(compact(''), 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        } catch (QueryException $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response2
+     */
+    public function postUnshare()
+    {
+        try {
+
+            $pivotID = \Request::get('id');
+
+            $this->user->sharedByMe()
+//            dd($pivotID);
+                    ->wherePivot('id', $pivotID)->first()->delete();
 
             return response()->json(compact(''), 200);
         } catch (Exception $e) {

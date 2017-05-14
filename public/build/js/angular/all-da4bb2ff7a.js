@@ -147,7 +147,10 @@
                 }])
 
             .run(['$rootScope', '$state', '$window', '$location', '$timeout', 'Idle', 'SecurityService', 'UsersService', 'customConfig',
-                function ($rootScope, $state, $window, $location, $timeout, Idle, SecurityService, UsersService, customConfig) {
+                function ($rootScope, $state, $window, $location, $timeout, Idle,
+                        SecurityService,
+//                 UsersService,
+                        customConfig) {
 
 
                     var user = JSON.parse(localStorage.getItem('user'));
@@ -180,9 +183,9 @@
                         // we are grabbing what is in local storage
                         $rootScope.currentUser = user;
                         SecurityService.update();
-                        if (user.security_clearance > 1) {
-                            UsersService.postchangeSecurityClearance('', 0);
-                        }
+//                        if (user.security_clearance > 1) {
+//                            UsersService.postchangeSecurityClearance('', 0);
+//                        }
                     } else {
                         $rootScope.authenticated = false;
                         $rootScope.currentUser = null;
@@ -495,6 +498,7 @@
             var url = 'api/users';
             service.user = {};
             service.error = {};
+            service.searchResults = [];
 
             service.logout = function () {
                 service.user = {};
@@ -515,6 +519,20 @@
                                     BookmarksService.index(1, FoldersService.currentFolder.id);
                                 }
                             });
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
+            service.search = function (q) {
+                BaseService.load();
+                return $http.post(url + '/search', {q: q})
+                        .success(function (data) {
+                            service.searchResults = data.users;
                         })
                         .error(function (error) {
                             service.error = error;
@@ -627,6 +645,38 @@
                         });
             };
 
+            service.indexSharedWithMe = function (page = 1) {
+                BaseService.load();
+                var full_url = url + '/shared/mine' + '?page=' + page;
+                return $http.get(full_url)
+                        .success(function (data) {
+                            service.bookmarks = service.bookmarks.concat(data.bookmarks.data);
+                            service.pagination = data.bookmarks;
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
+            service.indexSharedByMe = function (page = 1) {
+                BaseService.load();
+                var full_url = url + '/shared/others' + '?page=' + page;
+                return $http.get(full_url)
+                        .success(function (data) {
+                            service.bookmarks = service.bookmarks.concat(data.bookmarks.data);
+                            service.pagination = data.bookmarks;
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
 //            service.indexFolder = function (id) {
 //                BaseService.load();
 //                return $http.get(url + '/folder/' + id)
@@ -647,6 +697,45 @@
                 return $http.post(url, bookmark)
                         .success(function (data) {
                             service.bookmarks.splice(0, 0, data.bookmark);
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
+            service.storeFromShare = function (bookmark) {
+                BaseService.load();
+                return $http.post(url, bookmark)
+                        .success(function (data) {
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
+            service.share = function (bookmark, user) {
+                BaseService.load();
+                return $http.post(url + '/share', {bookmark_id: bookmark.id, user_id: user.id})
+                        .success(function (data) {
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+            service.unshare = function (id) {
+                BaseService.load();
+                return $http.post(url + '/unshare', {id: id})
+                        .success(function (data) {
+                            service.bookmarks.splice(findInArrayByPivot(service.bookmarks, id), 1);
                         })
                         .error(function (error) {
                             service.error = error;
@@ -838,6 +927,14 @@
             function findInArray(arraytosearch, valuetosearch) {
                 for (var i = 0; i < arraytosearch.length; i++) {
                     if (arraytosearch[i].id == valuetosearch) {
+                        return i;
+                    }
+                }
+                return null;
+            }
+            function findInArrayByPivot(arraytosearch, valuetosearch) {
+                for (var i = 0; i < arraytosearch.length; i++) {
+                    if (arraytosearch[i].pivot.id == valuetosearch) {
                         return i;
                     }
                 }
@@ -1042,11 +1139,12 @@
 
     angular.module('crypt').controller('DashboardController', ['$uibModalStack', '$auth', '$state', '$stateParams', '$pusher',
         '$window', '$rootScope', 'BaseService', '$scope', '$aside', 'SecurityService',
-        'BookmarksService', 'FoldersService', 'DashboardService', '$uibModal'
+        'BookmarksService', 'FoldersService', 'DashboardService', '$uibModal', 'UsersService'
                 , DashboardController]);
 
 
-    function DashboardController($uibModalStack, $auth, $state, $stateParams, $pusher, $window, $rootScope, BaseService, $scope, $aside, SecurityService, BookmarksService, FoldersService, DashboardService, $uibModal) {
+    function DashboardController($uibModalStack, $auth, $state, $stateParams, $pusher, $window, $rootScope, BaseService, $scope, $aside, SecurityService,
+            BookmarksService, FoldersService, DashboardService, $uibModal, UsersService) {
 
         var vm = this;
         vm.bookmarks = [];
@@ -1063,6 +1161,11 @@
         vm.orderByAttribute = undefined;
         vm.playerVisible = angular.copy(DashboardService.playerVisible);
         vm.isPlaying = angular.copy(DashboardService.isPlaying);
+        vm.sharing = {
+            search: {
+                q: ''
+            }
+        };
 
 
         $scope.$watch(function () {
@@ -1179,6 +1282,23 @@
                 return data.data.bookmarks;
             });
         };
+
+        vm.searchSelectedShare = function ($item, $model, $label, $event, bookmark) {
+            return BookmarksService.share(bookmark, $item).then(function (data) {
+                vm.sharing.search.q = '';
+            });
+        };
+
+        vm.unshare = function (id) {
+            return BookmarksService.unshare(id);
+        };
+
+        vm.searchUser = function (q) {
+            return UsersService.search(q).then(function (data) {
+                return data.data.users;
+            });
+        };
+
         var pusher = $pusher(window.client);
 
         var bookmarksStored = pusher.subscribe('private-users.' + $rootScope.currentUser.id + '.bookmarks');
@@ -1213,7 +1333,9 @@
                 }
         );
 
-
+        vm.storeFromShare = function (bookmark) {
+            BookmarksService.storeFromShare({url: bookmark.url});
+        };
 
         $scope.$watch(function () {
             return DashboardService.foldersCollapsed;
@@ -1473,18 +1595,39 @@
                 BookmarksService.bookmarks = [];
             }
 
+            if (folder_id != undefined) {
+                FoldersService.currentFolder = {id: folder_id};
+            } else {
+                FoldersService.currentFolder = folder_id;
+            }
+
             vm.isLoadingMore = true;
             BookmarksService.index(page, folder_id, order_by, order_by_attribute).then(function () {
                 vm.isLoadingMore = false;
-                if (folder_id != undefined) {
-                    FoldersService.currentFolder = {id: folder_id};
-                } else {
-                    FoldersService.currentFolder = folder_id;
-                }
+
 
                 DashboardService.foldersCollapsed = true;
             });
             ;
+        };
+
+        vm.indexSharedWithMe = function (page) {
+//            if (vm.currentFolder != 'Shared With Me') {
+            BookmarksService.bookmarks = [];
+//            }
+            FoldersService.currentFolder = 'Shared With Me';
+            BookmarksService.indexSharedWithMe(page).then(function () {
+                DashboardService.foldersCollapsed = true;
+            });
+        };
+        vm.indexSharedByMe = function (page) {
+//            if (vm.currentFolder != 'Shared By Me') {
+            BookmarksService.bookmarks = [];
+//            }
+            FoldersService.currentFolder = 'Shared By Me';
+            BookmarksService.indexSharedByMe(page).then(function () {
+                DashboardService.foldersCollapsed = true;
+            });
         };
 
         vm.indexFolders = function () {

@@ -79,7 +79,19 @@ class Bookmark extends Model {
      * @var array
      */
     protected $fillable = ['url', 'custom_title', 'title', 'description', 'image', 'security_clearance', 'folder_id', 'user_id', 'visit_count'];
+    
+    
 
+    /**
+     * A product can belong to many users
+     *
+     * @return BelongsToMany
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+    
     /**
      * A product can belong to many users
      *

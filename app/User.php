@@ -153,7 +153,8 @@ class User extends Authenticatable {
     public function sharedWithMe()
     {
         return $this->belongsToMany('App\Bookmark', 'shared_bookmarks',
-                                    'shared_with_id', 'bookmark_id')->withTimestamps();
+                                    'shared_with_id', 'bookmark_id')->withPivot('id','shared_by_id',
+                                                                                'shared_with_id')->withTimestamps();
     }
 
     /**
@@ -164,7 +165,8 @@ class User extends Authenticatable {
     public function sharedByMe()
     {
         return $this->belongsToMany('App\Bookmark', 'shared_bookmarks',
-                                    'shared_by_id', 'bookmark_id')->withTimestamps();
+                                    'shared_by_id', 'bookmark_id')->withPivot('id','shared_by_id',
+                                                                              'shared_with_id')->withTimestamps();
     }
 
 }

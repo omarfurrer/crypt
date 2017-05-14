@@ -147,7 +147,10 @@
                 }])
 
             .run(['$rootScope', '$state', '$window', '$location', '$timeout', 'Idle', 'SecurityService', 'UsersService', 'customConfig',
-                function ($rootScope, $state, $window, $location, $timeout, Idle, SecurityService, UsersService, customConfig) {
+                function ($rootScope, $state, $window, $location, $timeout, Idle,
+                        SecurityService,
+//                 UsersService,
+                        customConfig) {
 
 
                     var user = JSON.parse(localStorage.getItem('user'));
@@ -180,9 +183,9 @@
                         // we are grabbing what is in local storage
                         $rootScope.currentUser = user;
                         SecurityService.update();
-                        if (user.security_clearance > 1) {
-                            UsersService.postchangeSecurityClearance('', 0);
-                        }
+//                        if (user.security_clearance > 1) {
+//                            UsersService.postchangeSecurityClearance('', 0);
+//                        }
                     } else {
                         $rootScope.authenticated = false;
                         $rootScope.currentUser = null;

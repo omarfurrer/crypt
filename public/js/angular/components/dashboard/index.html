@@ -5,13 +5,13 @@
 
             <div class="bookmarks-list-block">
                 <div fsm-sticky-header scroll-body=".bookmarks-list-block" scroll-stop='-10' class="actions-block" ng-if="DashCtrl.bookmarks.length != 0">
-                    <div class="custom-editmode-button-wrapper">
+                    <div ng-if="DashCtrl.currentFolder != 'Shared With Me' && DashCtrl.currentFolder != 'Shared By Me'" class="custom-editmode-button-wrapper">
                         <button ng-if="!DashCtrl.editMode" class=" btn btn-default custom-editmode-button" type="button" ng-click="DashCtrl.editMode = !DashCtrl.editMode">Edit Mode</button>
                         <button  ng-if="DashCtrl.editMode"  type="button" class="btn btn-danger custom-editmode-cancel-button" ng-click="DashCtrl.editMode = !DashCtrl.editMode">
                             <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
                     </div>
-                    <span ng-if="DashCtrl.editMode">
+                    <span ng-if="DashCtrl.editMode && DashCtrl.currentFolder != 'Shared With Me' && DashCtrl.currentFolder != 'Shared By Me'" >
                         <div class="custom-all-button-wrapper">
                             <button class=" btn custom-all-button" type="button" ng-click="DashCtrl.toggleSelectAll()">select all</button>
                         </div>
@@ -109,30 +109,61 @@
                             <!--<p class="url">{{ bookmark.url}}</p>-->
                         </div>
                         <div class="info-block">
-                            <p class="created">{{bookmark.created_at| date:'EEE d MMM yy'}}</p>
-                            <!--<p class="created">9 days ago</p>-->
-                            <!--<p class="shared-by"><span>shared by</span>Karim Goda</p>-->
+                            <p
+                                ng-if="DashCtrl.currentFolder != 'Shared With Me' && DashCtrl.currentFolder != 'Shared By Me'"
+                                class="created"
+                                >{{bookmark.created_at| date:'EEE d MMM yy'}}</p>
+                            <p
+                                ng-if="DashCtrl.currentFolder == 'Shared With Me' || DashCtrl.currentFolder == 'Shared By Me'"
+                                class="created"
+                                >{{bookmark.shared_at| date:'EEE d MMM yy'}}</p>
+                            <p ng-if="bookmark.shared_with_user" class="shared-by"><span>shared with</span>{{ bookmark.shared_with_user.f_name + ' ' + bookmark.shared_with_user.l_name}}</p>
+                            <p ng-if="bookmark.shared_by_user" class="shared-by"><span>shared by</span>{{ bookmark.shared_by_user.f_name + ' ' + bookmark.shared_by_user.l_name}}</p>
+
                             <div class="clearfix"></div>
                         </div>
 
                         <!--                        <button type="button" class="btn btn-danger delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
                                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                 </button>-->
-                        <a class="btn btn-primary download-button" ng-click="DashCtrl.editBookmark(bookmark.id)">
+                        <a
+                            ng-if="DashCtrl.currentFolder != 'Shared With Me' && DashCtrl.currentFolder != 'Shared By Me'"
+                            class="btn btn-primary download-button" ng-click="DashCtrl.editBookmark(bookmark.id)">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </a>
-                        <a class="btn btn-primary btn-sm share-button"
-                           uib-popover-template="'js/angular/shared/sharing/_search.html'"
-                           popover-title="Share With"
-                           popover-trigger="'outsideClick'"
-                           popover-append-to-body="true"
-                           >
+                        <a
+                            ng-if="DashCtrl.currentFolder != 'Shared With Me' && DashCtrl.currentFolder != 'Shared By Me'"
+                            class="btn btn-primary btn-sm share-button"
+                            uib-popover-template="'js/angular/shared/sharing/_search.html'"
+                            popover-title="Share With"
+                            popover-trigger="'outsideClick'"
+                            popover-append-to-body="true"
+                            >
                             <fa name="share-square-o"></fa>
                         </a>
 
+                        <a
+                            ng-really-message="Are you sure you want to add this bookmark to your library ?"
+                            ng-really-click="DashCtrl.storeFromShare(bookmark)"
+                            ng-if="DashCtrl.currentFolder == 'Shared With Me'"
+                            class="btn btn-primary btn-sm share-button">
+                            <fa name="copy"></fa>
+                        </a>
+
+                        <a
+                            ng-really-message="Are you sure you want to unshare the selected bookmark ?"
+                            ng-really-click="DashCtrl.unshare(bookmark.pivot.id)"
+                            ng-if="DashCtrl.currentFolder == 'Shared By Me'"
+                            class="btn btn-primary btn-sm share-button">
+                            <fa name="close"></fa>
+                        </a>
 
 
-                        <p class="folder" ng-if="DashCtrl.getFolder(bookmark.folder_id) != false"><fa name="folder-open"></fa>{{ DashCtrl.getFolder(bookmark.folder_id).name}}</p>
+
+                        <p
+                            class="folder"
+                            ng-if="DashCtrl.getFolder(bookmark.folder_id) != false && DashCtrl.currentFolder != 'Shared With Me' && DashCtrl.currentFolder != 'Shared By Me'"
+                            ><fa name="folder-open"></fa>{{ DashCtrl.getFolder(bookmark.folder_id).name}}</p>
 
                     <p class="security-clearance-name">
                     <fa ng-if="bookmark.security_clearance == 0" name="unlock"></fa>
@@ -146,9 +177,15 @@
                     <div class="clearfix"></div>
                     </li>
                 </ul>
-                <div ng-if="DashCtrl.bookmarks.length == 0" class="no-bookmarks-msg-wrapper">
+                <div ng-if="DashCtrl.bookmarks.length == 0 && DashCtrl.currentFolder != 'Shared With Me' && DashCtrl.currentFolder != 'Shared By Me'" class="no-bookmarks-msg-wrapper">
                     <p class="no-bookmarks-msg">Add a bookmark by inserting the URL above</p>
                     <p class="no-bookmarks-msg">Or download our Chrome extension from <a target="_blank" href="https://chrome.google.com/webstore/detail/pefnocepdboehhkknilkiajilkooakhh">here</a></p>
+                </div>
+                <div ng-if="DashCtrl.bookmarks.length == 0 && DashCtrl.currentFolder == 'Shared With Me'" class="no-bookmarks-msg-wrapper">
+                    <p class="no-bookmarks-msg">Nobody has shared any bookmarks with you yet</p>
+                </div>
+                <div ng-if="DashCtrl.bookmarks.length == 0 && DashCtrl.currentFolder == 'Shared By Me'" class="no-bookmarks-msg-wrapper">
+                    <p class="no-bookmarks-msg">You haven't shared any bookmarks with anybody yet</p>
                 </div>
                 <div ng-if="DashCtrl.listBlocks" class="bookmarks-list-blocks">
                     <div class="bookmark"
@@ -160,16 +197,35 @@
                             <!--                            <button type="button" class="btn btn-danger btn-sm delete-button" ng-really-message="Are you sure you want to delete this bookmark ?" ng-really-click="DashCtrl.delete(bookmark)">
                                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                         </button>-->
-                            <a class="btn btn-primary btn-sm download-button" ng-click="DashCtrl.editBookmark(bookmark.id)">
+                            <a
+                                ng-if="DashCtrl.currentFolder != 'Shared With Me' && DashCtrl.currentFolder != 'Shared By Me'"
+                                class="btn btn-primary btn-sm download-button" ng-click="DashCtrl.editBookmark(bookmark.id)">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </a>
-                            <a class="btn btn-primary btn-sm share-button"
-                               uib-popover-template="'js/angular/shared/sharing/_search.html'"
-                               popover-title="Share With"
-                               popover-trigger="'outsideClick'"
-                               popover-append-to-body="true"
-                               >
+                            <a 
+                                ng-if="DashCtrl.currentFolder != 'Shared With Me' && DashCtrl.currentFolder != 'Shared By Me'"
+                                class="btn btn-primary btn-sm share-button"
+                                uib-popover-template="'js/angular/shared/sharing/_search.html'"
+                                popover-title="Share With"
+                                popover-trigger="'outsideClick'"
+                                popover-append-to-body="true"
+                                >
                                 <fa name="share-square-o"></fa>
+                            </a>
+
+                            <a
+                                ng-really-message="Are you sure you want to add this bookmark to your library ?"
+                                ng-really-click="DashCtrl.storeFromShare(bookmark)"
+                                ng-if="DashCtrl.currentFolder == 'Shared With Me'"
+                                class="btn btn-primary btn-sm share-button">
+                                <fa name="copy"></fa>
+                            </a>
+                            <a
+                                ng-really-message="Are you sure you want to unshare the selected bookmark ?"
+                                ng-really-click="DashCtrl.unshare(bookmark.pivot.id)"
+                                ng-if="DashCtrl.currentFolder == 'Shared By Me'"
+                                class="btn btn-primary btn-sm share-button">
+                                <fa name="close"></fa>
                             </a>
 
                             <div class="clearfix"></div>
@@ -187,9 +243,17 @@
 
                         </div>
                         <div class="info-block">
-                            <p class="created">{{bookmark.created_at| date:'EEE d MMM yy'}}</p>
+                            <p
+                                ng-if="DashCtrl.currentFolder != 'Shared With Me' && DashCtrl.currentFolder != 'Shared By Me'"
+                                class="created"
+                                >{{bookmark.created_at| date:'EEE d MMM yy'}}</p>
+                            <p
+                                ng-if="DashCtrl.currentFolder == 'Shared With Me' || DashCtrl.currentFolder == 'Shared By Me'"
+                                class="created"
+                                >{{bookmark.shared_at| date:'EEE d MMM yy'}}</p>
                             <!--<p class="created">9 days ago</p>-->
-                            <!--<p class="shared-by"><span>shared by</span>Karim Goda</p>-->
+                            <p ng-if="bookmark.shared_with_user" class="shared-by"><span>shared with</span>{{ bookmark.shared_with_user.f_name + ' ' + bookmark.shared_with_user.l_name}}</p>
+                            <p ng-if="bookmark.shared_by_user" class="shared-by"><span>shared by</span>{{ bookmark.shared_by_user.f_name + ' ' + bookmark.shared_by_user.l_name}}</p>
                             <div class="clearfix"></div>
                         </div>
                     </div>

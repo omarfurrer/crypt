@@ -110,10 +110,36 @@
                         });
             };
 
+            service.storeFromShare = function (bookmark) {
+                BaseService.load();
+                return $http.post(url, bookmark)
+                        .success(function (data) {
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+
             service.share = function (bookmark, user) {
                 BaseService.load();
                 return $http.post(url + '/share', {bookmark_id: bookmark.id, user_id: user.id})
                         .success(function (data) {
+                        })
+                        .error(function (error) {
+                            service.error = error;
+                        })
+                        .finally(function () {
+                            BaseService.unload();
+                        });
+            };
+            service.unshare = function (id) {
+                BaseService.load();
+                return $http.post(url + '/unshare', {id: id})
+                        .success(function (data) {
+                            service.bookmarks.splice(findInArrayByPivot(service.bookmarks, id), 1);
                         })
                         .error(function (error) {
                             service.error = error;
@@ -305,6 +331,14 @@
             function findInArray(arraytosearch, valuetosearch) {
                 for (var i = 0; i < arraytosearch.length; i++) {
                     if (arraytosearch[i].id == valuetosearch) {
+                        return i;
+                    }
+                }
+                return null;
+            }
+            function findInArrayByPivot(arraytosearch, valuetosearch) {
+                for (var i = 0; i < arraytosearch.length; i++) {
+                    if (arraytosearch[i].pivot.id == valuetosearch) {
                         return i;
                     }
                 }
