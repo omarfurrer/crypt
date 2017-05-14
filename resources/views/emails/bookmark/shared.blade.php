@@ -22,8 +22,8 @@
                             <tr>
                                 <td>
                                     <a href="http://www.crypttt.com">
-                                        <!--<img src="{{ public_path() }}/assets/images/logo.png" />-->
-                                        <img style="width: 100%" src="http://www.crypttt.com/assets/images/logo.png" />
+                                        <img style="width: 100%" src="{{ public_path() }}/assets/images/logo.png" />
+                                        <!--<img style="width: 100%" src="http://www.crypttt.com/assets/images/logo.png" />-->
                                     </a>
                                 </td>
                                 <td align="right"><h6 style="color: white;font-size: 10px;" class="collapse">CRYPT</h6></td>
