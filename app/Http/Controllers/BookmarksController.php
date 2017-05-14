@@ -178,9 +178,8 @@ class BookmarksController extends Controller {
 
             $pivotID = \Request::get('id');
 
-            $this->user->sharedByMe()
-//            dd($pivotID);
-                    ->wherePivot('id', $pivotID)->first()->delete();
+            \DB::table('shared_bookmarks')->where('id',$pivotID)->delete();
+//        ->delete();
 
             return response()->json(compact(''), 200);
         } catch (Exception $e) {
