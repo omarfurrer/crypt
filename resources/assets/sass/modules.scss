@@ -919,5 +919,14 @@ body{
     }
 }
 
+.ui-notification{
+    width: 100px !important;
+    text-align: center;
+    border-radius:10px !important;
+    span{
+        font-size: 25px;
+    }
+}
+
 
 

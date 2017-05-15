@@ -1,6 +1,7 @@
 (function () {
 
-    angular.module('crypt').factory('FoldersService', ['SecurityService', 'BaseService', '$http', '$rootScope', '$auth', '$window', '$state', function (SecurityService, BaseService, $http, $rootScope, $auth, $window, $state) {
+    angular.module('crypt').factory('FoldersService', ['SecurityService', 'BaseService', '$http', '$rootScope', '$auth', '$window', '$state', 'Notification',
+        function (SecurityService, BaseService, $http, $rootScope, $auth, $window, $state, Notification) {
 
             var service = {};
             var url = 'api/folders';
@@ -21,7 +22,13 @@
                             service.folders = data.folders;
                             if (typeof service.currentFolder !== 'undefined') {
                                 if (findInArray(service.folders, service.currentFolder.id) == null) {
-                                    service.currentFolder = undefined;
+                                    if (service.currentFolder === 'Shared With Me') {
+                                        service.currentFolder = 'Shared With Me';
+                                    } else if (service.currentFolder === 'Shared By Me') {
+                                        service.currentFolder = 'Shared By Me';
+                                    } else {
+                                        service.currentFolder = undefined;
+                                    }
                                 }
                             }
                         })
@@ -38,6 +45,8 @@
                 return $http.post(url, folder)
                         .success(function (data) {
                             service.folders.splice(0, 0, data.folder);
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -56,6 +65,8 @@
                             } else {
                                 service.folders[findInArray(service.folders, folder.id)] = data.folder;
                             }
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -70,6 +81,7 @@
                 return $http.delete(url + '/' + folder.id)
                         .success(function (data) {
                             service.folders.splice(findInArray(service.folders, folder.id), 1);
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
 
                         })
                         .error(function (error) {
@@ -90,6 +102,8 @@
                                     service.bookmarks.splice(findInArray(service.bookmarks, bookmarks[i].id), 1);
                                 }
                             }
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;

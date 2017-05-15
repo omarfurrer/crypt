@@ -17,7 +17,8 @@ elixir(function (mix) {
                 '../bower_components/font-awesome/css/font-awesome.css',
                 '../bower_components/bootstrap-social/bootstrap-social.css',
                 '../bower_components/angular-loading-bar/build/loading-bar.min.css',
-                '../bower_components/angular-aside/dist/css/angular-aside.min.css'
+                '../bower_components/angular-aside/dist/css/angular-aside.min.css',
+                '../bower_components/angular-ui-notification/dist/angular-ui-notification.min.css',
             ], "public/css/pure/")
             .sass('app.scss', 'public/css')
             .scripts([
@@ -36,7 +37,8 @@ elixir(function (mix) {
                 '../bower_components/ng-idle/angular-idle.js',
                 '../bower_components/pusher-js/dist/pusher.js',
                 '../bower_components/pusher-angular/lib/pusher-angular.js',
-                '../bower_components/angular-fontawesome/dist/angular-fontawesome.js'
+                '../bower_components/angular-fontawesome/dist/angular-fontawesome.js',
+                '../bower_components/angular-ui-notification/dist/angular-ui-notification.min.js'
             ], 'public/js/app.js')
 //            .copy('resources/assets/bower_components/font-awesome/fonts/**', 'public/css/fonts')
 //            .copy('resources/assets/bower_components/bootstrap-sass/assets/fonts/**', 'public/fonts')

@@ -1,6 +1,7 @@
 (function () {
 
-    angular.module('crypt').factory('BookmarksService', ['Upload', 'SecurityService', 'FoldersService', 'BaseService', '$http', '$rootScope', '$auth', '$window', '$state', function (Upload, SecurityService, FoldersService, BaseService, $http, $rootScope, $auth, $window, $state) {
+    angular.module('crypt').factory('BookmarksService', ['Upload', 'SecurityService', 'FoldersService', 'BaseService', '$http', '$rootScope', '$auth', '$window', '$state', 'Notification',
+        function (Upload, SecurityService, FoldersService, BaseService, $http, $rootScope, $auth, $window, $state, Notification) {
 
             var service = {};
             var url = 'api/bookmarks';
@@ -100,7 +101,10 @@
                 BaseService.load();
                 return $http.post(url, bookmark)
                         .success(function (data) {
-                            service.bookmarks.splice(0, 0, data.bookmark);
+//                            if (FoldersService.currentFolder != 'Shared By Me' && FoldersService.currentFolder != 'Shared With Me') {
+//                                service.bookmarks.splice(0, 0, data.bookmark);
+//                            }
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
                         })
                         .error(function (error) {
                             service.error = error;
@@ -114,6 +118,7 @@
                 BaseService.load();
                 return $http.post(url, bookmark)
                         .success(function (data) {
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
                         })
                         .error(function (error) {
                             service.error = error;
@@ -127,6 +132,8 @@
                 BaseService.load();
                 return $http.post(url + '/share', {bookmark_id: bookmark.id, user_id: user.id})
                         .success(function (data) {
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -140,6 +147,8 @@
                 return $http.post(url + '/unshare', {id: id})
                         .success(function (data) {
                             service.bookmarks.splice(findInArrayByPivot(service.bookmarks, id), 1);
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -175,6 +184,8 @@
                                 return false;
                             }
                             service.bookmarks[id] = data.bookmark;
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -205,6 +216,8 @@
                             for (var i = 0; i < bookmarks.length; i++) {
                                 service.bookmarks.splice(findInArray(service.bookmarks, bookmarks[i].id), 1);
                             }
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -228,6 +241,9 @@
                                 }
 
                             }
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -268,6 +284,8 @@
                                 }
 
                             }
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;

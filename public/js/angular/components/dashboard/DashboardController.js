@@ -178,8 +178,10 @@
                                     BookmarksService.bookmarks.splice(0, 0, data.bookmark);
                                 })
                             } else {
-                                if (data.bookmark.folder_id == FoldersService.currentFolder.id) {
-                                    BookmarksService.bookmarks.splice(0, 0, data.bookmark);
+                                if (FoldersService.currentFolder != 'Shared With Me' && FoldersService.currentFolder != 'Shared By Me') {
+                                    if (data.bookmark.folder_id == FoldersService.currentFolder.id) {
+                                        BookmarksService.bookmarks.splice(0, 0, data.bookmark);
+                                    }
                                 }
                             }
                         }
@@ -192,7 +194,9 @@
                     if (data.bookmark.security_clearance <= SecurityService.currentSecurityClearance) {
                         var index = findInArray(BookmarksService.bookmarks, data.bookmark.id);
                         if (index != null) {
-                            BookmarksService.bookmarks[index] = data.bookmark;
+                            if (FoldersService.currentFolder != 'Shared With Me' && FoldersService.currentFolder != 'Shared By Me') {
+                                BookmarksService.bookmarks[index] = data.bookmark;
+                            }
                         }
                     }
                 }
@@ -469,8 +473,6 @@
             vm.isLoadingMore = true;
             BookmarksService.index(page, folder_id, order_by, order_by_attribute).then(function () {
                 vm.isLoadingMore = false;
-
-
                 DashboardService.foldersCollapsed = true;
             });
             ;
@@ -485,6 +487,7 @@
                 DashboardService.foldersCollapsed = true;
             });
         };
+
         vm.indexSharedByMe = function (page) {
 //            if (vm.currentFolder != 'Shared By Me') {
             BookmarksService.bookmarks = [];
@@ -509,10 +512,6 @@
                 }
             }
         };
-
-
-
-
 
         vm.refresh = function (selected) {
             BookmarksService.refresh(selected).then(function () {

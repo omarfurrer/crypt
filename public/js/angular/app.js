@@ -5,13 +5,23 @@
 
 
             .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview',
-                'ngAside', 'fsm', 'pusher-angular', 'ngIdle', 'picardy.fontawesome'])
+                'ngAside', 'fsm', 'pusher-angular', 'ngIdle', 'picardy.fontawesome', 'ui-notification'])
 //            .constant("customConfig", JSON.parse(customConfigInline))
-            .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, IdleProvider, KeepaliveProvider) {
+            .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, IdleProvider, KeepaliveProvider, NotificationProvider) {
                 // configure Idle settings
                 IdleProvider.idle(30); // in seconds
                 IdleProvider.timeout(9000); // in seconds
                 KeepaliveProvider.interval(5000); // in seconds
+
+                NotificationProvider.setOptions({
+                    delay: 10000,
+                    startTop: 20,
+                    startRight: 10,
+                    verticalSpacing: 20,
+                    horizontalSpacing: 20,
+                    positionX: 'right',
+                    positionY: 'bottom'
+                });
 
                 function redirectWhenLoggedOut($q, $injector, $rootScope) {
 

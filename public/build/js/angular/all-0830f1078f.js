@@ -5,13 +5,23 @@
 
 
             .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview',
-                'ngAside', 'fsm', 'pusher-angular', 'ngIdle', 'picardy.fontawesome'])
+                'ngAside', 'fsm', 'pusher-angular', 'ngIdle', 'picardy.fontawesome', 'ui-notification'])
 //            .constant("customConfig", JSON.parse(customConfigInline))
-            .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, IdleProvider, KeepaliveProvider) {
+            .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, IdleProvider, KeepaliveProvider, NotificationProvider) {
                 // configure Idle settings
                 IdleProvider.idle(30); // in seconds
                 IdleProvider.timeout(9000); // in seconds
                 KeepaliveProvider.interval(5000); // in seconds
+
+                NotificationProvider.setOptions({
+                    delay: 10000,
+                    startTop: 20,
+                    startRight: 10,
+                    verticalSpacing: 20,
+                    horizontalSpacing: 20,
+                    positionX: 'right',
+                    positionY: 'bottom'
+                });
 
                 function redirectWhenLoggedOut($q, $injector, $rootScope) {
 
@@ -506,6 +516,7 @@
             }
 
             service.postchangeSecurityClearance = function (password, level) {
+
                 BaseService.load();
                 return $http.post(url + '/security/clearance/change', {password: password, level: level})
                         .success(function (data) {
@@ -515,6 +526,10 @@
                                 BookmarksService.bookmarks = [];
                                 if (typeof FoldersService.currentFolder === 'undefined') {
                                     BookmarksService.index();
+                                } else if (FoldersService.currentFolder === 'Shared With Me') {
+                                    BookmarksService.indexSharedWithMe(1);
+                                } else if (FoldersService.currentFolder === 'Shared By Me') {
+                                    BookmarksService.indexSharedByMe(1);
                                 } else {
                                     BookmarksService.index(1, FoldersService.currentFolder.id);
                                 }
@@ -596,7 +611,8 @@
 })();
 (function () {
 
-    angular.module('crypt').factory('BookmarksService', ['Upload', 'SecurityService', 'FoldersService', 'BaseService', '$http', '$rootScope', '$auth', '$window', '$state', function (Upload, SecurityService, FoldersService, BaseService, $http, $rootScope, $auth, $window, $state) {
+    angular.module('crypt').factory('BookmarksService', ['Upload', 'SecurityService', 'FoldersService', 'BaseService', '$http', '$rootScope', '$auth', '$window', '$state', 'Notification',
+        function (Upload, SecurityService, FoldersService, BaseService, $http, $rootScope, $auth, $window, $state, Notification) {
 
             var service = {};
             var url = 'api/bookmarks';
@@ -696,7 +712,10 @@
                 BaseService.load();
                 return $http.post(url, bookmark)
                         .success(function (data) {
-                            service.bookmarks.splice(0, 0, data.bookmark);
+//                            if (FoldersService.currentFolder != 'Shared By Me' && FoldersService.currentFolder != 'Shared With Me') {
+//                                service.bookmarks.splice(0, 0, data.bookmark);
+//                            }
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
                         })
                         .error(function (error) {
                             service.error = error;
@@ -710,6 +729,7 @@
                 BaseService.load();
                 return $http.post(url, bookmark)
                         .success(function (data) {
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
                         })
                         .error(function (error) {
                             service.error = error;
@@ -723,6 +743,8 @@
                 BaseService.load();
                 return $http.post(url + '/share', {bookmark_id: bookmark.id, user_id: user.id})
                         .success(function (data) {
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -736,6 +758,8 @@
                 return $http.post(url + '/unshare', {id: id})
                         .success(function (data) {
                             service.bookmarks.splice(findInArrayByPivot(service.bookmarks, id), 1);
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -771,6 +795,8 @@
                                 return false;
                             }
                             service.bookmarks[id] = data.bookmark;
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -801,6 +827,8 @@
                             for (var i = 0; i < bookmarks.length; i++) {
                                 service.bookmarks.splice(findInArray(service.bookmarks, bookmarks[i].id), 1);
                             }
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -824,6 +852,9 @@
                                 }
 
                             }
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -864,6 +895,8 @@
                                 }
 
                             }
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -986,7 +1019,8 @@
 })();
 (function () {
 
-    angular.module('crypt').factory('FoldersService', ['SecurityService', 'BaseService', '$http', '$rootScope', '$auth', '$window', '$state', function (SecurityService, BaseService, $http, $rootScope, $auth, $window, $state) {
+    angular.module('crypt').factory('FoldersService', ['SecurityService', 'BaseService', '$http', '$rootScope', '$auth', '$window', '$state', 'Notification',
+        function (SecurityService, BaseService, $http, $rootScope, $auth, $window, $state, Notification) {
 
             var service = {};
             var url = 'api/folders';
@@ -1007,7 +1041,13 @@
                             service.folders = data.folders;
                             if (typeof service.currentFolder !== 'undefined') {
                                 if (findInArray(service.folders, service.currentFolder.id) == null) {
-                                    service.currentFolder = undefined;
+                                    if (service.currentFolder === 'Shared With Me') {
+                                        service.currentFolder = 'Shared With Me';
+                                    } else if (service.currentFolder === 'Shared By Me') {
+                                        service.currentFolder = 'Shared By Me';
+                                    } else {
+                                        service.currentFolder = undefined;
+                                    }
                                 }
                             }
                         })
@@ -1024,6 +1064,8 @@
                 return $http.post(url, folder)
                         .success(function (data) {
                             service.folders.splice(0, 0, data.folder);
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -1042,6 +1084,8 @@
                             } else {
                                 service.folders[findInArray(service.folders, folder.id)] = data.folder;
                             }
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -1056,6 +1100,7 @@
                 return $http.delete(url + '/' + folder.id)
                         .success(function (data) {
                             service.folders.splice(findInArray(service.folders, folder.id), 1);
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
 
                         })
                         .error(function (error) {
@@ -1076,6 +1121,8 @@
                                     service.bookmarks.splice(findInArray(service.bookmarks, bookmarks[i].id), 1);
                                 }
                             }
+                            Notification.primary('<span class="fa fa-check-circle-o"></span>');
+
                         })
                         .error(function (error) {
                             service.error = error;
@@ -1313,8 +1360,10 @@
                                     BookmarksService.bookmarks.splice(0, 0, data.bookmark);
                                 })
                             } else {
-                                if (data.bookmark.folder_id == FoldersService.currentFolder.id) {
-                                    BookmarksService.bookmarks.splice(0, 0, data.bookmark);
+                                if (FoldersService.currentFolder != 'Shared With Me' && FoldersService.currentFolder != 'Shared By Me') {
+                                    if (data.bookmark.folder_id == FoldersService.currentFolder.id) {
+                                        BookmarksService.bookmarks.splice(0, 0, data.bookmark);
+                                    }
                                 }
                             }
                         }
@@ -1327,7 +1376,9 @@
                     if (data.bookmark.security_clearance <= SecurityService.currentSecurityClearance) {
                         var index = findInArray(BookmarksService.bookmarks, data.bookmark.id);
                         if (index != null) {
-                            BookmarksService.bookmarks[index] = data.bookmark;
+                            if (FoldersService.currentFolder != 'Shared With Me' && FoldersService.currentFolder != 'Shared By Me') {
+                                BookmarksService.bookmarks[index] = data.bookmark;
+                            }
                         }
                     }
                 }
@@ -1604,8 +1655,6 @@
             vm.isLoadingMore = true;
             BookmarksService.index(page, folder_id, order_by, order_by_attribute).then(function () {
                 vm.isLoadingMore = false;
-
-
                 DashboardService.foldersCollapsed = true;
             });
             ;
@@ -1620,6 +1669,7 @@
                 DashboardService.foldersCollapsed = true;
             });
         };
+
         vm.indexSharedByMe = function (page) {
 //            if (vm.currentFolder != 'Shared By Me') {
             BookmarksService.bookmarks = [];
@@ -1644,10 +1694,6 @@
                 }
             }
         };
-
-
-
-
 
         vm.refresh = function (selected) {
             BookmarksService.refresh(selected).then(function () {

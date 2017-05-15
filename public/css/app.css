@@ -8707,4 +8707,14 @@ body {
   display: inline-block;
 }
 
+.ui-notification {
+  width: 100px !important;
+  text-align: center;
+  border-radius: 10px !important;
+}
+
+.ui-notification span {
+  font-size: 25px;
+}
+
 /*# sourceMappingURL=app.css.map */

@@ -14,6 +14,7 @@
             }
 
             service.postchangeSecurityClearance = function (password, level) {
+
                 BaseService.load();
                 return $http.post(url + '/security/clearance/change', {password: password, level: level})
                         .success(function (data) {
@@ -23,6 +24,10 @@
                                 BookmarksService.bookmarks = [];
                                 if (typeof FoldersService.currentFolder === 'undefined') {
                                     BookmarksService.index();
+                                } else if (FoldersService.currentFolder === 'Shared With Me') {
+                                    BookmarksService.indexSharedWithMe(1);
+                                } else if (FoldersService.currentFolder === 'Shared By Me') {
+                                    BookmarksService.indexSharedByMe(1);
                                 } else {
                                     BookmarksService.index(1, FoldersService.currentFolder.id);
                                 }
