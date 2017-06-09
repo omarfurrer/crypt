@@ -3,9 +3,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/shared/controllers/BaseController.js</file>
-            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/resources/views/index.blade.php</file>
-            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/app.js</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/assets/images/spinner.gif</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/OGType.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/assets/images/bookmark-image-placeholder-temp1.png</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/assets/images/bookmark-image-placeholder-temp-used.png</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Events/Bookmarks/MetaRefreshed.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Listeners/Bookmarks/SendData.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/assets/images/bookmark-image-placeholder-temp.jpg</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/routes/api.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Console/Commands/RefreshBookmarks.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Jobs/Bookmark/refresh.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Listeners/Bookmarks/RefreshMeta.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/assets/images/bookmark-image-placeholder-temp.png</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/.env</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/assets/images/logo.png</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Http/Controllers/BookmarksController.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/assets/images/bookmark-image-placeholder.png</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Http/Controllers/OGTypesController.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/Bookmark.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/app/User.php</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/public/js/angular/components/dashboard/index.html</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/resources/assets/sass/modules.scss</file>
+            <file>file:/C:/Users/RODZzZ/development/laravel/crypt/database/migrations/2017_06_05_232705_create_og_types_table.php</file>
         </group>
     </open-files>
 </project-private>
