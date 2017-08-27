@@ -227,7 +227,12 @@ body{
 
 .folders-aside{
     z-index:10050 !important;
+    .modal-dialog{
+        /*margin-top: 58px !important;*/
+        /*height: 710px !important;*/
+    }
     .modal-content{
+        height: auto !important;
 
         /*background-color: rgb(33, 46, 57);*/
         /*background-color: rgb(16, 47, 74);*/
