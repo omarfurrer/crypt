@@ -97,7 +97,7 @@
                         ng-repeat="bookmark in DashCtrl.bookmarks">
                         <!--<p class="security-clearance">{{ bookmark.security_clearance + 1}}</p>-->
                         <a class="" ng-click="DashCtrl.bookmarkOpened(bookmark)" target="_blank" href="{{bookmark.url}}">
-                            <img class="bookmark-image" ng-class="{'image-placeholder':bookmark.image == null}" src="{{ bookmark.image != null ? bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
+                            <img class="bookmark-image" ng-class="{'image-placeholder':bookmark.image == null || bookmark.image == ''}" src="{{ (bookmark.image != null && bookmark.image != '') ? bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
 
                         </a>
                         <div class="info-box">
@@ -230,7 +230,7 @@
                         </div>
                         <div class="middle-block">
                             <a class="" target="_blank" ng-click="DashCtrl.bookmarkOpened(bookmark)" href="{{bookmark.url}}">
-                                <img  class="bookmark-image" ng-class="{'image-placeholder':bookmark.image == null}" src="{{ bookmark.image != null ? bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
+                                <img  class="bookmark-image" ng-class="{'image-placeholder':bookmark.image == null || bookmark.image == ''}" src="{{ (bookmark.image != null && bookmark.image != '') ? bookmark.image : 'assets/images/bookmark-image-placeholder.png'}}">
                             </a>
                             <span ng-if="bookmark.meta.player != null" ng-click="DashCtrl.openPlayer(bookmark)" class="glyphicon glyphicon-play-circle"></span>
 
