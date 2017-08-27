@@ -7794,6 +7794,34 @@ body {
   /*padding:20px;*/
   /*padding: 12px;*/
   padding: 12px 0px 12px 12px;
+  /*            .security-dropdown{
+                            display: inline-block;
+                            margin-right: 30px;
+                            text-transform: capitalize;
+                margin-right: 10px;
+                .dropdown{
+                    font-size: 16px;
+                    a{
+                                    text-transform: capitalize;
+                                    text-decoration: none;
+                        text-transform: capitalize;
+                        color: rgb(0, 0, 0);
+                        .caret{
+                            position: relative;
+                            left: 5px;
+                        }
+                    }
+                }
+                .dropdown-menu{
+                    span.fa{
+                        margin-right: 5px;
+                    }
+                    .crypto-icon{
+                        margin-right: 0px !important;
+
+                    }
+                }
+                        }*/
 }
 
 .custom-navbar .inner-block .right-nav .profile-dropdown {
@@ -7821,35 +7849,8 @@ body {
   left: 5px;
 }
 
-.custom-navbar .inner-block .right-nav .security-dropdown {
-  display: inline-block;
-  /*margin-right: 30px;*/
-  text-transform: capitalize;
-  margin-right: 10px;
-}
-
-.custom-navbar .inner-block .right-nav .security-dropdown .dropdown {
-  font-size: 16px;
-}
-
-.custom-navbar .inner-block .right-nav .security-dropdown .dropdown a {
-  /*text-transform: capitalize;*/
-  text-decoration: none;
-  text-transform: capitalize;
-  color: black;
-}
-
-.custom-navbar .inner-block .right-nav .security-dropdown .dropdown a .caret {
-  position: relative;
-  left: 5px;
-}
-
-.custom-navbar .inner-block .right-nav .security-dropdown .dropdown-menu span.fa {
-  margin-right: 5px;
-}
-
-.custom-navbar .inner-block .right-nav .security-dropdown .dropdown-menu .crypto-icon {
-  margin-right: 0px !important;
+.custom-navbar .inner-block .right-nav .bootstrap-switch-security-switch {
+  margin-right: 4px;
 }
 
 .home {

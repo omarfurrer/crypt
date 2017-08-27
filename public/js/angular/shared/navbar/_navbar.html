@@ -1,10 +1,11 @@
 
-<nav class="custom-navbar">
+<nav class="custom-navbar" ng-controller="NavbarController as NavbarCtrl">
     <div class="inner-block">
         <div class="custom-left-menu">
 
             <div class="custom-wrapper-button-collapse-folders">
-                <button ng-click="base.toggleCollapseFolders()" ng-class="{'active':!base.foldersCollapsed}" type="button" class="btn btn-default btn-md custom-button-collapse-folders">
+                <button ng-click="base.toggleCollapseFolders()" ng-class="{
+                            'active':!base.foldersCollapsed}" type="button" class="btn btn-default btn-md custom-button-collapse-folders">
                     <!--<fa name="folder-open"></fa>-->
                     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                 </button>
@@ -23,11 +24,11 @@
 
             <form  name="new_bookmark">
                 <div class="input-group">
-                    <input  ng-model="base.bookmark.url" name="url" class="form-control" id="name" placeholder="URL" required>
+                    <input  ng-model="NavbarCtrl.newBookmark.url" name="url" class="form-control" id="name" placeholder="URL" required>
                     <div class="input-group-btn">
                         <button class="btn btn-default submit-button" type="submit" ng-click="
                             new_bookmark.url.$valid &&
-                                    base.store(base.bookmark)">
+                                    NavbarCtrl.store(NavbarCtrl.newBookmark)">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </button>
                         <div class="btn-group import-button" uib-dropdown keyboard-nav>
@@ -36,7 +37,7 @@
                                 <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
                             </button>
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-                                <li  role="menuitem"><a ng-click="base.openImportHtml()" href>HTML file</a></li>
+                                <li  role="menuitem"><a ng-click="NavbarCtrl.openImportHtml()" href>HTML file</a></li>
                             </ul>
                         </div>
                     </div>
@@ -47,28 +48,33 @@
         <div class="right-nav">
 
             <!-- Split button -->
-            <div class="btn-group security-dropdown" uib-dropdown>
-                <a class="btn btn-default" href id="security-dropdown" uib-dropdown-toggle>
-                    <fa ng-if="base.currentSecurityClearance == 0" name="unlock"></fa>
-                    <fa class="crypto-icon" ng-if="base.currentSecurityClearance == 2" name="lock"></fa>
-                    <fa ng-if="base.currentSecurityClearance == 1 || base.currentSecurityClearance == 2" name="lock"></fa>
-                    {{ base.currentSecurityClearanceName}}
-                </a>
-                <button type="button" class="btn btn-primary dropdown-toggle" uib-dropdown-toggle>
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="security-dropdown">
-                    <li><a ng-click="base.changeSecurityClearance(0)" href><fa name="unlock"></fa>Public</a></li>
-                    <li><a ng-click="base.changeSecurityClearance(1)" href><fa name="lock"></fa>Private</a></li>
-                    <li><a ng-click="base.changeSecurityClearance(2)" href>
-                            <fa class="crypto-icon" name="lock"></fa>
-                            <fa name="lock"></fa>
-                            Crypto</a></li>
-                </ul>
-            </div>
+            <!--            <div class="btn-group security-dropdown" uib-dropdown>
+                            <a class="btn btn-default" href id="security-dropdown" uib-dropdown-toggle>
+                                <fa ng-if="base.currentSecurityClearance == 0" name="unlock"></fa>
+                                <fa ng-if="base.currentSecurityClearance == 1" name="lock"></fa>
+                                {{ base.currentSecurityClearanceName}}
+                            </a>
+                            <button type="button" class="btn btn-primary dropdown-toggle" uib-dropdown-toggle>
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="security-dropdown">
+                                <li><a ng-click="base.changeSecurityClearance(0)" href><fa name="unlock"></fa>Public</a></li>
+                                <li><a ng-click="base.changeSecurityClearance(1)" href><fa name="lock"></fa>Private</a></li>
+                            </ul>
+                        </div>-->
 
-
+            <bs-switch
+                ng-model ="NavbarCtrl.switchSecurityClearance"
+                type="checkbox"
+                switch-size="normal"
+                switch-label="Private"
+                switch-on-text="ON"
+                switch-off-text="OFF"
+                switch-icon="fa fa-unlock"
+                switch-wrapper="security-switch"
+                ng-change="NavbarCtrl.changeSecurityClearance(NavbarCtrl.switchSecurityClearance)"
+                ></bs-switch>
 
             <div ng-if="authenticated" class="profile-dropdown btn-group" uib-dropdown>
                 <a class="btn btn-default" href id="simple-dropdown" uib-dropdown-toggle>
@@ -82,7 +88,7 @@
                 <ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="simple-dropdown">
                     <li><a ui-sref="settings">Settings</a></li>
                     <li class="divider"></li>
-                    <li><a ng-click="base.logout()" href>Logout</a></li>
+                    <li><a ng-click="NavbarCtrl.logout()" href>Logout</a></li>
                 </ul>
             </div>
         </div>

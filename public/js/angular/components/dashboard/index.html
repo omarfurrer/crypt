@@ -35,7 +35,6 @@
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
                                 <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(0, DashCtrl.selected)" href>Public</a></li>
                                 <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(1, DashCtrl.selected)" href>Private</a></li>
-                                <li  role="menuitem"><a ng-click="DashCtrl.changeSecurityClearanceSelected(2, DashCtrl.selected)" href>Crypto</a></li>
                             </ul>
                         </div>
                         <div class="refresh-button-wrapper">
@@ -167,8 +166,7 @@
 
                     <p class="security-clearance-name">
                     <fa ng-if="bookmark.security_clearance == 0" name="unlock"></fa>
-                    <fa class="crypto-icon" ng-if="bookmark.security_clearance == 2" name="lock"></fa>
-                    <fa ng-if="bookmark.security_clearance == 1 || bookmark.security_clearance == 2" name="lock"></fa>
+                    <fa ng-if="bookmark.security_clearance == 1" name="lock"></fa>
                     {{DashCtrl.getSecurityClearance(bookmark.security_clearance)}}
                     </p>
 

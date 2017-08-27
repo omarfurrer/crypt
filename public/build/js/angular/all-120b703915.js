@@ -5,7 +5,7 @@
 
 
             .module('crypt', ['ui.router', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'satellizer', 'angular-loading-bar', 'ngFileUpload', 'angular-inview',
-                'ngAside', 'fsm', 'pusher-angular', 'ngIdle', 'picardy.fontawesome', 'ui-notification'])
+                'ngAside', 'fsm', 'pusher-angular', 'ngIdle', 'picardy.fontawesome', 'ui-notification', 'frapontillo.bootstrap-switch'])
 //            .constant("customConfig", JSON.parse(customConfigInline))
             .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, IdleProvider, KeepaliveProvider, NotificationProvider) {
                 // configure Idle settings
@@ -258,17 +258,24 @@
 
     'use strict';
 
-    angular.module('crypt').controller('BaseController', ['$scope', '$auth', '$state', '$stateParams', '$rootScope', 'BaseService',
-        '$window', 'UsersService', 'BookmarksService', 'FoldersService', 'SecurityService', '$uibModal', 'DashboardService'
+    angular.module('crypt').controller('BaseController', ['$scope', '$state', '$rootScope',
+        '$window', 'UsersService', 'FoldersService', 'SecurityService', 'DashboardService'
                 , BaseController]);
 
-    function BaseController($scope, $auth, $state, $stateParams, $rootScope, BaseService, $window, UsersService, BookmarksService, FoldersService, SecurityService, $uibModal, DashboardService) {
+    function BaseController($scope, $state, $rootScope, $window, UsersService, FoldersService, SecurityService, DashboardService) {
 
         var vm = this;
         vm.currentSecurityClearance = angular.copy(SecurityService.currentSecurityClearance);
         vm.currentSecurityClearanceName = angular.copy(SecurityService.currentSecurityClearanceName);
         vm.currentFolder = undefined;
         vm.bookmark = {};
+
+        $rootScope.$state = $state;
+
+        vm.windowHeight = ($window.innerHeight) + 'px';
+
+        vm.foldersCollapsed = angular.copy(DashboardService.foldersCollapsed);
+
 
         $rootScope.$on('IdleStart', function () {
             // the user appears to have gone idle
@@ -302,55 +309,12 @@
 //            console.log('help');
         });
 
-
-
-        vm.store = function (bookmark) {
-            if (vm.currentFolder != undefined) {
-                bookmark.folder_id = vm.currentFolder.id;
-            }
-            BookmarksService.store(bookmark).then(function () {
-                vm.bookmark = {};
-            });
-        };
-
         $scope.$watch(function () {
             return FoldersService.currentFolder;
         },
                 function (newValue, oldValue) {
                     syncCurrentFolder();
                 }, true);
-        function syncCurrentFolder() {
-            vm.currentFolder = angular.copy(FoldersService.currentFolder);
-        }
-
-        vm.openImportHtml = function () {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'js/angular/shared/import/_html.html',
-                async: true,
-                controller: function ($scope, $uibModalInstance, BookmarksService) {
-
-                    $scope.file = {};
-
-                    $scope.import = function (file, autoRefresh) {
-                        BookmarksService.importHtml(file, autoRefresh).then(function () {
-                            $uibModalInstance.dismiss();
-                        });
-                    };
-                    $scope.closeBox = function () {
-                        $uibModalInstance.dismiss();
-                    };
-                },
-                backdrop: true,
-                windowClass: 'import-html-box-modal'
-            });
-        };
-
-        $rootScope.$state = $state;
-
-        vm.windowHeight = ($window.innerHeight) + 'px';
-
-        vm.foldersCollapsed = angular.copy(DashboardService.foldersCollapsed);
 
         $scope.$watch(function () {
             return DashboardService.foldersCollapsed;
@@ -368,52 +332,12 @@
 
                 }, true);
 
+        function syncCurrentFolder() {
+            vm.currentFolder = angular.copy(FoldersService.currentFolder);
+        }
+
         vm.toggleCollapseFolders = function () {
             DashboardService.foldersCollapsed = !DashboardService.foldersCollapsed;
-
-
-        };
-
-        vm.changeSecurityClearance = function (level) {
-            if ($rootScope.currentUser.password == null) {
-                $state.go('settings');
-            } else {
-                if (level > $rootScope.currentUser.security_clearance) {
-
-                    var modalInstance = $uibModal.open({
-                        animation: true,
-                        templateUrl: 'js/angular/shared/authorization/_password.html',
-                        async: true,
-                        resolve: {
-                            level: function () {
-                                return level;
-                            }
-                        },
-                        controller: function ($scope, $uibModalInstance, UsersService, level, SecurityService) {
-
-                            $scope.password = '';
-                            $scope.level = level;
-
-                            $scope.changeSecurityClearance = function (password, level) {
-                                if (password != '') {
-                                    UsersService.postchangeSecurityClearance(password, level).then(function () {
-                                        $uibModalInstance.dismiss();
-                                    });
-                                }
-                            };
-                            $scope.closeBox = function () {
-                                $uibModalInstance.dismiss();
-                            };
-                        },
-                        backdrop: true,
-                        windowClass: 'authorization-box-modal'
-                    });
-                } else {
-                    UsersService.postchangeSecurityClearance('', level);
-                }
-            }
-
-
         };
 
         vm.isActive = function (viewLocation) {
@@ -439,28 +363,7 @@
             });
         };
 
-        vm.logout = function () {
-            $auth.logout().then(function () {
 
-                UsersService.logout();
-                BookmarksService.logout();
-                FoldersService.logout();
-                SecurityService.logout();
-
-                // Remove the authenticated user from local storage
-//                localStorage.removeItem('user');
-                localStorage.clear();
-
-                // Flip authenticated to false so that we no longer
-                // show UI elements dependant on the user being logged in
-                $rootScope.authenticated = false;
-
-                // Remove the current user info from rootscope
-                $rootScope.currentUser = null;
-
-                $state.go('home');
-            });
-        };
 
 
 
@@ -981,7 +884,7 @@
 
     angular.module('crypt').factory('SecurityService', ['BaseService', '$http', '$rootScope', '$auth', '$window', '$state', function (BaseService, $http, $rootScope, $auth, $window, $state) {
             var service = {};
-            service.securityClearances = ['public', 'private', 'crypto'];
+            service.securityClearances = ['public', 'private'];
 
             service.logout = function () {
                 service.currentSecurityClearance = undefined;
@@ -1806,6 +1709,207 @@
             });
         };
 
+
+    }
+
+})();
+(function () {
+
+    'use strict';
+
+    angular.module('crypt').controller('NavbarController', ['$scope', '$rootScope', '$state', '$auth', '$uibModal', 'SecurityService', 'UsersService'
+                , 'BookmarksService', 'FoldersService', NavbarController]);
+
+    function NavbarController($scope, $rootScope, $state, $auth, $uibModal, SecurityService, UsersService, BookmarksService, FoldersService) {
+
+        var vm = this;
+        vm.switchSecurityClearance;
+        vm.newBookmark;
+
+        init();
+
+        // Watch security clearance
+        $scope.$watch(function () {
+            return SecurityService.currentSecurityClearance;
+        },
+                function (newValue, oldValue) {
+                    syncSwitchSecurityClearance();
+                }, true);
+
+
+        /**
+         * Store new bookmark to server and add it to dashboard.
+         *
+         * @param {Object} bookmark
+         * @returns {void}
+         */
+        vm.store = function (bookmark) {
+            if (FoldersService.currentFolder != undefined) {
+                bookmark.folder_id = FoldersService.currentFolder.id;
+            }
+            BookmarksService.store(bookmark).then(function () {
+                resetNewBookmark();
+            });
+        };
+
+        /**
+         * Handle bulk importing bookmarks using .html files.
+         *
+         * @returns {void}
+         */
+        vm.openImportHtml = function () {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'js/angular/shared/import/_html.html',
+                async: true,
+                controller: function ($scope, $uibModalInstance, BookmarksService) {
+
+                    $scope.file = {};
+
+                    $scope.import = function (file, autoRefresh) {
+                        BookmarksService.importHtml(file, autoRefresh).then(function () {
+                            $uibModalInstance.dismiss();
+                        });
+                    };
+                    $scope.closeBox = function () {
+                        $uibModalInstance.dismiss();
+                    };
+                },
+                backdrop: true,
+                windowClass: 'import-html-box-modal'
+            });
+        };
+
+        /**
+         * Handle user logging out.
+         *
+         * @returns {void}
+         */
+        vm.logout = function () {
+            $auth.logout().then(function () {
+
+                UsersService.logout();
+                BookmarksService.logout();
+                FoldersService.logout();
+                SecurityService.logout();
+
+                // Remove the authenticated user from local storage
+                localStorage.clear();
+
+                // Flip authenticated to false so that we no longer
+                // show UI elements dependant on the user being logged in
+                $rootScope.authenticated = false;
+
+                // Remove the current user info from rootscope
+                $rootScope.currentUser = null;
+
+                $state.go('home');
+            });
+        };
+
+        /**
+         * Change security clearance using the switch in the navbar.
+         *
+         * @param {integer} level
+         * @returns void
+         */
+        vm.changeSecurityClearance = function (level) {
+
+            // If user didn't set a custom password yet, make him
+            if ($rootScope.currentUser.password == null) {
+                $state.go('settings');
+            } else {
+                // Only ask for password if going from public to private
+                if (level > $rootScope.currentUser.security_clearance) {
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'js/angular/shared/authorization/_password.html',
+                        async: true,
+                        resolve: {
+                            level: function () {
+                                return level;
+                            }
+                        },
+                        controller: function ($scope, $uibModalInstance, UsersService, level, SecurityService) {
+
+                            $scope.password = '';
+                            $scope.level = level;
+
+                            $scope.changeSecurityClearance = function (password, level) {
+
+                                if (password != '') {
+                                    UsersService.postchangeSecurityClearance(password, level)
+                                            .then(handleSuccessSecurityClearanceChange, handleFailedSecurityClearanceChange);
+                                }
+                            };
+
+                            // When the modal finally closes, wether success or failure, sync switchSecurityClearance
+                            $scope.$on('modal.closing', function (event, reason, closed) {
+                                syncSwitchSecurityClearance();
+                            });
+
+                            /**
+                             * handle closing password box
+                             */
+                            $scope.closeBox = function () {
+                                $uibModalInstance.dismiss();
+                            };
+
+                            /**
+                             * Handle in the event that a user requested a security clearance
+                             * change and got an error like a wrong password.
+                             *
+                             * @returns {void}
+                             */
+                            function handleFailedSecurityClearanceChange() {
+                            }
+
+                            /**
+                             * Handle in the event that a user requested a security clearance
+                             * change and got a success.
+                             *
+                             * @returns {void}
+                             */
+                            function handleSuccessSecurityClearanceChange() {
+                                $uibModalInstance.dismiss();
+                            }
+                        },
+                        backdrop: true,
+                        windowClass: 'authorization-box-modal'
+                    });
+                } else {
+                    UsersService.postchangeSecurityClearance('', level);
+                }
+            }
+        };
+
+        /**
+         * Init function
+         *
+         * @returns {void}
+         */
+        function init() {
+            syncSwitchSecurityClearance();
+            resetNewBookmark();
+        }
+
+        /**
+         * Sync the navabr security clearnace with the security clearance service
+         *
+         * @returns {void}
+         */
+        function syncSwitchSecurityClearance() {
+            vm.switchSecurityClearance = angular.copy(SecurityService.currentSecurityClearance);
+        }
+
+        /**
+         * Reset new bookmark to empty.
+         *
+         * @returns {void}
+         */
+        function resetNewBookmark() {
+            vm.newBookmark = {};
+        }
 
     }
 

@@ -57,11 +57,8 @@
                                         @if($bookmark->security_clearance == 1)
                                         <span style="font-weight:bold">Private</span>
                                         @endif
-                                        @if($bookmark->security_clearance == 2)
-                                        <span style="font-weight:bold">Crypto</span>
-                                        @endif
                                         security level.</p>
-                                    @if($bookmark->security_clearance == 2)
+                                    @if($bookmark->security_clearance == 1)
                                     <a style="font-size: 16px;text-decoration: none;" href="http://www.crypttt.com">Check it out! &raquo;</a>
                                     @else
                                     <a style="font-size: 16px;text-decoration: none;" href="{{ $bookmark->url }}">{{ $bookmark->custom_title != null ? $bookmark->custom_title : $bookmark->title }} &raquo;</a>

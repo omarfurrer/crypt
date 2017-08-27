@@ -19,10 +19,11 @@ elixir(function (mix) {
                 '../bower_components/angular-loading-bar/build/loading-bar.min.css',
                 '../bower_components/angular-aside/dist/css/angular-aside.min.css',
                 '../bower_components/angular-ui-notification/dist/angular-ui-notification.min.css',
+                '../bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',
             ], "public/css/pure/")
             .sass('app.scss', 'public/css')
             .scripts([
-                '../bower_components/jquery/dist/jquery.min.js',
+                '../bower_components/jquery/jquery.min.js',
                 '../bower_components/angular/angular.js',
                 '../bower_components/ngstorage/ngStorage.min.js',
                 '../bower_components/angular-ui-router/release/angular-ui-router.min.js',
@@ -38,7 +39,9 @@ elixir(function (mix) {
                 '../bower_components/pusher-js/dist/pusher.js',
                 '../bower_components/pusher-angular/lib/pusher-angular.js',
                 '../bower_components/angular-fontawesome/dist/angular-fontawesome.js',
-                '../bower_components/angular-ui-notification/dist/angular-ui-notification.min.js'
+                '../bower_components/angular-ui-notification/dist/angular-ui-notification.min.js',
+                '../bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js',
+                '../bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.min.js',
             ], 'public/js/app.js')
 //            .copy('resources/assets/bower_components/font-awesome/fonts/**', 'public/css/fonts')
 //            .copy('resources/assets/bower_components/bootstrap-sass/assets/fonts/**', 'public/fonts')
@@ -56,6 +59,7 @@ elixir(function (mix) {
                 './public/js/angular/components/home/HomeController.js',
                 './public/js/angular/components/dashboard/DashboardController.js',
                 './public/js/angular/components/settings/SettingsController.js',
+                './public/js/angular/shared/navbar/NavbarController.js',
             ], 'public/js/angular/all.js')
             .version(["public/js/app.js", "public/css/pure/all.css", "public/css/app.css", "public/js/angular/all.js"])
 //            .webpack('app.js', './public/js/webpack/app.js')

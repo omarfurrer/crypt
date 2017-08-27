@@ -2,7 +2,7 @@
 
     angular.module('crypt').factory('SecurityService', ['BaseService', '$http', '$rootScope', '$auth', '$window', '$state', function (BaseService, $http, $rootScope, $auth, $window, $state) {
             var service = {};
-            service.securityClearances = ['public', 'private', 'crypto'];
+            service.securityClearances = ['public', 'private'];
 
             service.logout = function () {
                 service.currentSecurityClearance = undefined;
