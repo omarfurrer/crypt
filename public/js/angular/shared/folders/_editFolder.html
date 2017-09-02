@@ -3,19 +3,19 @@
         <form>
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" ng-model="folder.name" class="form-control" id="name" autofocus>
+                <input type="text" ng-model="UpdateFoldersCtrl.folder.name" class="form-control" id="name" autofocus>
             </div>
 
             <div class="form-group">
                 <label for="security_clearance">Security Clearance</label>
-                <select id="security_clearance" name="security_clearance" ng-model="folder.security_clearance" class="form-control">
-                    <option ng-selected="folder.security_clearance == 0" value="0">Public</option>
-                    <option ng-selected="folder.security_clearance == 1" value="1">Private</option>
+                <select id="security_clearance" name="security_clearance" ng-model="UpdateFoldersCtrl.folder.security_clearance" class="form-control">
+                    <option ng-selected="UpdateFoldersCtrl.folder.security_clearance == 0" value="0">Public</option>
+                    <option ng-selected="UpdateFoldersCtrl.folder.security_clearance == 1" value="1">Private</option>
                 </select>
             </div>
 
-            <button class="btn btn-primary" type="submit" ng-click="update(folder)">Submit</button>
-            <a class="btn btn-danger" ng-click="closeBox()">Cancel</a>
+            <button class="btn btn-primary" type="submit" ng-click="UpdateFoldersCtrl.update(UpdateFoldersCtrl.folder)">Submit</button>
+            <a class="btn btn-danger" ng-click="UpdateFoldersCtrl.closeBox()">Cancel</a>
         </form>
     </div>
 </div>

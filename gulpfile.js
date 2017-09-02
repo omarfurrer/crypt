@@ -56,10 +56,12 @@ elixir(function (mix) {
                 './public/js/angular/shared/services/SecurityService.js',
                 './public/js/angular/shared/services/FoldersService.js',
                 './public/js/angular/shared/services/DashboardService.js',
+                './public/js/angular/shared/services/HelpersService.js',
                 './public/js/angular/components/home/HomeController.js',
                 './public/js/angular/components/dashboard/DashboardController.js',
                 './public/js/angular/components/settings/SettingsController.js',
                 './public/js/angular/shared/navbar/NavbarController.js',
+                './public/js/angular/shared/folders/FoldersController.js',
             ], 'public/js/angular/all.js')
             .version(["public/js/app.js", "public/css/pure/all.css", "public/css/app.css", "public/js/angular/all.js"])
 //            .webpack('app.js', './public/js/webpack/app.js')

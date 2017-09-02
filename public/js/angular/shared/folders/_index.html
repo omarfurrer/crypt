@@ -2,28 +2,28 @@
     <!--    <div class="filters-block">
             <h3>FILTERS</h3>
             <div class="item" ng-class="{'custom-active' : DashCtrl.currentFolder == null}" >Most Recent</div>
-            <div class="item" ng-class="{'custom-active' : DashboardFoldersCtrl.currentFolder == null}" >Most Visited</div>
+            <div class="item" ng-class="{'custom-active' : FoldersCtrl.currentFolder == null}" >Most Visited</div>
         </div>-->
     <div class="folders-block">
         <div
             class="item"
-            ng-class="{'custom-active' : DashboardFoldersCtrl.currentFolder == null}"
+            ng-class="{'custom-active' : FoldersCtrl.currentFolder == null}"
             ng-click="DashCtrl.index(1, {id: folder.id}, DashCtrl.orderBy, DashCtrl.orderByAttribute)"
             >My Bookmarks</div>
         <div
             class="item"
-            ng-class="{'custom-active' : DashboardFoldersCtrl.currentFolder == 'Shared With Me'}"
+            ng-class="{'custom-active' : FoldersCtrl.currentFolder == 'Shared With Me'}"
             ng-click="DashCtrl.indexSharedWithMe(1)"
             >Shared With Me</div>
 
         <div
             class="item"
-            ng-class="{'custom-active' : DashboardFoldersCtrl.currentFolder == 'Shared By Me'}"
+            ng-class="{'custom-active' : FoldersCtrl.currentFolder == 'Shared By Me'}"
             ng-click="DashCtrl.indexSharedByMe(1)"
             >Shared By Me</div>
 
         <h3>FOLDERS</h3>
-        <button type="button" class="btn btn-default add-folder" ng-click="DashboardFoldersCtrl.storeFolder()">
+        <button type="button" class="btn btn-default add-folder" ng-click="FoldersCtrl.createFolder()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </button>
 
@@ -32,13 +32,13 @@
 
 
 
-            <div ng-repeat="folder in DashboardFoldersCtrl.folders" class="utility-block">
+            <div ng-repeat="folder in FoldersCtrl.folders" class="utility-block">
                 <div class="item"
-                     ng-class="{'custom-active' : DashboardFoldersCtrl.currentFolder.id == folder.id}"
+                     ng-class="{'custom-active' : FoldersCtrl.currentFolder.id == folder.id}"
                      ng-click="DashCtrl.index(1, {id: folder.id}, DashCtrl.orderBy, DashCtrl.orderByAttribute)">{{ folder.name}}
                 </div>
-                <span class="glyphicon glyphicon-cog custom-edit-folder" ng-click="DashboardFoldersCtrl.editFolder(folder)"></span>
-                <span class="glyphicon glyphicon-trash custom-delete-folder" ng-really-message="Are you sure you want to delete this folder , all the bookmarks inside will be deleted as well ?" ng-really-click="DashboardFoldersCtrl.deleteFolder(folder)"></span>
+                <span class="glyphicon glyphicon-cog custom-edit-folder" ng-click="FoldersCtrl.editFolder(folder)"></span>
+                <span class="glyphicon glyphicon-trash custom-delete-folder" ng-really-message="Are you sure you want to delete this folder , all the bookmarks inside will be deleted as well ?" ng-really-click="FoldersCtrl.deleteFolder(folder)"></span>
             </div>
         </div>
     </div>

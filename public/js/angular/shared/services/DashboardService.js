@@ -10,11 +10,6 @@
             var listBlocksLocalStorage = localStorage.getItem('listBlocks');
             service.listBlocks = listBlocksLocalStorage == null ? false : listBlocksLocalStorage === 'true' ? true : false;
 
-
-
-
-
-
             return service;
 
         }]);

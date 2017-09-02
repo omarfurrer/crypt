@@ -32,6 +32,14 @@
             }
         };
 
+        $scope.$watchGroup(['foo', 'bar'], function (newValues, oldValues, scope) {
+            // newValues array contains the current values of the watch expressions
+            // with the indexes matching those of the watchExpression array
+            // i.e.
+            // newValues[0] -> $scope.foo
+            // and
+            // newValues[1] -> $scope.bar
+        });
 
         $scope.$watch(function () {
             return DashboardService.listBlocks;
@@ -53,6 +61,7 @@
                 function (newValue, oldValue) {
                     vm.isPlaying = angular.copy(DashboardService.isPlaying);
                 }, true);
+
         $scope.$watch(function () {
             return BookmarksService.pagination;
         },
@@ -214,122 +223,12 @@
                     if (!vm.foldersCollapsed) {
                         var asideInstance = $aside.open({
                             templateUrl: 'js/angular/shared/folders/_index.html',
-                            controllerAs: 'DashboardFoldersCtrl',
+                            controllerAs: 'FoldersCtrl',
                             windowClass: 'folders-aside',
                             scope: $scope,
-                            controller: function (folders, currentFolder) {
-                                var vm = this;
-                                vm.folders = folders;
-                                vm.currentFolder = currentFolder;
-                                vm.folder = {};
-
-                                $scope.$watch(function () {
-                                    return FoldersService.folders;
-                                },
-                                        function (newValue, oldValue) {
-                                            syncFolders();
-                                        }, true);
-
-                                $scope.$watch(function () {
-                                    return FoldersService.currentFolder;
-                                },
-                                        function (newValue, oldValue) {
-                                            syncCurrentFolder();
-
-                                        }, true);
-
-                                function syncFolders() {
-                                    vm.folders = angular.copy(FoldersService.folders);
-                                }
-                                function syncCurrentFolder() {
-                                    vm.currentFolder = angular.copy(FoldersService.currentFolder);
-                                }
-
-                                vm.storeFolder = function (folder) {
-
-                                    var modalInstance = $uibModal.open({
-                                        animation: true,
-                                        templateUrl: 'js/angular/shared/folders/_newFolder.html',
-                                        async: true,
-                                        controller: function ($scope, $uibModalInstance, FoldersService) {
-
-                                            $scope.folder = {name: ''};
-
-                                            $scope.store = function (folder) {
-                                                if (folder.name != '') {
-                                                    FoldersService.store(folder).then(function () {
-                                                        $uibModalInstance.dismiss();
-                                                    });
-                                                }
-                                            };
-                                            $scope.closeBox = function () {
-                                                $uibModalInstance.dismiss();
-                                            };
-                                        },
-                                        backdrop: true,
-                                        windowClass: 'new-folder-box-modal'
-                                    });
-
-                                };
-
-                                vm.editFolder = function (folder) {
-
-                                    var modalInstance = $uibModal.open({
-                                        animation: true,
-                                        templateUrl: 'js/angular/shared/folders/_editFolder.html',
-                                        async: true,
-                                        resolve: {
-                                            folder: function () {
-                                                return angular.copy(folder);
-                                            }
-                                        },
-                                        controller: function ($scope, $uibModalInstance, FoldersService, folder) {
-
-                                            $scope.folder = folder
-
-                                            $scope.update = function (folder) {
-                                                if (folder.name != '') {
-                                                    FoldersService.update(folder).then(function () {
-                                                        $uibModalInstance.dismiss();
-                                                    });
-                                                }
-                                            };
-
-                                            $scope.closeBox = function () {
-                                                $uibModalInstance.dismiss();
-                                            };
-                                        },
-                                        backdrop: true,
-                                        windowClass: 'edit-folder-box-modal'
-                                    });
-
-                                };
-
-                                vm.deleteFolder = function (folder) {
-                                    FoldersService.delete(folder).then(function (data) {
-                                        if (typeof FoldersService.currentFolder === 'undefined') {
-                                            for (var i = 0; i < data.data.bookmarks.length; i++) {
-                                                BookmarksService.bookmarks.splice(findInArray(BookmarksService.bookmarks, data.data.bookmarks[i]), 1);
-                                            }
-                                        } else if (FoldersService.currentFolder.id === folder.id) {
-                                            FoldersService.currentFolder = undefined;
-                                            BookmarksService.bookmarks = [];
-                                            BookmarksService.index();
-                                        }
-                                    });
-                                };
-
-                            },
+                            controller: 'FoldersController',
                             placement: 'left',
-                            size: 'sm',
-                            resolve: {
-                                folders: function () {
-                                    return vm.folders;
-                                },
-                                currentFolder: function () {
-                                    return vm.currentFolder;
-                                }
-                            }
+                            size: 'sm'
                         });
                         asideInstance.closed.then(function () {
                             DashboardService.foldersCollapsed = true;

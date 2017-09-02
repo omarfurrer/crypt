@@ -650,6 +650,7 @@ body{
                             }
                         }
                         .middle-block{
+                            min-height : 255.2px;
                             .glyphicon{
                                 position: absolute;
                                 top: 23%;
@@ -665,6 +666,7 @@ body{
                             .bookmark-image{
                                 max-width: 100%;
                                 height: 255px;
+                                /*min-height: 255px;*/
                                 border-radius: 10px 10px 0px 0px;
                             }
                             .image-placeholder{

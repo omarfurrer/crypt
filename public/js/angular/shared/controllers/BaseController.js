@@ -12,7 +12,6 @@
         vm.currentSecurityClearance = angular.copy(SecurityService.currentSecurityClearance);
         vm.currentSecurityClearanceName = angular.copy(SecurityService.currentSecurityClearanceName);
         vm.currentFolder = undefined;
-        vm.bookmark = {};
 
         $rootScope.$state = $state;
 
@@ -106,10 +105,6 @@
                 });
             });
         };
-
-
-
-
 
     }
 

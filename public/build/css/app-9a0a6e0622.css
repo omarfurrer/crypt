@@ -8378,6 +8378,10 @@ body {
   color: black;
 }
 
+.dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark .middle-block {
+  min-height: 255.2px;
+}
+
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark .middle-block .glyphicon {
   position: absolute;
   top: 23%;
@@ -8394,6 +8398,7 @@ body {
 .dashboard .inner-block .bookmarks-block .bookmarks-list-block .bookmarks-list-blocks .bookmark .middle-block .bookmark-image {
   max-width: 100%;
   height: 255px;
+  /*min-height: 255px;*/
   border-radius: 10px 10px 0px 0px;
 }
 
